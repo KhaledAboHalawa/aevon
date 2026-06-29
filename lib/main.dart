@@ -1,6 +1,12 @@
+import 'package:aevon/core/di/dependency_injection.dart';
+import 'package:aevon/core/localization/localization_cubit.dart';
+import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
   runApp(const MainApp());
 }
 
@@ -9,10 +15,27 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+    return BlocProvider(
+      create: (context) => getIt<LocalizationCubit>(),
+      child: BlocBuilder<LocalizationCubit, Locale>(
+        builder: (BuildContext context, Locale state) => MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          localeResolutionCallback: (deviceLocale, supportedLocales) {
+            // 1. Exact match (en_US → en_US)
+            for (final supported in supportedLocales) {
+              if (supported == deviceLocale) return supported;
+            }
+            // 2. Language-only match (en_US → en)
+            for (final supported in supportedLocales) {
+              if (supported.languageCode == deviceLocale?.languageCode) {
+                return supported;
+              }
+            }
+            // 3. Nothing matched → fallback
+            return Locale('en');
+          },
+          home: Scaffold(body: Center(child: Text('Hello World!'))),
         ),
       ),
     );

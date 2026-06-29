@@ -1,0 +1,21 @@
+{
+  "@@locale": "ar",
+  "appName": "Aevon",
+  "notFoundError" : "المورد غير موجود.",
+  "conflictError" : "حدث تعارض. يرجى المحاولة مرة أخرى.",
+  "apiLogicalError" : "أعاد API خطأ منطقيًا",
+  "connectTimeoutEreror" : "انتهت مهلة الاتصال",
+  "cancelError" : "تم إلغاء الطلب.",
+  "receiveTimeoutError" : "حدثت مهلة استلام",
+  "sendTimeoutError" : "حدثت مهلة إرسال.",
+  "cacheError" : "حدث خطأ في التخزين المؤقت.",
+  "noInternetConnectionError" : "لا يوجد اتصال بالإنترنت",
+  "defaultError" : "حدث خطأ غير متوقع.",
+  "onboardingTitle1": "ثمن التميز\n هو الانضباط",
+  "onboardingTitle2": "لم تكن اللياقة البدنية\nأبدًا ممتعة بهذا القدر",
+  "onboardingTitle3": "لا مزيد من الأعذار\nافعلها الآن",
+  "onboardingdescription": "هذا نص تجريبي لملء المحتوى. يتم استخدامه لعرض شكل النص دون معنى حقيقي."
+
+  
+
+}
