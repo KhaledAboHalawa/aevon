@@ -1,5 +1,6 @@
 import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/localization/localization_cubit.dart';
+import 'package:aevon/core/router/app_router.dart';
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +19,9 @@ class MainApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<LocalizationCubit>(),
       child: BlocBuilder<LocalizationCubit, Locale>(
-        builder: (BuildContext context, Locale state) => MaterialApp(
+        builder: (BuildContext context, Locale state) => MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          routerConfig: router,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           localeResolutionCallback: (deviceLocale, supportedLocales) {
@@ -35,7 +38,6 @@ class MainApp extends StatelessWidget {
             // 3. Nothing matched → fallback
             return Locale('en');
           },
-          home: Scaffold(body: Center(child: Text('Hello World!'))),
         ),
       ),
     );
