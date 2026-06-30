@@ -15,11 +15,27 @@ class AppFont {
     fontWeight: fontWeight,
   );
 
-  static TextStyle balooThambi2Regular({double? fontSize, Color? color}) {
-    return getBalooThambi2(
+  static TextStyle balooThambi2Regular({double? fontSize, Color? color}) => getBalooThambi2(
       fontWeight: FontWeight.w400,
       fontSize: fontSize,
       color: color,
     );
-  }
+
+  static TextStyle balooThambi2Medium({double? fontSize, Color? color}) => getBalooThambi2(
+      fontWeight: FontWeight.w500,
+      fontSize: fontSize,
+      color: color,
+    );
+
+  static TextStyle balooThambi2SemiBold ({required Color color, required double fontSize}) => getBalooThambi2(
+    fontWeight: FontWeight.w600,
+    fontSize: fontSize,
+    color: color,
+  );
+
+  static TextStyle balooThambi2Bold({double? fontSize, Color? color}) => getBalooThambi2(
+      fontWeight: FontWeight.w700,
+      fontSize: fontSize,
+      color: color,
+    );
 }
