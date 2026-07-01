@@ -29,7 +29,7 @@ class Success<T> extends Result<T> {
 }
 
 class Error<T> extends Result<T> {
-  final Failure failure;
+  final dynamic failure;
   const Error(this.failure);
 
   @override
