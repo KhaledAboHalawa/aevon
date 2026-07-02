@@ -14,6 +14,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   flutter_localizations:
     sdk: flutter
+  flutter_svg: ^2.3.0
   get_it: ^9.2.1
   go_router: ^17.3.0
   injectable: ^3.0.0
@@ -28,12 +29,13 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  
 
 flutter:
   generate: true
 
   assets:
+    - assets/icons/
+    - assets/images/
     - assets/fonts/Baloo_Thambi_2/
 
   fonts:

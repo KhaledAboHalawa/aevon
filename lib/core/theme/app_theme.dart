@@ -6,6 +6,7 @@ class AppTheme {
 
   static final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
+    primaryColor: AppColors.mainOrange,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.mainOrange,
       primary: AppColors.mainOrange,
@@ -15,6 +16,7 @@ class AppTheme {
 
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
+    primaryColor: AppColors.mainOrange,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.mainOrange,
       primary: AppColors.mainOrange,

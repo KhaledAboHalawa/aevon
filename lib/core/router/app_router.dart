@@ -17,6 +17,7 @@ GoRouter router = GoRouter(
       },
     ),
   ],
+
 );
 
 GoRoute appRoute({
