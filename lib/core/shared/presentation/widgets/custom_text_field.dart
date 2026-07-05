@@ -48,7 +48,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         size: 20,
                       ),
                       secondChild: const Icon(
-                        Icons.visibility_off,
+                        Icons.visibility_off_outlined,
                         color: AppColors.textGrey,
                         size: 20,
                       ),

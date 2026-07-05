@@ -1,4 +1,5 @@
 import 'package:aevon/core/theme/app_colors.dart';
+import 'package:aevon/core/theme/app_font.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -11,7 +12,22 @@ class AppTheme {
       seedColor: AppColors.mainOrange,
       primary: AppColors.mainOrange,
     ),
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: AppColors.buttonGrey,
+      selectionColor: AppColors.textGrey.withAlpha(128),
+      selectionHandleColor: AppColors.lightOrange,
+    ),
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.mainOrange,
+        foregroundColor: AppColors.white,
+        textStyle: AppFont.balooThambi2ExtraBold(fontSize: 14),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        maximumSize: const Size(311, 38),
+        minimumSize: const Size(65, 38),
+      ),
+    ),
   );
 
   static final ThemeData darkTheme = ThemeData(

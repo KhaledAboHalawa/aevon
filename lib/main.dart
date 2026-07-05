@@ -1,4 +1,4 @@
-import 'package:aevon/app.dart';
+import 'package:aevon/app/app.dart';
 import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:flutter/material.dart';
 

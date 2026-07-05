@@ -1,4 +1,3 @@
-import 'package:aevon/core/errors/errors_handler.dart';
 import 'package:aevon/core/shared/data/model/result.dart';
 
 class ApiExecuter {

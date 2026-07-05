@@ -49,5 +49,6 @@ flutter:
           weight: 600
         - asset: assets/fonts/Baloo_Thambi_2/BalooThambi2-Bold.ttf
           weight: 700
- 
+        - asset: assets/fonts/Baloo_Thambi_2/BalooThambi2-ExtraBold.ttf
+          weight: 800
   uses-material-design: true

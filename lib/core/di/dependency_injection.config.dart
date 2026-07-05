@@ -11,6 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:aevon/core/di/dependency_injection_module.dart' as _i685;
 import 'package:aevon/core/localization/localization_cubit.dart' as _i653;
+import 'package:aevon/features/onboarding/presentation/cubit/onboarding_cubit.dart'
+    as _i705;
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -29,7 +31,8 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.lazySingleton<_i361.Dio>(() => registerModule.dio());
-    gh.singleton<_i653.LocalizationCubit>(
+    gh.lazySingleton<_i705.OnboardingCubit>(() => _i705.OnboardingCubit());
+    gh.lazySingleton<_i653.LocalizationCubit>(
       () => _i653.LocalizationCubit(gh<_i460.SharedPreferences>()),
     );
     return this;

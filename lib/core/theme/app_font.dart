@@ -38,4 +38,10 @@ class AppFont {
       fontSize: fontSize,
       color: color,
     );
+
+  static TextStyle balooThambi2ExtraBold({double? fontSize, Color? color}) => _getBalooThambi2(
+      fontWeight: FontWeight.w800,
+      fontSize: fontSize,
+      color: color,
+    );
 }
