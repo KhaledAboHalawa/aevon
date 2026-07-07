@@ -31,7 +31,11 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.lazySingleton<_i361.Dio>(() => registerModule.dio());
-    gh.lazySingleton<_i705.OnboardingCubit>(() => _i705.OnboardingCubit());
+    gh.lazySingleton<_i705.OnboardingCubit>(
+      () => _i705.OnboardingCubit(
+        sharedPreferences: gh<_i460.SharedPreferences>(),
+      ),
+    );
     gh.lazySingleton<_i653.LocalizationCubit>(
       () => _i653.LocalizationCubit(gh<_i460.SharedPreferences>()),
     );

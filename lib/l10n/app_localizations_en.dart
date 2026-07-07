@@ -42,15 +42,35 @@ class AppLocalizationsEn extends AppLocalizations {
   String get defaultError => 'An unexpected error occurred.';
 
   @override
-  String get onboardingTitle1 => 'the price of excellence\nis discipline';
-
-  @override
-  String get onboardingTitle2 => 'Fitness has never been\nso much funny';
-
-  @override
-  String get onboardingTitle3 => 'NO MORE EXCUSES\nDo It Now';
-
-  @override
   String get onboardingdescription =>
       'Lorem ipsum dolor sit amet consectetur. Eu urna ut gravida quis id pretium purus. Mauris massa ';
+
+  @override
+  String onboardingMessage(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'NO MORE EXCUSES\nDo It Now',
+      one: 'Fitness has never been\nso much funny',
+      zero: 'the price of excellence\nis discipline',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get doIt => 'Do It';
+
+  @override
+  String get skip => 'Skip';
 }

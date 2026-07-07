@@ -1,26 +1,51 @@
 import 'dart:ui';
 
 import 'package:aevon/core/di/dependency_injection.dart';
+import 'package:aevon/core/theme/app_colors.dart';
+import 'package:aevon/core/theme/app_font.dart';
 import 'package:aevon/features/onboarding/presentation/cubit/onboarding_cubit.dart';
-import 'package:aevon/features/onboarding/presentation/cubit/onboarding_events.dart';
+import 'package:aevon/features/onboarding/presentation/widgets/custom_indicator.dart';
+import 'package:aevon/features/onboarding/presentation/widgets/nav_section.dart';
+import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-class OnboardingCard extends StatelessWidget {
-  const OnboardingCard({super.key});
+class OnboardingCard extends StatefulWidget {
+  const OnboardingCard({super.key, required this.index});
+  final int index;
+  @override
+  State<OnboardingCard> createState() => _OnboardingCardState();
+}
+
+class _OnboardingCardState extends State<OnboardingCard> {
+  bool isFirstLoad = true;
+  late AppLocalizations locale;
+  late OnboardingCubit onboardingCubit;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (isFirstLoad) {
+      onboardingCubit = getIt<OnboardingCubit>();
+      locale = AppLocalizations.of(context)!;
+      isFirstLoad = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final onboardingCubit = getIt<OnboardingCubit>();
     return ClipRRect(
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(50),
+        topRight: Radius.circular(50),
+      ),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 1),
+        filter: ImageFilter.blur(sigmaY: 36, sigmaX: 36),
         child: Container(
           height: 275,
-          width: double.infinity,
+          width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 31.5),
-
           decoration: BoxDecoration(
+            color: AppColors.blur,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(50),
               topRight: Radius.circular(50),
@@ -28,39 +53,30 @@ class OnboardingCard extends StatelessWidget {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Welcome to Aevon',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                AppLocalizations.of(context)?.onboardingMessage(widget.index) ??
+                    '',
+                textAlign: TextAlign.center,
+                style: AppFont.balooThambi2ExtraBold(
+                  fontSize: 24,
+                  color: AppColors.white,
                 ),
               ),
               SizedBox(height: 8),
               Text(
-                'Discover the world of Aevon and explore its features.',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
+                AppLocalizations.of(context)?.onboardingdescription ?? '',
+                textAlign: TextAlign.center,
+                style: AppFont.balooThambi2Regular(
+                  fontSize: 16,
+                  color: AppColors.textGrey,
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      onboardingCubit.doIntent(OnboardingPreviousEvent());
-                    },
-                    child: const Text('Previous'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      onboardingCubit.doIntent(OnboardingNextEvent());
-                    },
-                    child: const Text('Next'),
-                  ),
-                ],
-              ),
+
+              SizedBox(height: 24),
+              CustomIndicator(currentPage: widget.index),
+              Spacer(),
+              NavSection(),
             ],
           ),
         ),

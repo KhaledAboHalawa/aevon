@@ -21,11 +21,9 @@ class AppTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.mainOrange,
-        foregroundColor: AppColors.white,
+        foregroundColor: AppColors.buttonGrey,
         textStyle: AppFont.balooThambi2ExtraBold(fontSize: 14),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        maximumSize: const Size(311, 38),
-        minimumSize: const Size(65, 38),
       ),
     ),
   );

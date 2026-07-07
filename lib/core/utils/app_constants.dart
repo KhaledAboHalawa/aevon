@@ -3,6 +3,7 @@ class AppKeys {
   static const String localeKey = 'locale_code';
   static const String englishLocale = 'en';
   static const String arabicLocale = 'ar';
+  static const String seenOnboarding="seenOnboarding";
 }
 class ApiConstants {
   ApiConstants._();

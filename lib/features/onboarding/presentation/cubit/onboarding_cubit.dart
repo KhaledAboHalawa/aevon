@@ -1,22 +1,27 @@
+import 'package:aevon/core/router/app_router.dart';
+import 'package:aevon/core/router/app_routes.dart';
+import 'package:aevon/core/utils/app_constants.dart';
 import 'package:aevon/features/onboarding/presentation/cubit/onboarding_events.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'onboarding_state.dart';
 
 @lazySingleton
 class OnboardingCubit extends Cubit<OnboardingState> {
+  final SharedPreferences _sharedPreferences;
   int index = 0;
-  OnboardingCubit() : super(OnboardingInitial());
+  OnboardingCubit({required this._sharedPreferences})
+    : super(OnboardingInitial());
 
   void doIntent(OnboardingEvents event) {
     event.when(
       goToNext: _next,
       goToPrevious: _previous,
-      skip: () {
-        emit(OnboardingFinal());
-      },
+      skip: _skip,
+      done: _next,
     );
   }
 
@@ -32,8 +37,10 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     }
   }
 
-  void _next() {
+  void _next() async {
     if (state is OnboardingFinal) {
+      emit(OnboardingFinished());
+      await _sharedPreferences.setBool(AppKeys.seenOnboarding, true);
       return;
     }
     index++;
@@ -42,5 +49,15 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     } else {
       emit(OnboardingSecond());
     }
+  }
+
+  void _skip() {
+    emit(OnboardingFinished());
+  }
+
+  @override
+  Future<void> close() async {
+    await _sharedPreferences.setBool(AppKeys.seenOnboarding, true);
+    return super.close();
   }
 }

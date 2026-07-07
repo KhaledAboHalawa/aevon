@@ -164,29 +164,41 @@ abstract class AppLocalizations {
   /// **'An unexpected error occurred.'**
   String get defaultError;
 
-  /// No description provided for @onboardingTitle1.
-  ///
-  /// In en, this message translates to:
-  /// **'the price of excellence\nis discipline'**
-  String get onboardingTitle1;
-
-  /// No description provided for @onboardingTitle2.
-  ///
-  /// In en, this message translates to:
-  /// **'Fitness has never been\nso much funny'**
-  String get onboardingTitle2;
-
-  /// No description provided for @onboardingTitle3.
-  ///
-  /// In en, this message translates to:
-  /// **'NO MORE EXCUSES\nDo It Now'**
-  String get onboardingTitle3;
-
   /// No description provided for @onboardingdescription.
   ///
   /// In en, this message translates to:
   /// **'Lorem ipsum dolor sit amet consectetur. Eu urna ut gravida quis id pretium purus. Mauris massa '**
   String get onboardingdescription;
+
+  /// onboardingMessage
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{the price of excellence\nis discipline} =1{Fitness has never been\nso much funny} other{NO MORE EXCUSES\nDo It Now}}'**
+  String onboardingMessage(num count);
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @doIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Do It'**
+  String get doIt;
+
+  /// No description provided for @skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
 }
 
 class _AppLocalizationsDelegate

@@ -14,8 +14,20 @@
   "onboardingTitle1": "ثمن التميز\n هو الانضباط",
   "onboardingTitle2": "لم تكن اللياقة البدنية\nأبدًا ممتعة بهذا القدر",
   "onboardingTitle3": "لا مزيد من الأعذار\nافعلها الآن",
-  "onboardingdescription": "هذا نص تجريبي لملء المحتوى. يتم استخدامه لعرض شكل النص دون معنى حقيقي."
-
+  "onboardingdescription": "هذا نص تجريبي لملء المحتوى. يتم استخدامه لعرض شكل النص دون معنى حقيقي.",
+  "onboardingMessage": "{count, plural, =0{ثمن التميز\nهو الانضباط} =1{لم تكن اللياقة البدنية\nممتعة إلى هذا الحد من قبل} other{هذا نص تجريبي لملء المحتوى. يتم استخدامه لعرض شكل النص دون معنى حقيقي.}}",
+  "next": "التالي",
+  "back": "السابق",
+  "skip": "تخطي",
+  "doIt": "افعلها",
+  "@onboardingMessage": {
+  "description": "onboardingMessage",
+  "placeholders": {
+    "count": {
+      "type": "num",
+      "format": "compact"
+    }
+  }
   
-
+  }
 }

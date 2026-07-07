@@ -14,9 +14,12 @@ class Onboarding extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child: Scaffold(
-        backgroundColor: const Color.fromARGB(0, 204, 145, 145),
-        body: OnboardingBody(),
+      child: Padding(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 8),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: OnboardingBody(),
+        ),
       ),
     );
   }

@@ -7,4 +7,5 @@ class AppColors {
   static const Color lightOrange = Color.fromARGB(128, 255, 106, 0);
   static const Color textGrey = Color(0xFFD3D3D3);
   static const Color buttonGrey = Color(0xFFD9D9D9);
+  static const Color blur = Color.fromARGB(25, 36, 36, 36);
 }

@@ -19,3 +19,8 @@ class OnboardingFinal extends OnboardingState {
   @override
   List<Object> get props => [];
 }
+
+class OnboardingFinished extends OnboardingState {
+  @override
+  List<Object> get props => [];
+}

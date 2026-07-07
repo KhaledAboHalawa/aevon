@@ -42,16 +42,36 @@ class AppLocalizationsAr extends AppLocalizations {
   String get defaultError => 'حدث خطأ غير متوقع.';
 
   @override
-  String get onboardingTitle1 => 'ثمن التميز\n هو الانضباط';
-
-  @override
-  String get onboardingTitle2 =>
-      'لم تكن اللياقة البدنية\nأبدًا ممتعة بهذا القدر';
-
-  @override
-  String get onboardingTitle3 => 'لا مزيد من الأعذار\nافعلها الآن';
-
-  @override
   String get onboardingdescription =>
       'هذا نص تجريبي لملء المحتوى. يتم استخدامه لعرض شكل النص دون معنى حقيقي.';
+
+  @override
+  String onboardingMessage(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'هذا نص تجريبي لملء المحتوى. يتم استخدامه لعرض شكل النص دون معنى حقيقي.',
+      one: 'لم تكن اللياقة البدنية\nممتعة إلى هذا الحد من قبل',
+      zero: 'ثمن التميز\nهو الانضباط',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get next => 'التالي';
+
+  @override
+  String get back => 'السابق';
+
+  @override
+  String get doIt => 'افعلها';
+
+  @override
+  String get skip => 'تخطي';
 }

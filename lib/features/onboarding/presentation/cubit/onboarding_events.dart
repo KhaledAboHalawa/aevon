@@ -7,6 +7,7 @@ abstract class OnboardingEvents extends Equatable {
     required R Function() goToNext,
     required R Function() goToPrevious,
     required R Function() skip,
+    required R Function() done,
   }) {
     if (this is OnboardingNextEvent) {
       return goToNext();
@@ -14,6 +15,8 @@ abstract class OnboardingEvents extends Equatable {
       return goToPrevious();
     } else if (this is OnboardingSkipEvent) {
       return skip();
+    } else if (this is OnboardingDoneEvent) {
+      return done();
     } else {
       throw Exception('Unknown event type: $this');
     }
@@ -37,6 +40,12 @@ class OnboardingSkipEvent extends OnboardingEvents {
 
 class OnboardingPreviousEvent extends OnboardingEvents {
   const OnboardingPreviousEvent();
+  @override
+  List<Object> get props => [];
+}
+
+class OnboardingDoneEvent extends OnboardingEvents {
+  const OnboardingDoneEvent();
   @override
   List<Object> get props => [];
 }

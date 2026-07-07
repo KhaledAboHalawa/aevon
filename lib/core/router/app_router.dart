@@ -1,23 +1,32 @@
 import 'dart:async';
 
+import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/router/app_routes.dart';
+import 'package:aevon/core/utils/app_constants.dart';
 import 'package:aevon/features/onboarding/presentation/pages/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 GoRouter router = GoRouter(
+  navigatorKey: navigatorKey,
   initialLocation: AppRoutes.onboarding,
   routes: [
     appRoute(
       name: AppRoutes.onboarding,
       page: (state, context) => const Onboarding(),
       redirect: (context, state) {
-        //TODO: Implement redirect logic here. For now, we return null to indicate no redirection.
-        return null; // No redirect
+        final isSeen =
+            getIt<SharedPreferences>().getBool(AppKeys.seenOnboarding) ?? false;
+        if (isSeen) return AppRoutes.home;
+        return null;
       },
     ),
+    appRoute(
+      name: AppRoutes.home, page: (state, context) => const Scaffold()),
   ],
-
 );
 
 GoRoute appRoute({
