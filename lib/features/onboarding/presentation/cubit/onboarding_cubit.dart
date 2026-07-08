@@ -1,5 +1,3 @@
-import 'package:aevon/core/router/app_router.dart';
-import 'package:aevon/core/router/app_routes.dart';
 import 'package:aevon/core/utils/app_constants.dart';
 import 'package:aevon/features/onboarding/presentation/cubit/onboarding_events.dart';
 import 'package:equatable/equatable.dart';
