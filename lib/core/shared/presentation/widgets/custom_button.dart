@@ -8,22 +8,35 @@ class CustomButton extends StatelessWidget {
     required this.backgroundColor,
     required this.title,
     this.width,
+    required this.isLoading,
   });
   final String title;
   final double? width;
+  final bool isLoading;
   final void Function()? onPressed;
   final Color backgroundColor;
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        backgroundColor: backgroundColor,
-        surfaceTintColor: AppColors.buttonGrey,
-        side: BorderSide(color: AppColors.mainOrange, width: 1),
+    return LayoutBuilder(
+      builder: (context, constraints) => SizedBox(
+        width: width ?? constraints.maxWidth,
+        height: 38,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            backgroundColor: backgroundColor,
+            surfaceTintColor: AppColors.buttonGrey,
+            side: const BorderSide(color: AppColors.mainOrange, width: 1),
+          ),
+          onPressed: onPressed,
+          child: isLoading
+              ? const CircularProgressIndicator(
+                  constraints: BoxConstraints(minWidth: 30, minHeight: 30),
+                  color: AppColors.white,
+                )
+              : Text(title),
+        ),
       ),
-      onPressed: onPressed,
-      child: Text(title),
     );
   }
 }

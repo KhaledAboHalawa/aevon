@@ -21,13 +21,24 @@
   "skip": "تخطي",
   "doIt": "افعلها",
   "@onboardingMessage": {
-  "description": "onboardingMessage",
-  "placeholders": {
-    "count": {
-      "type": "num",
-      "format": "compact"
+    "description": "onboardingMessage",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
     }
-  }
-  
-  }
+  },
+  "male": "ذكر",
+  "female": "انثى",
+  "heyThere": "مرحبا",
+  "welcomeBack": "مرحبا بكم مرة اخرى",
+  "signIn": "تسجيل الدخول",
+  "register": "تسجيل حساب جديد",
+  "email": "البريد الالكتروني",
+  "password": "كلمة المرور",
+  "confirmPassword": "تاكيد كلمة المرور",
+  "forgetPassword": "نسيت كلمة المرور",
+  "dontHaveAccount": " لا تملك حساب ؟",
+  "alreadyHaveAccount": " لديك حساب ؟ "
 }

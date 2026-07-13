@@ -4,11 +4,11 @@ class AppFont {
   AppFont._();
   static const String balooThambi2 = 'BalooThambi2';
 
-  static TextStyle _getBalooThambi2({
+   static TextStyle _getBalooThambi2({
     double? fontSize,
     Color? color,
     FontWeight? fontWeight,
-  }) => TextStyle(
+  }) =>  TextStyle(
     fontFamily: balooThambi2,
     fontSize: fontSize,
     color: color,

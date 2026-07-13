@@ -42,8 +42,9 @@ class _NavSectionState extends State<NavSection> {
       children: [
         if (onboardingCubit.index != 0)
           CustomButton(
+            isLoading: false,
             onPressed: () {
-              onboardingCubit.doIntent(OnboardingPreviousEvent());
+              onboardingCubit.doIntent(const OnboardingPreviousEvent());
             },
             backgroundColor: Colors.transparent,
             title: locale.back,
@@ -52,8 +53,8 @@ class _NavSectionState extends State<NavSection> {
           child: AnimatedSizeButton(
             onPressed: () {
               onboardingCubit.index == 2
-                  ? onboardingCubit.doIntent(OnboardingDoneEvent())
-                  : onboardingCubit.doIntent(OnboardingNextEvent());
+                  ? onboardingCubit.doIntent(const OnboardingDoneEvent())
+                  : onboardingCubit.doIntent(const OnboardingNextEvent());
             },
             title: onboardingCubit.index == 2 ? locale.doIt : locale.next,
             isExpanded: (onboardingCubit.index == 0),

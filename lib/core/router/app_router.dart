@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/router/app_routes.dart';
 import 'package:aevon/core/utils/app_constants.dart';
+import 'package:aevon/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:aevon/features/onboarding/presentation/pages/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -20,12 +21,14 @@ GoRouter router = GoRouter(
       redirect: (context, state) {
         final isSeen =
             getIt<SharedPreferences>().getBool(AppKeys.seenOnboarding) ?? false;
-        if (isSeen) return AppRoutes.home;
+        if (isSeen) return AppRoutes.signIn;
         return null;
       },
     ),
     appRoute(
-      name: AppRoutes.home, page: (state, context) => const Scaffold()),
+      name: AppRoutes.signIn,
+      page: (state, context) => const SignInPage(),
+    ),
   ],
 );
 

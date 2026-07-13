@@ -73,4 +73,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get skip => 'Skip';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get heyThere => 'Hey There';
+
+  @override
+  String get welecomeBack => 'WELCOME BACK';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get forgetPassword => 'Forget Password ? ';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get signIn => 'Login';
+
+  @override
+  String get register => 'Register';
+
+  @override
+  String get dontHaveAccount => 'Don\'t Have An Account Yet ? ';
+
+  @override
+  String get alreadyHaveAccount => 'Already Have An Account ? ';
 }

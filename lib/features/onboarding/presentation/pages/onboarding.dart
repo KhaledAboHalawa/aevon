@@ -8,15 +8,15 @@ class Onboarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(AppImages.onboardingBG),
+          image: AssetImage(AppImages.onBoardingBG),
           fit: BoxFit.cover,
         ),
       ),
       child: Padding(
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 8),
-        child: Scaffold(
+        child: const Scaffold(
           backgroundColor: Colors.transparent,
           body: OnboardingBody(),
         ),

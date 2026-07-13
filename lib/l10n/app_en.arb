@@ -24,6 +24,19 @@
   "next": "Next",
   "back": "Back",
   "doIt": "Do It",
-  "skip": "Skip"
+  "skip": "Skip",
+  "male": "Male",
+  "female": "Female",
+  "heyThere": "Hey There",
+  "welecomeBack": "WELCOME BACK",
+  "email": "Email",
+  "password": "Password",
+  "forgetPassword": "Forget Password ? ",
+  "confirmPassword": "Confirm Password",
+  "signIn": "Login",
+  "register": "Register",
+  "dontHaveAccount": "Don't Have An Account Yet ? ",
+  "alreadyHaveAccount": "Already Have An Account ? "
+
 
 }

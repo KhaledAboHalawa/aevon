@@ -74,4 +74,40 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get skip => 'تخطي';
+
+  @override
+  String get male => 'ذكر';
+
+  @override
+  String get female => 'انثى';
+
+  @override
+  String get heyThere => 'مرحبا';
+
+  @override
+  String get welecomeBack => 'WELCOME BACK';
+
+  @override
+  String get email => 'البريد الالكتروني';
+
+  @override
+  String get password => 'كلمة المرور';
+
+  @override
+  String get forgetPassword => 'نسيت كلمة المرور';
+
+  @override
+  String get confirmPassword => 'تاكيد كلمة المرور';
+
+  @override
+  String get signIn => 'تسجيل الدخول';
+
+  @override
+  String get register => 'تسجيل حساب جديد';
+
+  @override
+  String get dontHaveAccount => ' لا تملك حساب ؟';
+
+  @override
+  String get alreadyHaveAccount => ' لديك حساب ؟ ';
 }

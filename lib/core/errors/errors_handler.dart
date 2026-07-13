@@ -200,6 +200,7 @@ class ErrorHandler implements Exception {
       failure = _handleError(error);
     } else {
       failure = DataSource.defaultError.getFailure();
+      failure.prettyMessage = error?.toString();
     }
   }
 }
@@ -221,7 +222,7 @@ Failure _handleError(DioException error) {
         dynamic jsonObject = error.response?.data;
         int? statusCode = error.response?.statusCode;
         if (jsonObject != null) {
-          if (jsonObject.containsKey("errors")) {
+          if (jsonObject is Map && jsonObject.containsKey("errors")) {
             jsonObjectErrors = jsonObject['errors'];
             if (jsonObjectErrors.isNotEmpty) {
               Iterable keys = jsonObjectErrors.keys;
@@ -234,18 +235,22 @@ Failure _handleError(DioException error) {
                 }
               }
             }
-          } else {
+          } else if (jsonObject is Map) {
             errorsMessage =
                 jsonObject['message'] ?? ApiResponseMessage.badRequestError;
+          } else {
+            errorsMessage = ApiResponseMessage.badRequestError;
           }
         }
         return Failure(
           statusCode:
               statusCode ??
-              jsonObject['statusCode'] ??
+              (jsonObject is Map ? jsonObject['statusCode'] : null) ??
               ApiResponseCode.badRequest,
           status: ApiInternalStatus.failure,
-          message: jsonObject['message'] ?? ApiResponseMessage.badRequestError,
+          message:
+              (jsonObject is Map ? jsonObject['message'] : null) ??
+              ApiResponseMessage.badRequestError,
           success: false,
           jsonErrorObject: jsonObjectErrors,
           prettyMessage: errorsMessage,
@@ -256,10 +261,20 @@ Failure _handleError(DioException error) {
     case DioExceptionType.cancel:
       return DataSource.cancel.getFailure();
     case DioExceptionType.unknown:
-      return DataSource.defaultError.getFailure();
+      final f = DataSource.defaultError.getFailure();
+      f.prettyMessage =
+          error.error?.toString() ??
+          error.message ??
+          ApiResponseMessage.defaultError;
+      return f;
     case DioExceptionType.connectionError:
-      return DataSource.defaultError.getFailure();
+      final f = DataSource.defaultError.getFailure();
+      f.prettyMessage =
+          error.message ?? 'Connection error. Check server URL / network.';
+      return f;
     case DioExceptionType.badCertificate:
-      return DataSource.defaultError.getFailure();
+      final f = DataSource.defaultError.getFailure();
+      f.prettyMessage = error.message ?? 'Bad SSL certificate.';
+      return f;
   }
 }
