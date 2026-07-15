@@ -9,11 +9,11 @@ class SignInDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(
+        const Expanded(
           child: Divider(thickness: 1, color: AppColors.textGrey, indent: 50),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Text(
             'or',
             style: AppFont.balooThambi2Regular(
@@ -22,7 +22,7 @@ class SignInDivider extends StatelessWidget {
             ),
           ),
         ),
-        Expanded(
+        const Expanded(
           child: Divider(
             thickness: 1,
             color: AppColors.textGrey,

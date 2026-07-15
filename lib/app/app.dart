@@ -41,7 +41,7 @@ class MainApp extends StatelessWidget {
                     }
                   }
                   // 3. Nothing matched → fallback
-                  return Locale('en');
+                  return const Locale('en');
                 },
               ),
             ),

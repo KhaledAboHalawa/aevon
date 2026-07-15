@@ -41,7 +41,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
               Column(
                 children: [
                   SlidShowSection(currentPage: _onboardingCubit.index),
-                  SizedBox(height: 200),
+                  const SizedBox(height: 200),
                 ],
               ),
               Positioned(

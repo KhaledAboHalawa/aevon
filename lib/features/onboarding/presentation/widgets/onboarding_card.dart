@@ -34,7 +34,7 @@ class _OnboardingCardState extends State<OnboardingCard> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(
+      borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(50),
         topRight: Radius.circular(50),
       ),
@@ -43,8 +43,8 @@ class _OnboardingCardState extends State<OnboardingCard> {
         child: Container(
           height: 275,
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 31.5),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 31.5),
+          decoration: const BoxDecoration(
             color: AppColors.blur,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(50),
@@ -63,7 +63,7 @@ class _OnboardingCardState extends State<OnboardingCard> {
                   color: AppColors.white,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 AppLocalizations.of(context)?.onboardingdescription ?? '',
                 textAlign: TextAlign.center,
@@ -73,10 +73,10 @@ class _OnboardingCardState extends State<OnboardingCard> {
                 ),
               ),
 
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               CustomIndicator(currentPage: widget.index),
-              Spacer(),
-              NavSection(),
+              const Spacer(),
+              const NavSection(),
             ],
           ),
         ),

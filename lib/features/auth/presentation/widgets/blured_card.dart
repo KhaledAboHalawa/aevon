@@ -31,13 +31,13 @@ class _BluredCardState extends State<BluredCard> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(50)),
+      borderRadius: const BorderRadius.all(Radius.circular(50)),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaY: 36, sigmaX: 36),
         child: Container(
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 24),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+          decoration: const BoxDecoration(
             color: AppColors.blur,
             borderRadius: BorderRadius.all(Radius.circular(50)),
           ),
