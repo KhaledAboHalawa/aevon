@@ -17,7 +17,7 @@ void main() {
   late MockDio mockDio;
   late AuthDataSourceImpl authDataSourceImpl;
 
-  setUp(() {
+  setUpAll(() {
     mockDio = MockDio();
     authDataSourceImpl = AuthDataSourceImpl(mockDio);
   });
@@ -70,7 +70,7 @@ void main() {
   );
 
   group("failure tests", () {
-    test("test the error case", () async {
+    test("test the unknown error case", () async {
       // arrange
       when(mockDio.post(ApiConstants.signIn, data: anyNamed('data'))).thenThrow(
         DioException(
@@ -93,7 +93,7 @@ void main() {
       );
     });
 
-    test("test the error case", () async {
+    test("test the bad response error case", () async {
       // arrange
       when(mockDio.post(ApiConstants.signIn, data: anyNamed('data'))).thenThrow(
         DioException(
