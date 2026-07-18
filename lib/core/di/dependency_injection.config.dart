@@ -12,17 +12,17 @@
 import 'package:aevon/core/di/dependency_injection_module.dart' as _i685;
 import 'package:aevon/core/localization/localization_cubit.dart' as _i653;
 import 'package:aevon/features/auth/data/datasource/auth_data_source.dart'
-    as _i629;
+    as _i412;
 import 'package:aevon/features/auth/data/datasource/auth_data_source_impl.dart'
-    as _i896;
+    as _i125;
 import 'package:aevon/features/auth/data/repositories/auth_repo_impl.dart'
-    as _i559;
+    as _i242;
 import 'package:aevon/features/auth/domain/repositories/sign_in_repo.dart'
-    as _i639;
+    as _i973;
 import 'package:aevon/features/auth/domain/usecases/sign_in_use_case.dart'
-    as _i607;
+    as _i729;
 import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart'
-    as _i310;
+    as _i262;
 import 'package:aevon/features/onboarding/presentation/cubit/onboarding_cubit.dart'
     as _i705;
 import 'package:dio/dio.dart' as _i361;
@@ -43,25 +43,25 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.lazySingleton<_i361.Dio>(() => registerModule.dio());
-    gh.lazySingleton<_i629.AuthDataSource>(
-      () => _i896.AuthSourceImpl(gh<_i361.Dio>()),
-    );
-    gh.lazySingleton<_i639.AuthRepo>(
-      () => _i559.AuthRepoImpl(gh<_i629.AuthDataSource>()),
+    gh.lazySingleton<_i412.AuthDataSource>(
+      () => _i125.AuthDataSourceImpl(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i705.OnboardingCubit>(
       () => _i705.OnboardingCubit(
         sharedPreferences: gh<_i460.SharedPreferences>(),
       ),
     );
+    gh.lazySingleton<_i973.AuthRepo>(
+      () => _i242.AuthRepoImpl(gh<_i412.AuthDataSource>()),
+    );
     gh.lazySingleton<_i653.LocalizationCubit>(
       () => _i653.LocalizationCubit(gh<_i460.SharedPreferences>()),
     );
-    gh.lazySingleton<_i607.SignInUseCase>(
-      () => _i607.SignInUseCase(repo: gh<_i639.AuthRepo>()),
+    gh.lazySingleton<_i729.SignInUseCase>(
+      () => _i729.SignInUseCase(repo: gh<_i973.AuthRepo>()),
     );
-    gh.lazySingleton<_i310.AuthCubit>(
-      () => _i310.AuthCubit(signInUseCase: gh<_i607.SignInUseCase>()),
+    gh.lazySingleton<_i262.AuthCubit>(
+      () => _i262.AuthCubit(signInUseCase: gh<_i729.SignInUseCase>()),
     );
     return this;
   }
