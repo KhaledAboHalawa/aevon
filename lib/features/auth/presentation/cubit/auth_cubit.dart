@@ -11,6 +11,7 @@ part 'auth_state.dart';
 
 @lazySingleton
 class AuthCubit extends Cubit<AuthState> {
+  
   final SignInUseCase _signInUseCase;
   final SignUpUseCase _signUpUseCase;
   AuthCubit({required this._signInUseCase, required this._signUpUseCase})

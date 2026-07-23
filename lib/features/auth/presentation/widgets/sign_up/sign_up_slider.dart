@@ -2,22 +2,31 @@ import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:aevon/features/auth/presentation/widgets/blured_card.dart';
 import 'package:aevon/features/auth/presentation/widgets/sign_up/gender_section/gender_selection.dart';
-import 'package:aevon/features/auth/presentation/widgets/sign_up/info_widgets.dart';
+import 'package:aevon/features/auth/presentation/widgets/sign_up/main_info/info_widgets.dart';
+import 'package:aevon/features/auth/presentation/widgets/sign_up/old_section/old_selection.dart';
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class SignUpSlider extends StatefulWidget {
-  const SignUpSlider({super.key});
-
+  const SignUpSlider({
+    super.key,
+    required this.index,
+    required this.onContinue,
+  });
+  final int index;
+  final void Function(int index) onContinue;
   @override
   State<SignUpSlider> createState() => _SignUpSliderState();
 }
 
 class _SignUpSliderState extends State<SignUpSlider> {
-  int index = 0;
   bool isFirstLoading = true;
   late AppLocalizations locale;
-  final List<Widget> _pages = [const InfoWidget(), const GenderSelection()];
+  List<Widget> get pages => [
+    InfoWidget(onContinue: widget.onContinue),
+    GenderSelection(onContinue: widget.onContinue),
+    OldSelection(onContinue: widget.onContinue),
+  ];
 
   @override
   void didChangeDependencies() {
@@ -37,21 +46,23 @@ class _SignUpSliderState extends State<SignUpSlider> {
           padding: const EdgeInsets.only(left: 16, bottom: 8),
           child: RichText(
             text: TextSpan(
-              text: index == 0 ? locale.heyThere : '',
+              text: widget.index == 0 ? locale.heyThere : '',
               style: AppFont.balooThambi2Regular(
                 fontSize: 18,
                 color: AppColors.white,
               ),
               children: <TextSpan>[
                 TextSpan(
-                  text: "\n${locale.signUpTitle("$index")}",
+                  text: "\n${locale.signUpTitle("${widget.index}")}",
                   style: AppFont.balooThambi2ExtraBold(
                     fontSize: 20,
                     color: AppColors.white,
                   ),
                 ),
                 TextSpan(
-                  text: (index != 0) ? "\n${locale.signUpSubtitle("1")}" : '',
+                  text: (widget.index != 0)
+                      ? "\n${locale.signUpSubtitle("${widget.index}")}"
+                      : '',
                   style: AppFont.balooThambi2Regular(
                     fontSize: 18,
                     color: AppColors.white,
@@ -62,7 +73,7 @@ class _SignUpSliderState extends State<SignUpSlider> {
           ),
         ),
 
-        BluredCard(child: _pages[index]),
+        BluredCard(child: pages[widget.index]),
       ],
     );
   }

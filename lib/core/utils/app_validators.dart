@@ -6,6 +6,19 @@ class AppValidators {
     r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$',
   );
 
+  static String? isValidName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Name is required';
+    }else if (value.length < 3) {
+      return 'Name must be at least 3 characters';
+    }else if (value.length > 20) {
+      return 'Name must be less than 20 characters';
+    }else if(value.contains(RegExp(r'[0-9]'))){
+      return 'Name must not contain numbers';
+    }
+    return null;
+  }
+
   static String? isValidEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email is required';

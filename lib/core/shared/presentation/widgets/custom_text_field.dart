@@ -9,7 +9,6 @@ class CustomTextField extends StatefulWidget {
     required this.hint,
     this.onChange,
     required this.controller,
-    required this.focusNode,
     required this.isPassword,
     this.prefixIconPath,
     this.validator,
@@ -21,7 +20,6 @@ class CustomTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChange;
   final TextEditingController controller;
-  final FocusNode focusNode;
   final bool isPassword;
   final String? prefixIconPath;
   final bool? isError;
@@ -30,7 +28,14 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
+  late FocusNode focusNode;
   bool _obscureText = true;
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode = FocusNode();
+  }
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -38,9 +43,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       child: TextFormField(
         canRequestFocus: widget.canRequestFocus ?? true,
         validator: widget.validator,
-        focusNode: widget.focusNode,
-        onFieldSubmitted: (value) => widget.focusNode.unfocus(),
-        onTapOutside: (event) => widget.focusNode.unfocus(),
+        focusNode: focusNode,
+        onFieldSubmitted: (value) => focusNode.unfocus(),
+        onTapOutside: (event) => focusNode.unfocus(),
         onChanged: widget.onChange,
         controller: widget.controller,
         obscureText: widget.isPassword && _obscureText,

@@ -20,7 +20,7 @@ class MainApp extends StatelessWidget {
               value: const SystemUiOverlayStyle(
                 statusBarColor: Colors.transparent,
                 statusBarIconBrightness: Brightness.light,
-                systemNavigationBarColor: Color(0Xff54433b),
+                systemNavigationBarColor: Color.fromARGB(255, 0, 0, 0),
                 systemNavigationBarIconBrightness: Brightness.light,
               ),
               child: MaterialApp.router(

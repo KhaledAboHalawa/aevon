@@ -1,6 +1,6 @@
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
-import 'package:aevon/features/auth/presentation/widgets/sign_up/progress_arc_painter.dart';
+import 'package:aevon/features/auth/presentation/widgets/sign_up/progress_indicator/progress_arc_painter.dart';
 import 'package:flutter/material.dart';
 
 class RegistrationProgressArc extends StatelessWidget {

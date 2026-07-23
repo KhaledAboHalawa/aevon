@@ -3,6 +3,7 @@ import 'package:aevon/core/shared/presentation/widgets/custom_text_field.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:aevon/core/utils/app_icons.dart';
+import 'package:aevon/core/utils/app_validators.dart';
 import 'package:aevon/features/auth/presentation/widgets/auth_options.dart';
 import 'package:aevon/features/auth/presentation/widgets/custom_divider.dart';
 import 'package:aevon/features/auth/presentation/widgets/sign_up/navigate_to_log_in.dart';
@@ -10,8 +11,8 @@ import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class InfoWidget extends StatefulWidget {
-  const InfoWidget({super.key});
-
+  const InfoWidget({super.key, required this.onContinue});
+  final void Function(int index) onContinue;
   @override
   State<InfoWidget> createState() => _InfoWidgetState();
 }
@@ -20,18 +21,31 @@ class _InfoWidgetState extends State<InfoWidget> {
   bool isFirstLoad = true;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late final AppLocalizations locale;
-  late final TextEditingController controller;
-  late final FocusNode focusNode;
+  late final TextEditingController firstNameController;
+  late final TextEditingController lastNameController;
+  late final TextEditingController emailController;
+  late final TextEditingController passwordController;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (isFirstLoad) {
       locale = AppLocalizations.of(context)!;
-      controller = TextEditingController();
-      focusNode = FocusNode();
+      firstNameController = TextEditingController();
+      lastNameController = TextEditingController();
+      emailController = TextEditingController();
+      passwordController = TextEditingController();
       isFirstLoad = false;
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
   }
 
   @override
@@ -49,35 +63,39 @@ class _InfoWidgetState extends State<InfoWidget> {
           ),
           const SizedBox(height: 16),
           CustomTextField(
+            onChange: (p0) => setState(() {}),
             hint: locale.firstName,
-            controller: controller,
-            focusNode: focusNode,
+            controller: firstNameController,
             isPassword: false,
             prefixIconPath: AppIcons.userIcon,
+            validator: (p0) => AppValidators.isValidName(p0),
           ),
           const SizedBox(height: 8),
           CustomTextField(
+            onChange: (p0) => setState(() {}),
             hint: locale.lastName,
-            controller: controller,
-            focusNode: focusNode,
+            controller: lastNameController,
             isPassword: false,
             prefixIconPath: AppIcons.userIcon,
+            validator: (p0) => AppValidators.isValidName(p0),
           ),
           const SizedBox(height: 8),
           CustomTextField(
             hint: locale.email,
-            controller: controller,
-            focusNode: focusNode,
+            controller: emailController,
             isPassword: false,
             prefixIconPath: AppIcons.mailIcon,
+            onChange: (p0) => setState(() {}),
+            validator: (p0) => AppValidators.isValidEmail(p0),
           ),
           const SizedBox(height: 8),
           CustomTextField(
             hint: locale.password,
-            controller: controller,
-            focusNode: focusNode,
+            controller: passwordController,
             isPassword: true,
             prefixIconPath: AppIcons.passwordIcon,
+            onChange: (p0) => setState(() {}),
+            validator: (p0) => AppValidators.isValidPassword(p0),
           ),
           const SizedBox(height: 24),
           const CustomDivider(),
@@ -88,11 +106,18 @@ class _InfoWidgetState extends State<InfoWidget> {
             backgroundColor: AppColors.mainOrange,
             isLoading: false,
             title: locale.signIn,
-            onPressed: () {
-              if (formKey.currentState!.validate()) {
-                FocusScope.of(context).unfocus();
-              }
-            },
+            onPressed:
+                (firstNameController.text.isEmpty ||
+                    lastNameController.text.isEmpty ||
+                    emailController.text.isEmpty ||
+                    passwordController.text.isEmpty)
+                ? null
+                : () {
+                    if (formKey.currentState!.validate()) {
+                      FocusScope.of(context).unfocus();
+                      widget.onContinue(1);
+                    }
+                  },
           ),
           const SizedBox(height: 8),
           const NavigateToLogIn(),

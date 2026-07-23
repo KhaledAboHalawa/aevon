@@ -1,5 +1,5 @@
 import 'package:aevon/core/utils/app_images.dart';
-import 'package:aevon/features/auth/presentation/widgets/sign_up/progress_widget.dart';
+import 'package:aevon/features/auth/presentation/widgets/sign_up/progress_indicator/progress_widget.dart';
 import 'package:aevon/features/auth/presentation/widgets/sign_up/sign_up_body.dart';
 import 'package:flutter/material.dart';
 
@@ -16,11 +16,12 @@ class _SignUpPageState extends State<SignUpPage> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(AppImages.onBoardingBG),
+          image: AssetImage(AppImages.authBG),
           fit: BoxFit.cover,
         ),
       ),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
         body: Padding(
           padding: EdgeInsets.only(

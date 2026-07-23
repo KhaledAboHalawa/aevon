@@ -23,10 +23,15 @@ class CustomButton extends StatelessWidget {
         height: 38,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
+            disabledBackgroundColor: AppColors.textGrey,
+            disabledForegroundColor: AppColors.white,
+
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             backgroundColor: backgroundColor,
             surfaceTintColor: AppColors.buttonGrey,
-            side: const BorderSide(color: AppColors.mainOrange, width: 1),
+            side: (onPressed == null)
+                ? null
+                : const BorderSide(color: AppColors.mainOrange, width: 1),
           ),
           onPressed: onPressed,
           child: isLoading

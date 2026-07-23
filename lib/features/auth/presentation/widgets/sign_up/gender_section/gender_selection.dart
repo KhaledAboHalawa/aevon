@@ -1,17 +1,56 @@
+import 'dart:developer';
+
+import 'package:aevon/core/shared/presentation/widgets/custom_button.dart';
+import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/features/auth/data/models/user_model.dart';
 import 'package:aevon/features/auth/presentation/widgets/sign_up/gender_section/gender_button.dart';
+import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-class GenderSelection extends StatelessWidget {
-  const GenderSelection({super.key});
+class GenderSelection extends StatefulWidget {
+  const GenderSelection({super.key, required this.onContinue});
+  final void Function(int index) onContinue;
 
   @override
+  State<GenderSelection> createState() => _GenderSelectionState();
+}
+
+class _GenderSelectionState extends State<GenderSelection> {
+  Gender? selectedGender;
+  @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        GenderButton(gender: Gender.male, isSelected: true),
-        SizedBox(height: 24),
-        GenderButton(gender: Gender.female, isSelected: false),
+        GenderButton(
+          gender: Gender.male,
+          isSelected: selectedGender == Gender.male,
+          onPressed: (g) {
+            setState(() {
+              selectedGender = Gender.male;
+            });
+          },
+        ),
+        const SizedBox(height: 24),
+        GenderButton(
+          gender: Gender.female,
+          isSelected: selectedGender == Gender.female,
+          onPressed: (g) {
+            setState(() {
+              selectedGender = Gender.female;
+            });
+          },
+        ),
+        const SizedBox(height: 24),
+        CustomButton(
+          backgroundColor: AppColors.mainOrange,
+          title: AppLocalizations.of(context)!.next,
+          isLoading: false,
+          onPressed: (selectedGender == null)
+              ? null
+              : () {
+                  widget.onContinue(2);
+                },
+        ),
       ],
     );
   }

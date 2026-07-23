@@ -77,6 +77,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
             child: Scaffold(
+              extendBody: true,
               resizeToAvoidBottomInset: false,
               backgroundColor: Colors.transparent,
               body: Padding(
@@ -135,7 +136,6 @@ class _SignInPageState extends State<SignInPage> {
                               canRequestFocus: !state,
                               isPassword: false,
                               controller: emailController,
-                              focusNode: emailFocusNode,
                               validator: AppValidators.isValidEmail,
                               prefixIconPath: AppIcons.mailIcon,
                             ),
@@ -145,7 +145,6 @@ class _SignInPageState extends State<SignInPage> {
                               canRequestFocus: !state,
                               prefixIconPath: AppIcons.passwordIcon,
                               controller: passwordController,
-                              focusNode: passwordFocusNode,
                             ),
                             Align(
                               alignment: Alignment.topRight,
