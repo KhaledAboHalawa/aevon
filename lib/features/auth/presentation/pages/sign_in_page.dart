@@ -12,8 +12,8 @@ import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:aevon/features/auth/presentation/cubit/auth_events.dart';
 import 'package:aevon/features/auth/presentation/widgets/blured_card.dart';
 import 'package:aevon/features/auth/presentation/widgets/navigate_to_sing_up.dart';
-import 'package:aevon/features/auth/presentation/widgets/sign_in_divider.dart';
-import 'package:aevon/features/auth/presentation/widgets/sign_in_options.dart';
+import 'package:aevon/features/auth/presentation/widgets/custom_divider.dart';
+import 'package:aevon/features/auth/presentation/widgets/auth_options.dart';
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,7 +70,7 @@ class _SignInPageState extends State<SignInPage> {
       child: BlocSelector<AuthCubit, AuthState, bool>(
         builder: (context, state) {
           return Container(
-            decoration:const BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(AppImages.authBG),
                 fit: BoxFit.cover,
@@ -119,69 +119,73 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                       BluredCard(
-                        children: [
-                          Text(
-                            locale.signIn,
-                            style: AppFont.balooThambi2ExtraBold(
-                              fontSize: 24,
-                              color: AppColors.white,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              locale.signIn,
+                              style: AppFont.balooThambi2ExtraBold(
+                                fontSize: 24,
+                                color: AppColors.white,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 16),
-                          CustomTextField(
-                            hint: locale.email,
-                            canRequestFocus: !state,
-                            isPassword: false,
-                            controller: emailController,
-                            focusNode: emailFocusNode,
-                            validator: AppValidators.isValidEmail,
-                            prefixIconPath: AppIcons.mailIcon,
-                          ),
-                          CustomTextField(
-                            hint: locale.password,
-                            isPassword: true,
-                            canRequestFocus: !state,
-                            prefixIconPath: AppIcons.passwordIcon,
-                            controller: passwordController,
-                            focusNode: passwordFocusNode,
-                          ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: CustomTextButton(
-                              title: locale.forgetPassword,
-                              onPressed: () {},
-                              style: AppFont.balooThambi2Regular(
-                                fontSize: 12,
+                            const SizedBox(height: 16),
+                            CustomTextField(
+                              hint: locale.email,
+                              canRequestFocus: !state,
+                              isPassword: false,
+                              controller: emailController,
+                              focusNode: emailFocusNode,
+                              validator: AppValidators.isValidEmail,
+                              prefixIconPath: AppIcons.mailIcon,
+                            ),
+                            CustomTextField(
+                              hint: locale.password,
+                              isPassword: true,
+                              canRequestFocus: !state,
+                              prefixIconPath: AppIcons.passwordIcon,
+                              controller: passwordController,
+                              focusNode: passwordFocusNode,
+                            ),
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: CustomTextButton(
+                                title: locale.forgetPassword,
+                                onPressed: () {},
+                                style: AppFont.balooThambi2Regular(
+                                  fontSize: 12,
+                                  color: AppColors.mainOrange,
+                                ),
                                 color: AppColors.mainOrange,
                               ),
-                              color: AppColors.mainOrange,
                             ),
-                          ),
-                         const SizedBox(height: 24),
-                         const SignInDivider(),
-                         const SizedBox(height: 24),
-                         const SignInOptions(),
-                         const SizedBox(height: 24),
-                          CustomButton(
-                            backgroundColor: AppColors.mainOrange,
-                            isLoading: state,
-                            title: locale.signIn,
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                FocusScope.of(context).unfocus();
-                                authCubit.doIntent(
-                                  SignInEvent(
-                                    request: SignInRequest(
-                                      email: emailController.text,
-                                      password: passwordController.text,
+                            const SizedBox(height: 24),
+                            const CustomDivider(),
+                            const SizedBox(height: 24),
+                            const AuthOptions(),
+                            const SizedBox(height: 24),
+                            CustomButton(
+                              backgroundColor: AppColors.mainOrange,
+                              isLoading: state,
+                              title: locale.signIn,
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  FocusScope.of(context).unfocus();
+                                  authCubit.doIntent(
+                                    SignInEvent(
+                                      request: SignInRequest(
+                                        email: emailController.text,
+                                        password: passwordController.text,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                         const NavigateToSingUp(),
-                        ],
+                                  );
+                                }
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            const NavigateToSingUp(),
+                          ],
+                        ),
                       ),
                     ],
                   ),

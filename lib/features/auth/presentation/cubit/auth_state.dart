@@ -2,30 +2,30 @@ part of 'auth_cubit.dart';
 
 class AuthState extends Equatable {
   final String errorMessage;
-  final SignInEntity? signInResonse;
+  final AuthEntity? authResonse;
   final bool isLoading;
   const AuthState({
     required this.isLoading,
     required this.errorMessage,
-    this.signInResonse,
+    this.authResonse,
   });
 
   const AuthState.initial()
-      : errorMessage = '',
-        signInResonse = null,
-        isLoading = false;
+    : errorMessage = '',
+      authResonse = null,
+      isLoading = false;
   AuthState copyWith({
     String? errorMessage,
-    SignInEntity? signInResonse,
+    AuthEntity? authResonse,
     bool? isLoading,
   }) {
     return AuthState(
       errorMessage: errorMessage ?? this.errorMessage,
-      signInResonse: signInResonse ?? this.signInResonse,
+      authResonse: authResonse ?? this.authResonse,
       isLoading: isLoading ?? this.isLoading,
     );
   }
 
   @override
-  List<Object?> get props => [errorMessage, signInResonse, isLoading];
+  List<Object?> get props => [errorMessage, authResonse, isLoading];
 }

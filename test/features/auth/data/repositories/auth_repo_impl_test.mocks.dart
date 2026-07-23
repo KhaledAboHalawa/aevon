@@ -41,17 +41,32 @@ class MockAuthDataSource extends _i1.Mock implements _i3.AuthDataSource {
   }
 
   @override
-  _i4.Future<_i2.Result<_i5.SignInResonse>> singInWithREST(
+  _i4.Future<_i2.Result<_i5.AuthResonse>> singInWithREST(
     _i6.SignInRequest? request,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#singInWithREST, [request]),
-            returnValue: _i4.Future<_i2.Result<_i5.SignInResonse>>.value(
-              _FakeResult_0<_i5.SignInResonse>(
+            returnValue: _i4.Future<_i2.Result<_i5.AuthResonse>>.value(
+              _FakeResult_0<_i5.AuthResonse>(
                 this,
                 Invocation.method(#singInWithREST, [request]),
               ),
             ),
           )
-          as _i4.Future<_i2.Result<_i5.SignInResonse>>);
+          as _i4.Future<_i2.Result<_i5.AuthResonse>>);
+
+  @override
+  _i4.Future<_i2.Result<_i5.AuthResonse>> singUpWithREST(
+    _i6.SignUpRequest? request,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#singUpWithREST, [request]),
+            returnValue: _i4.Future<_i2.Result<_i5.AuthResonse>>.value(
+              _FakeResult_0<_i5.AuthResonse>(
+                this,
+                Invocation.method(#singUpWithREST, [request]),
+              ),
+            ),
+          )
+          as _i4.Future<_i2.Result<_i5.AuthResonse>>);
 }

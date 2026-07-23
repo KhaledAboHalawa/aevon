@@ -6,8 +6,8 @@ import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
-class NavigateToSingUp extends StatelessWidget {
-  const NavigateToSingUp({super.key});
+class NavigateToLogIn extends StatelessWidget {
+  const NavigateToLogIn({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class NavigateToSingUp extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text(
-          AppLocalizations.of(context)!.dontHaveAccount,
+          AppLocalizations.of(context)!.alreadyHaveAccount,
           style: AppFont.balooThambi2Regular(
             fontSize: 14,
             color: AppColors.white,
@@ -26,7 +26,7 @@ class NavigateToSingUp extends StatelessWidget {
           onPressed: () {
             (context).push(AppRoutes.signUp);
           },
-          title: AppLocalizations.of(context)!.register,
+          title: AppLocalizations.of(context)!.signIn,
           style: AppFont.balooThambi2ExtraBold(
             fontSize: 14,
             color: AppColors.lightOrange.withAlpha(255),

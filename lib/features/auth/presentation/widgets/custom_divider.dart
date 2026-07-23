@@ -2,8 +2,8 @@ import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:flutter/material.dart';
 
-class SignInDivider extends StatelessWidget {
-  const SignInDivider({super.key});
+class CustomDivider extends StatelessWidget {
+  const CustomDivider({super.key});
 
   @override
   Widget build(BuildContext context) {

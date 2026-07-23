@@ -29,6 +29,8 @@
       }
     }
   },
+  "firstName": "الاسم الاول",
+  "lastName": "الاسم الاخير",
   "male": "ذكر",
   "female": "انثى",
   "heyThere": "مرحبا",
@@ -40,5 +42,21 @@
   "confirmPassword": "تاكيد كلمة المرور",
   "forgetPassword": "نسيت كلمة المرور",
   "dontHaveAccount": " لا تملك حساب ؟",
-  "alreadyHaveAccount": " لديك حساب ؟ "
+  "alreadyHaveAccount": " لديك حساب ؟ ",
+ "signUpTitle": "{step, select, 0{إنشاء حساب} 1{أخبرنا عن نفسك} 2{كم عمرك} 3{ما وزنك} 4{ما طولك} 5{ما هو هدفك} 6{ما هو مستوى نشاطك} other{اختر الإجابة}}",
+"@signUpTitle": {
+  "placeholders": {
+    "step": {
+      "type": "String"
+    }
+  }
+},
+  "signUpSubtitle": "{step, select, 0{مرحبًا} 1{نحتاج إلى معرفة جنسك} other{هذا يساعدنا في إنشاء خطة شخصية لك}}",
+  "@signUpSubtitle": {
+  "description": "signUpSubtitle",
+  "placeholders": {
+    "step": {
+      "type": "String"
+    }
+  }}
 }

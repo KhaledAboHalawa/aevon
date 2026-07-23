@@ -7,4 +7,6 @@ class AppIcons {
   static const String google = 'assets/icons/Google.svg';
   static const String facebook = 'assets/icons/facebook.svg';
   static const String apple = 'assets/icons/Apple.svg';
+  static const String male = 'assets/icons/male.svg';
+  static const String female = 'assets/icons/female.svg';
 }

@@ -2,8 +2,8 @@ import 'package:aevon/core/utils/app_icons.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SignInOptions extends StatelessWidget {
-  const SignInOptions({super.key});
+class AuthOptions extends StatelessWidget {
+  const AuthOptions({super.key});
 
   @override
   Widget build(BuildContext context) {

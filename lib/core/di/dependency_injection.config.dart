@@ -21,6 +21,8 @@ import 'package:aevon/features/auth/domain/repositories/sign_in_repo.dart'
     as _i973;
 import 'package:aevon/features/auth/domain/usecases/sign_in_use_case.dart'
     as _i729;
+import 'package:aevon/features/auth/domain/usecases/sign_up_use_case.dart'
+    as _i372;
 import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart'
     as _i262;
 import 'package:aevon/features/onboarding/presentation/cubit/onboarding_cubit.dart'
@@ -51,17 +53,23 @@ extension GetItInjectableX on _i174.GetIt {
         sharedPreferences: gh<_i460.SharedPreferences>(),
       ),
     );
-    gh.lazySingleton<_i973.AuthRepo>(
-      () => _i242.AuthRepoImpl(gh<_i412.AuthDataSource>()),
-    );
     gh.lazySingleton<_i653.LocalizationCubit>(
       () => _i653.LocalizationCubit(gh<_i460.SharedPreferences>()),
+    );
+    gh.lazySingleton<_i973.AuthRepo>(
+      () => _i242.AuthRepoImpl(gh<_i412.AuthDataSource>()),
     );
     gh.lazySingleton<_i729.SignInUseCase>(
       () => _i729.SignInUseCase(repo: gh<_i973.AuthRepo>()),
     );
+    gh.lazySingleton<_i372.SignUpUseCase>(
+      () => _i372.SignUpUseCase(authRepo: gh<_i973.AuthRepo>()),
+    );
     gh.lazySingleton<_i262.AuthCubit>(
-      () => _i262.AuthCubit(signInUseCase: gh<_i729.SignInUseCase>()),
+      () => _i262.AuthCubit(
+        signInUseCase: gh<_i729.SignInUseCase>(),
+        signUpUseCase: gh<_i372.SignUpUseCase>(),
+      ),
     );
     return this;
   }

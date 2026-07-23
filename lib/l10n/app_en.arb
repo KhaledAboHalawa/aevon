@@ -21,6 +21,8 @@
       "format": "compact"
     }
   }},
+  "firstName": "First Name",
+  "lastName": "Last Name",
   "next": "Next",
   "back": "Back",
   "doIt": "Do It",
@@ -36,7 +38,23 @@
   "signIn": "Login",
   "register": "Register",
   "dontHaveAccount": "Don't Have An Account Yet ? ",
-  "alreadyHaveAccount": "Already Have An Account ? "
+  "alreadyHaveAccount": "Already Have An Account ? ",
+  "signUpTitle": "{step, select, 0{CREATE AN ACCOUNT} 1{TELL US ABOUT YOURSELF} 2{How Old Are You} 3{WHAT IS YOUR WEIGHT} 4{WHAT IS YOUR HEIGHT} 5{WHAT IS YOUR GOAL} 6{WHAT IS YOUR ACTIVITY LEVEL} other{CHOOSE THE ANSWER}}",
+  "@signUpTitle": {
+  "description": "signUpTitle",
+  "placeholders": {
+    "step": {
+      "type": "String"
+    }
+  }},
+  "signUpSubtitle": "{step, select, 0{Hey There} 1{We Need To Know Your Gender} other{this helps us create Your personalized plan}}",
+  "@signUpSubtitle": {
+  "description": "signUpSubtitle",
+  "placeholders": {
+    "step": {
+      "type": "String"
+    }
+  }}
 
 
 }

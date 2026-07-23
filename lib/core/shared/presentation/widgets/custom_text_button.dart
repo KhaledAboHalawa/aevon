@@ -14,21 +14,18 @@ class CustomTextButton extends StatelessWidget {
   final void Function() onPressed;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white10,
-      child: TextButton(
-        style: TextButton.styleFrom(
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          padding: const EdgeInsets.only(top: 0),
-          minimumSize: Size.zero,
-        ),
-        onPressed: onPressed,
-        child: Text(
-          title,
-          style: style.copyWith(
-            decoration: TextDecoration.underline,
-            decorationColor: color,
-          ),
+    return TextButton(
+      style: TextButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        padding: const EdgeInsets.only(top: 0),
+        minimumSize: Size.zero,
+      ),
+      onPressed: onPressed,
+      child: Text(
+        title,
+        style: style.copyWith(
+          decoration: TextDecoration.underline,
+          decorationColor: color,
         ),
       ),
     );

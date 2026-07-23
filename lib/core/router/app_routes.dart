@@ -3,7 +3,7 @@ class AppRoutes {
 
   static const String onboarding = '/';
   static const String signIn = '/signIn'; 
-  static const String register = '/register';
+  static const String signUp = '/signUp';
   static const String forgetPassword = '/forgetPassword';
   static const String home = '/home';
   static const String exercise = '/exercise';

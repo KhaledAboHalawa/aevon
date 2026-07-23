@@ -22,7 +22,7 @@ void main() {
   });
 
   final tRequest = SignInRequest(email: 'test@example.com', password: '123456');
-  final tSignInEntity = SignInEntity(
+  final tSignInEntity = AuthEntity(
     token: 'abc123',
     user: User(
       firstName: "khaled",

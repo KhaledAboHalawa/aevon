@@ -5,10 +5,9 @@ import 'package:aevon/features/auth/domain/repositories/sign_in_repo.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class SignInUseCase {
-  final AuthRepo _repo;
-  SignInUseCase({required this._repo});
+class SignUpUseCase {
+  final AuthRepo authRepo;
+  SignUpUseCase({required this.authRepo});
 
-  Future<Result<AuthEntity>> call(SignInRequest request) =>
-      _repo.singInWithREST(request);
+  Future<Result<AuthEntity>> call(SignUpRequest request) => authRepo.singUpWithREST(request);
 }

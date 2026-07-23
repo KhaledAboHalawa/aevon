@@ -41,15 +41,15 @@ class MockSignInUseCase extends _i1.Mock implements _i3.SignInUseCase {
   }
 
   @override
-  _i4.Future<_i2.Result<_i5.SignInEntity>> call(_i6.SignInRequest? request) =>
+  _i4.Future<_i2.Result<_i5.AuthEntity>> call(_i6.SignInRequest? request) =>
       (super.noSuchMethod(
             Invocation.method(#call, [request]),
-            returnValue: _i4.Future<_i2.Result<_i5.SignInEntity>>.value(
-              _FakeResult_0<_i5.SignInEntity>(
+            returnValue: _i4.Future<_i2.Result<_i5.AuthEntity>>.value(
+              _FakeResult_0<_i5.AuthEntity>(
                 this,
                 Invocation.method(#call, [request]),
               ),
             ),
           )
-          as _i4.Future<_i2.Result<_i5.SignInEntity>>);
+          as _i4.Future<_i2.Result<_i5.AuthEntity>>);
 }

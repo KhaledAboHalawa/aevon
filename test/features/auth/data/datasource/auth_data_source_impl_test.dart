@@ -23,7 +23,7 @@ void main() {
   });
 
   final tRequest = SignInRequest(email: 'test@gmail.com', password: 'Test123');
-  final tResponse = SignInResonse(
+  final tResponse = AuthResonse(
     token: 'token',
     message: "message",
     user: User(
@@ -59,10 +59,10 @@ void main() {
       final result = await authDataSourceImpl.singInWithREST(tRequest);
 
       // assert
-      expect(result, isA<Result<SignInResonse>>());
+      expect(result, isA<Result<AuthResonse>>());
       result.when(
         success: (response) {
-          expect(response, isA<SignInResonse>());
+          expect(response, isA<AuthResonse>());
         },
         error: (_) => {},
       );
@@ -83,7 +83,7 @@ void main() {
       final result = await authDataSourceImpl.singInWithREST(tRequest);
 
       // assert
-      expect(result, isA<Result<SignInResonse>>());
+      expect(result, isA<Result<AuthResonse>>());
       result.when(
         success: (_) => {},
         error: (error) {
@@ -107,7 +107,7 @@ void main() {
       final result = await authDataSourceImpl.singInWithREST(tRequest);
 
       // assert
-      expect(result, isA<Result<SignInResonse>>());
+      expect(result, isA<Result<AuthResonse>>());
       result.when(
         success: (_) => {},
         error: (error) {

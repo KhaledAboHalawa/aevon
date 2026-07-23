@@ -63,6 +63,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get firstName => 'First Name';
+
+  @override
+  String get lastName => 'Last Name';
+
+  @override
   String get next => 'Next';
 
   @override
@@ -109,4 +115,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get alreadyHaveAccount => 'Already Have An Account ? ';
+
+  @override
+  String signUpTitle(String step) {
+    String _temp0 = intl.Intl.selectLogic(step, {
+      '0': 'CREATE AN ACCOUNT',
+      '1': 'TELL US ABOUT YOURSELF',
+      '2': 'How Old Are You',
+      '3': 'WHAT IS YOUR WEIGHT',
+      '4': 'WHAT IS YOUR HEIGHT',
+      '5': 'WHAT IS YOUR GOAL',
+      '6': 'WHAT IS YOUR ACTIVITY LEVEL',
+      'other': 'CHOOSE THE ANSWER',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String signUpSubtitle(String step) {
+    String _temp0 = intl.Intl.selectLogic(step, {
+      '0': 'Hey There',
+      '1': 'We Need To Know Your Gender',
+      'other': 'this helps us create Your personalized plan',
+    });
+    return '$_temp0';
+  }
 }

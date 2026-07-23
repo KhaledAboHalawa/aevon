@@ -8,14 +8,23 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: AuthRepo)
 class AuthRepoImpl implements AuthRepo {
-  final AuthDataSource _signInDataSource;
-  AuthRepoImpl(this._signInDataSource);
+  final AuthDataSource _authDataSource;
+  AuthRepoImpl(this._authDataSource);
   @override
-  Future<Result<SignInEntity>> singInWithREST(SignInRequest request) async {
-    final result = await _signInDataSource.singInWithREST(request);
+  Future<Result<AuthEntity>> singInWithREST(SignInRequest request) async {
+    final result = await _authDataSource.singInWithREST(request);
     return result.when(
-      success: (data) => Success<SignInEntity>(data.toSignInEntity()),
-      error: (error) => Error<SignInEntity>(error),
+      success: (data) => Success<AuthEntity>(data.toSignInEntity()),
+      error: (error) => Error<AuthEntity>(error),
+    );
+  }
+
+  @override
+  Future<Result<AuthEntity>> singUpWithREST(SignUpRequest request) async {
+    final result = await _authDataSource.singUpWithREST(request);
+    return result.when(
+      success: (data) => Success<AuthEntity>(data.toSignInEntity()),
+      error: (error) => Error<AuthEntity>(error),
     );
   }
 }

@@ -3,5 +3,7 @@ import 'package:aevon/features/auth/data/models/auth_request.dart';
 import 'package:aevon/features/auth/data/models/auth_respons.dart';
 
 abstract class AuthDataSource {
-  Future<Result<SignInResonse>> singInWithREST(SignInRequest request);
+  Future<Result<AuthResonse>> singInWithREST(SignInRequest request);
+
+  Future<Result<AuthResonse>> singUpWithREST(SignUpRequest request);
 }

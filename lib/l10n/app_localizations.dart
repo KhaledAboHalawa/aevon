@@ -176,6 +176,18 @@ abstract class AppLocalizations {
   /// **'{count, plural, =0{the price of excellence\nis discipline} =1{Fitness has never been\nso much funny} other{NO MORE EXCUSES\nDo It Now}}'**
   String onboardingMessage(num count);
 
+  /// No description provided for @firstName.
+  ///
+  /// In en, this message translates to:
+  /// **'First Name'**
+  String get firstName;
+
+  /// No description provided for @lastName.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Name'**
+  String get lastName;
+
   /// No description provided for @next.
   ///
   /// In en, this message translates to:
@@ -271,6 +283,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Already Have An Account ? '**
   String get alreadyHaveAccount;
+
+  /// signUpTitle
+  ///
+  /// In en, this message translates to:
+  /// **'{step, select, 0{CREATE AN ACCOUNT} 1{TELL US ABOUT YOURSELF} 2{How Old Are You} 3{WHAT IS YOUR WEIGHT} 4{WHAT IS YOUR HEIGHT} 5{WHAT IS YOUR GOAL} 6{WHAT IS YOUR ACTIVITY LEVEL} other{CHOOSE THE ANSWER}}'**
+  String signUpTitle(String step);
+
+  /// signUpSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'{step, select, 0{Hey There} 1{We Need To Know Your Gender} other{this helps us create Your personalized plan}}'**
+  String signUpSubtitle(String step);
 }
 
 class _AppLocalizationsDelegate

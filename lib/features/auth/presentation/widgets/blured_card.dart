@@ -7,8 +7,8 @@ import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class BluredCard extends StatefulWidget {
-  const BluredCard({super.key, required this.children});
-  final List<Widget> children;
+  const BluredCard({super.key, required this.child});
+  final Widget child;
   @override
   State<BluredCard> createState() => _BluredCardState();
 }
@@ -34,17 +34,15 @@ class _BluredCardState extends State<BluredCard> {
       borderRadius: const BorderRadius.all(Radius.circular(50)),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaY: 36, sigmaX: 36),
-        child: Container(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 400),
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
           decoration: const BoxDecoration(
             color: AppColors.blur,
             borderRadius: BorderRadius.all(Radius.circular(50)),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: widget.children,
-          ),
+          child: widget.child,
         ),
       ),
     );

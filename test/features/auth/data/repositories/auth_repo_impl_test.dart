@@ -18,12 +18,12 @@ void main() {
   late MockAuthDataSource authDataSourceMock;
   late AuthRepoImpl authRepoImpl;
   late SignInRequest tRequest;
-  late SignInResonse tResponse;
+  late AuthResonse tResponse;
   setUpAll(() {
     authDataSourceMock = MockAuthDataSource();
     authRepoImpl = AuthRepoImpl(authDataSourceMock);
     tRequest = SignInRequest(email: 'test@gmail.com', password: 'Test123');
-    tResponse = SignInResonse(
+    tResponse = AuthResonse(
       token: 'token',
       message: "message",
       user: User(
@@ -46,7 +46,7 @@ void main() {
     // act
     final result = await authRepoImpl.singInWithREST(tRequest);
     // assert
-    expect(result, isA<Success<SignInEntity>>());
+    expect(result, isA<Success<AuthEntity>>());
 
     result.when(
       success: (data) {
@@ -71,7 +71,7 @@ void main() {
     // act
     final result = await authRepoImpl.singInWithREST(tRequest);
     // assert
-    expect(result, isA<Error<SignInEntity>>());
+    expect(result, isA<Error<AuthEntity>>());
 
     result.when(
       success: (data) {},
