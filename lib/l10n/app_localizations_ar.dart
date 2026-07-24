@@ -88,6 +88,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get female => 'انثى';
 
   @override
+  String get year => 'Year';
+
+  @override
+  String get weight => 'وزنك';
+
+  @override
+  String get height => 'طولك';
+
+  @override
   String get heyThere => 'مرحبا';
 
   @override
@@ -116,6 +125,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get alreadyHaveAccount => ' لديك حساب ؟ ';
+
+  @override
+  String get finish => 'انهاء';
 
   @override
   String signUpTitle(String step) {

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/utils/app_images.dart';
 import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
@@ -15,7 +17,7 @@ class SignUpBody extends StatefulWidget {
 }
 
 class _SignUpBodyState extends State<SignUpBody> {
-  int index = 0;
+  int selectedIndex = 0;
   bool isFirstLoad = true;
   late AppLocalizations locale;
   @override
@@ -36,18 +38,21 @@ class _SignUpBodyState extends State<SignUpBody> {
         children: [
           Image.asset(AppImages.logo, width: 70, height: 48),
           const SizedBox(height: 34),
-          if (index != 0)
-            const Padding(
-              padding: EdgeInsets.only(top: 51.0),
+          if (selectedIndex != 0)
+            Padding(
+              padding: const EdgeInsets.only(top: 51.0),
               child: RegistrationProgressArc(
-                currentStep: 1,
-                totalSteps: 6,
+                currentStep: selectedIndex,
+                totalSteps: 7,
                 size: 40,
               ),
             ),
           SignUpSlider(
-            index: index,
-            onContinue: (index) => setState(() => this.index = index),
+            index: selectedIndex,
+            onContinue: (index) => setState(() {
+              selectedIndex = index;
+              log("index $selectedIndex");
+            }),
           ),
         ],
       ),

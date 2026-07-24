@@ -87,6 +87,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get female => 'Female';
 
   @override
+  String get year => 'Year';
+
+  @override
+  String get weight => 'Weight';
+
+  @override
+  String get height => 'Height';
+
+  @override
   String get heyThere => 'Hey There';
 
   @override
@@ -115,6 +124,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get alreadyHaveAccount => 'Already Have An Account ? ';
+
+  @override
+  String get finish => 'Finish';
 
   @override
   String signUpTitle(String step) {

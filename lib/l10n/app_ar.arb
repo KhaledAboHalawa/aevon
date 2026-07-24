@@ -34,6 +34,9 @@
   "male": "ذكر",
   "female": "انثى",
   "heyThere": "مرحبا",
+  "years": "سنوات",
+  "weight": "وزنك",
+  "height": "طولك",
   "welcomeBack": "مرحبا بكم مرة اخرى",
   "signIn": "تسجيل الدخول",
   "register": "تسجيل حساب جديد",
@@ -43,6 +46,7 @@
   "forgetPassword": "نسيت كلمة المرور",
   "dontHaveAccount": " لا تملك حساب ؟",
   "alreadyHaveAccount": " لديك حساب ؟ ",
+  "finish": "انهاء",
  "signUpTitle": "{step, select, 0{إنشاء حساب} 1{أخبرنا عن نفسك} 2{كم عمرك} 3{ما وزنك} 4{ما طولك} 5{ما هو هدفك} 6{ما هو مستوى نشاطك} other{اختر الإجابة}}",
 "@signUpTitle": {
   "placeholders": {

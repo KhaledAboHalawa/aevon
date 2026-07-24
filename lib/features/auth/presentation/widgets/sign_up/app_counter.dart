@@ -3,9 +3,6 @@ import 'package:aevon/core/theme/app_font.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-/// A horizontal, snapping number/year picker like the one in the reference
-/// image: a row of numbers, the centered one scaled up + colored, with a
-/// small triangle indicator underneath and a label above.
 class HorizontalYearPicker extends StatefulWidget {
   final int minValue;
   final int maxValue;
@@ -27,8 +24,7 @@ class HorizontalYearPicker extends StatefulWidget {
 }
 
 class _HorizontalYearPickerState extends State<HorizontalYearPicker> {
-  // Width reserved per item (number + spacing). Tweak to taste.
-  static const double _itemExtent = 64;
+  double get _itemExtent => (widget.maxValue > 99) ? 75 : 64;
 
   late final FixedExtentScrollController _controller;
   late int _selectedIndex;
@@ -88,13 +84,12 @@ class _HorizontalYearPickerState extends State<HorizontalYearPicker> {
                     child: Center(
                       child: AnimatedDefaultTextStyle(
                         duration: const Duration(milliseconds: 300),
-                        style: TextStyle(
-                          fontSize: isSelected ? 42 : 26,
-                          fontWeight: FontWeight.w800,
+                        style: AppFont.balooThambi2ExtraBold(
+                          fontSize: isSelected ? 44 : 26,
                           color: isSelected
-                              ? Colors.deepOrange
-                              : Colors.white.withValues(
-                                  alpha: math.max(0.25, 1 - distance * 0.28),
+                              ? AppColors.mainOrange
+                              : AppColors.textGrey.withValues(
+                                  alpha: math.max(0.25, 1 - distance * 0.18),
                                 ),
                         ),
                         child: Text('$value'),
@@ -107,7 +102,7 @@ class _HorizontalYearPickerState extends State<HorizontalYearPicker> {
           ),
         ),
         const SizedBox(height: 4),
-        const Icon(Icons.arrow_drop_up, color: Colors.deepOrange, size: 32),
+        const Icon(Icons.arrow_drop_up, color: AppColors.mainOrange, size: 32),
       ],
     );
   }

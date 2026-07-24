@@ -11,11 +11,12 @@ part 'auth_state.dart';
 
 @lazySingleton
 class AuthCubit extends Cubit<AuthState> {
-  
   final SignInUseCase _signInUseCase;
   final SignUpUseCase _signUpUseCase;
+  SignUpRequest signUpRequest;
   AuthCubit({required this._signInUseCase, required this._signUpUseCase})
-    : super(const AuthState.initial());
+    : signUpRequest = SignUpRequest(),
+      super(const AuthState.initial());
 
   void doIntent(AuthEvent event) {
     event.when(signIn: _signIn, signUp: _signUp);

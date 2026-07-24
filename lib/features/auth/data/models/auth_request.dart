@@ -1,3 +1,5 @@
+import 'package:aevon/features/auth/data/models/user_model.dart';
+
 class SignInRequest {
   final String email;
   final String password;
@@ -12,26 +14,24 @@ class SignUpRequest {
   String lastName;
   String email;
   String password;
-  String rePassword;
-  String gender;
+  Gender gender;
   int height;
   int weight;
   int age;
-  String goal;
-  String activityLevel;
+  Goal goal;
+  ActivityLevel activityLevel;
 
   SignUpRequest({
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.password,
-    required this.rePassword,
-    required this.gender,
-    required this.height,
-    required this.weight,
-    required this.age,
-    required this.goal,
-    required this.activityLevel,
+    this.firstName = '',
+    this.lastName = '',
+    this.email = '',
+    this.password = '',
+    this.gender = Gender.male,
+    this.height = 0,
+    this.weight = 0,
+    this.age = 0,
+    this.goal = Goal.loseWeight,
+    this.activityLevel = ActivityLevel.rookie,
   });
 
   Map<String, dynamic> toJson() => {
@@ -39,12 +39,14 @@ class SignUpRequest {
     'lastName': lastName,
     'email': email,
     'password': password,
-    'rePassword': rePassword,
-    'gender': gender,
+    'gender': gender.name,
     'height': height,
     'weight': weight,
     'age': age,
-    'goal': goal,
-    'activityLevel': activityLevel,
+    'goal': goal.name,
+    'activityLevel': activityLevel.name,
   };
+
+  @override
+  String toString() => toJson().toString();
 }

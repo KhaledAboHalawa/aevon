@@ -4,11 +4,13 @@ import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:aevon/core/utils/app_icons.dart';
 import 'package:aevon/core/utils/app_validators.dart';
+import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:aevon/features/auth/presentation/widgets/auth_options.dart';
 import 'package:aevon/features/auth/presentation/widgets/custom_divider.dart';
 import 'package:aevon/features/auth/presentation/widgets/sign_up/navigate_to_log_in.dart';
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InfoWidget extends StatefulWidget {
   const InfoWidget({super.key, required this.onContinue});
@@ -115,6 +117,11 @@ class _InfoWidgetState extends State<InfoWidget> {
                 : () {
                     if (formKey.currentState!.validate()) {
                       FocusScope.of(context).unfocus();
+                      BlocProvider.of<AuthCubit>(context).signUpRequest
+                        ..firstName = firstNameController.text.trim()
+                        ..lastName = lastNameController.text.trim()
+                        ..email = emailController.text.trim()
+                        ..password = passwordController.text.trim();
                       widget.onContinue(1);
                     }
                   },

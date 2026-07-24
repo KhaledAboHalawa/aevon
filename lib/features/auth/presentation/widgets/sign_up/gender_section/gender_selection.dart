@@ -1,11 +1,11 @@
-import 'dart:developer';
-
 import 'package:aevon/core/shared/presentation/widgets/custom_button.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/features/auth/data/models/user_model.dart';
+import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:aevon/features/auth/presentation/widgets/sign_up/gender_section/gender_button.dart';
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GenderSelection extends StatefulWidget {
   const GenderSelection({super.key, required this.onContinue});
@@ -48,6 +48,8 @@ class _GenderSelectionState extends State<GenderSelection> {
           onPressed: (selectedGender == null)
               ? null
               : () {
+                  BlocProvider.of<AuthCubit>(context).signUpRequest.gender =
+                      selectedGender!;
                   widget.onContinue(2);
                 },
         ),

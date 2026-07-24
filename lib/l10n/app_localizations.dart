@@ -224,6 +224,24 @@ abstract class AppLocalizations {
   /// **'Female'**
   String get female;
 
+  /// No description provided for @year.
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get year;
+
+  /// No description provided for @weight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get weight;
+
+  /// No description provided for @height.
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get height;
+
   /// No description provided for @heyThere.
   ///
   /// In en, this message translates to:
@@ -283,6 +301,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Already Have An Account ? '**
   String get alreadyHaveAccount;
+
+  /// No description provided for @finish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get finish;
 
   /// signUpTitle
   ///

@@ -24,7 +24,7 @@ class NavigateToLogIn extends StatelessWidget {
         ),
         CustomTextButton(
           onPressed: () {
-            (context).push(AppRoutes.signUp);
+            (context).push(AppRoutes.signIn);
           },
           title: AppLocalizations.of(context)!.signIn,
           style: AppFont.balooThambi2ExtraBold(

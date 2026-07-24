@@ -29,6 +29,9 @@
   "skip": "Skip",
   "male": "Male",
   "female": "Female",
+  "year": "Year",
+  "weight": "Weight",
+  "height": "Height",
   "heyThere": "Hey There",
   "welecomeBack": "WELCOME BACK",
   "email": "Email",
@@ -39,6 +42,7 @@
   "register": "Register",
   "dontHaveAccount": "Don't Have An Account Yet ? ",
   "alreadyHaveAccount": "Already Have An Account ? ",
+  "finish": "Finish",
   "signUpTitle": "{step, select, 0{CREATE AN ACCOUNT} 1{TELL US ABOUT YOURSELF} 2{How Old Are You} 3{WHAT IS YOUR WEIGHT} 4{WHAT IS YOUR HEIGHT} 5{WHAT IS YOUR GOAL} 6{WHAT IS YOUR ACTIVITY LEVEL} other{CHOOSE THE ANSWER}}",
   "@signUpTitle": {
   "description": "signUpTitle",
