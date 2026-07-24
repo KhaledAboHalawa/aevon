@@ -3,13 +3,17 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
 import 'package:aevon/core/shared/data/model/result.dart' as _i2;
-import 'package:aevon/features/auth/data/models/auth_request.dart' as _i6;
-import 'package:aevon/features/auth/domain/entities/sign_in_entity.dart' as _i5;
-import 'package:aevon/features/auth/domain/usecases/sign_in_use_case.dart'
+import 'package:aevon/features/auth/data/models/auth_request.dart' as _i7;
+import 'package:aevon/features/auth/domain/entities/sign_in_entity.dart' as _i6;
+import 'package:aevon/features/auth/domain/repositories/sign_in_repo.dart'
     as _i3;
+import 'package:aevon/features/auth/domain/usecases/sign_in_use_case.dart'
+    as _i4;
+import 'package:aevon/features/auth/domain/usecases/sign_up_use_case.dart'
+    as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -32,24 +36,59 @@ class _FakeResult_0<T> extends _i1.SmartFake implements _i2.Result<T> {
     : super(parent, parentInvocation);
 }
 
+class _FakeAuthRepo_1 extends _i1.SmartFake implements _i3.AuthRepo {
+  _FakeAuthRepo_1(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [SignInUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSignInUseCase extends _i1.Mock implements _i3.SignInUseCase {
+class MockSignInUseCase extends _i1.Mock implements _i4.SignInUseCase {
   MockSignInUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Result<_i5.AuthEntity>> call(_i6.SignInRequest? request) =>
+  _i5.Future<_i2.Result<_i6.AuthEntity>> call(_i7.SignInRequest? request) =>
       (super.noSuchMethod(
             Invocation.method(#call, [request]),
-            returnValue: _i4.Future<_i2.Result<_i5.AuthEntity>>.value(
-              _FakeResult_0<_i5.AuthEntity>(
+            returnValue: _i5.Future<_i2.Result<_i6.AuthEntity>>.value(
+              _FakeResult_0<_i6.AuthEntity>(
                 this,
                 Invocation.method(#call, [request]),
               ),
             ),
           )
-          as _i4.Future<_i2.Result<_i5.AuthEntity>>);
+          as _i5.Future<_i2.Result<_i6.AuthEntity>>);
+}
+
+/// A class which mocks [SignUpUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSignUpUseCase extends _i1.Mock implements _i8.SignUpUseCase {
+  MockSignUpUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.AuthRepo get authRepo =>
+      (super.noSuchMethod(
+            Invocation.getter(#authRepo),
+            returnValue: _FakeAuthRepo_1(this, Invocation.getter(#authRepo)),
+          )
+          as _i3.AuthRepo);
+
+  @override
+  _i5.Future<_i2.Result<_i6.AuthEntity>> call(_i7.SignUpRequest? request) =>
+      (super.noSuchMethod(
+            Invocation.method(#call, [request]),
+            returnValue: _i5.Future<_i2.Result<_i6.AuthEntity>>.value(
+              _FakeResult_0<_i6.AuthEntity>(
+                this,
+                Invocation.method(#call, [request]),
+              ),
+            ),
+          )
+          as _i5.Future<_i2.Result<_i6.AuthEntity>>);
 }

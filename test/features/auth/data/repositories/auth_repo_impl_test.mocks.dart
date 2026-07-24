@@ -3,14 +3,17 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
 import 'package:aevon/core/shared/data/model/result.dart' as _i2;
 import 'package:aevon/features/auth/data/datasource/auth_data_source.dart'
-    as _i3;
-import 'package:aevon/features/auth/data/models/auth_request.dart' as _i6;
-import 'package:aevon/features/auth/data/models/auth_respons.dart' as _i5;
+    as _i4;
+import 'package:aevon/features/auth/data/datasource/auth_local_data_source.dart'
+    as _i8;
+import 'package:aevon/features/auth/data/models/auth_request.dart' as _i7;
+import 'package:aevon/features/auth/data/models/auth_respons.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:shared_preferences/shared_preferences.dart' as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -32,41 +35,77 @@ class _FakeResult_0<T> extends _i1.SmartFake implements _i2.Result<T> {
     : super(parent, parentInvocation);
 }
 
+class _FakeSharedPreferences_1 extends _i1.SmartFake
+    implements _i3.SharedPreferences {
+  _FakeSharedPreferences_1(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [AuthDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthDataSource extends _i1.Mock implements _i3.AuthDataSource {
+class MockAuthDataSource extends _i1.Mock implements _i4.AuthDataSource {
   MockAuthDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Result<_i5.AuthResonse>> singInWithREST(
-    _i6.SignInRequest? request,
+  _i5.Future<_i2.Result<_i6.AuthResonse>> singInWithREST(
+    _i7.SignInRequest? request,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#singInWithREST, [request]),
-            returnValue: _i4.Future<_i2.Result<_i5.AuthResonse>>.value(
-              _FakeResult_0<_i5.AuthResonse>(
+            returnValue: _i5.Future<_i2.Result<_i6.AuthResonse>>.value(
+              _FakeResult_0<_i6.AuthResonse>(
                 this,
                 Invocation.method(#singInWithREST, [request]),
               ),
             ),
           )
-          as _i4.Future<_i2.Result<_i5.AuthResonse>>);
+          as _i5.Future<_i2.Result<_i6.AuthResonse>>);
 
   @override
-  _i4.Future<_i2.Result<_i5.AuthResonse>> singUpWithREST(
-    _i6.SignUpRequest? request,
+  _i5.Future<_i2.Result<_i6.AuthResonse>> singUpWithREST(
+    _i7.SignUpRequest? request,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#singUpWithREST, [request]),
-            returnValue: _i4.Future<_i2.Result<_i5.AuthResonse>>.value(
-              _FakeResult_0<_i5.AuthResonse>(
+            returnValue: _i5.Future<_i2.Result<_i6.AuthResonse>>.value(
+              _FakeResult_0<_i6.AuthResonse>(
                 this,
                 Invocation.method(#singUpWithREST, [request]),
               ),
             ),
           )
-          as _i4.Future<_i2.Result<_i5.AuthResonse>>);
+          as _i5.Future<_i2.Result<_i6.AuthResonse>>);
+}
+
+/// A class which mocks [AuthLocalDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAuthLocalDataSource extends _i1.Mock
+    implements _i8.AuthLocalDataSource {
+  MockAuthLocalDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.SharedPreferences get sharedPreferences =>
+      (super.noSuchMethod(
+            Invocation.getter(#sharedPreferences),
+            returnValue: _FakeSharedPreferences_1(
+              this,
+              Invocation.getter(#sharedPreferences),
+            ),
+          )
+          as _i3.SharedPreferences);
+
+  @override
+  _i5.Future<void> saveToken(String? token) =>
+      (super.noSuchMethod(
+            Invocation.method(#saveToken, [token]),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
 }

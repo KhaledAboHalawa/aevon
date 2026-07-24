@@ -5,13 +5,13 @@ sealed class AuthEvent {
 
   R when<R>({
     required R Function({required SignInRequest request}) signIn,
-    required R Function({required SignUpRequest request}) signUp,
+    required R Function() signUp,
   }) {
     switch (this) {
       case SignInEvent event:
         return signIn(request: event.request);
-      case SignUpEvent event:
-        return signUp(request: event.request);
+      case SignUpEvent _:
+        return signUp();
     }
   }
 }
@@ -22,6 +22,5 @@ class SignInEvent extends AuthEvent {
 }
 
 class SignUpEvent extends AuthEvent {
-  final SignUpRequest request;
-  const SignUpEvent({required this.request});
+  const SignUpEvent();
 }

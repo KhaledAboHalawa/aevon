@@ -3,6 +3,7 @@ import 'package:aevon/features/auth/data/models/auth_request.dart';
 import 'package:aevon/features/auth/data/models/user_model.dart';
 import 'package:aevon/features/auth/domain/entities/sign_in_entity.dart';
 import 'package:aevon/features/auth/domain/usecases/sign_in_use_case.dart';
+import 'package:aevon/features/auth/domain/usecases/sign_up_use_case.dart';
 import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:aevon/features/auth/presentation/cubit/auth_events.dart';
 import 'package:aevon/core/shared/data/model/result.dart';
@@ -13,12 +14,14 @@ import 'package:mockito/mockito.dart';
 
 import 'sign_in_use_case_test.mocks.dart';
 
-@GenerateMocks([SignInUseCase])
+@GenerateMocks([SignInUseCase, SignUpUseCase])
 void main() {
   late MockSignInUseCase mockSignInUseCase;
+  late MockSignUpUseCase mockSignUpUseCase;
 
   setUp(() {
     mockSignInUseCase = MockSignInUseCase();
+    mockSignUpUseCase = MockSignUpUseCase();
   });
 
   final tRequest = SignInRequest(email: 'test@example.com', password: '123456');
@@ -41,14 +44,17 @@ void main() {
       when(
         mockSignInUseCase(tRequest),
       ).thenAnswer((_) async => Success(tSignInEntity));
-      return AuthCubit(signInUseCase: mockSignInUseCase);
+      return AuthCubit(
+        signInUseCase: mockSignInUseCase,
+        signUpUseCase: mockSignUpUseCase,
+      );
     },
     act: (cubit) => cubit.doIntent(SignInEvent(request: tRequest)),
     expect: () => [
       const AuthState.initial().copyWith(isLoading: true),
       const AuthState.initial().copyWith(
         isLoading: false,
-        signInResonse: tSignInEntity,
+        authResonse: tSignInEntity,
       ),
     ],
     verify: (_) {
@@ -69,7 +75,10 @@ void main() {
           ),
         ),
       );
-      return AuthCubit(signInUseCase: mockSignInUseCase);
+      return AuthCubit(
+        signInUseCase: mockSignInUseCase,
+        signUpUseCase: mockSignUpUseCase,
+      );
     },
     act: (cubit) => cubit.doIntent(SignInEvent(request: tRequest)),
     expect: () => [

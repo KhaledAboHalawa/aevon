@@ -4,6 +4,7 @@ class AppKeys {
   static const String englishLocale = 'en';
   static const String arabicLocale = 'ar';
   static const String seenOnboarding = "seenOnboarding";
+  static const String token = "token";
 }
 
 class ApiConstants {

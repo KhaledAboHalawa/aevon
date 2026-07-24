@@ -15,6 +15,8 @@ import 'package:aevon/features/auth/data/datasource/auth_data_source.dart'
     as _i412;
 import 'package:aevon/features/auth/data/datasource/auth_data_source_impl.dart'
     as _i125;
+import 'package:aevon/features/auth/data/datasource/auth_local_data_source.dart'
+    as _i809;
 import 'package:aevon/features/auth/data/repositories/auth_repo_impl.dart'
     as _i242;
 import 'package:aevon/features/auth/domain/repositories/sign_in_repo.dart'
@@ -48,6 +50,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i412.AuthDataSource>(
       () => _i125.AuthDataSourceImpl(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i809.AuthLocalDataSource>(
+      () => _i809.AuthLocalDataSource(
+        sharedPreferences: gh<_i460.SharedPreferences>(),
+      ),
+    );
     gh.lazySingleton<_i705.OnboardingCubit>(
       () => _i705.OnboardingCubit(
         sharedPreferences: gh<_i460.SharedPreferences>(),
@@ -57,7 +64,10 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i653.LocalizationCubit(gh<_i460.SharedPreferences>()),
     );
     gh.lazySingleton<_i973.AuthRepo>(
-      () => _i242.AuthRepoImpl(gh<_i412.AuthDataSource>()),
+      () => _i242.AuthRepoImpl(
+        gh<_i412.AuthDataSource>(),
+        gh<_i809.AuthLocalDataSource>(),
+      ),
     );
     gh.lazySingleton<_i729.SignInUseCase>(
       () => _i729.SignInUseCase(repo: gh<_i973.AuthRepo>()),

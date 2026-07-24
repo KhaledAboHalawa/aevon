@@ -33,9 +33,9 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  void _signUp({required SignUpRequest request}) async {
+  void _signUp() async {
     emit(state.copyWith(isLoading: true));
-    final result = await _signUpUseCase(request);
+    final result = await _signUpUseCase(signUpRequest);
     return result.when(
       success: (data) =>
           emit(state.copyWith(authResonse: data, isLoading: false)),
