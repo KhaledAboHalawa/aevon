@@ -35,7 +35,7 @@ class _SignUpSliderState extends State<SignUpSlider> {
     WeightSelection(onContinue: widget.onContinue),
     HeightSelection(onContinue: widget.onContinue),
     GoalSelection(onContinue: widget.onContinue),
-    ActivityLevelSelection(onContinue: widget.onContinue),
+    const ActivityLevelSelection(),
   ];
 
   @override

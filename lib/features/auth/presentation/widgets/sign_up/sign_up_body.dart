@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/utils/app_images.dart';
 import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
@@ -31,8 +29,8 @@ class _SignUpBodyState extends State<SignUpBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<AuthCubit>(),
+    return BlocProvider.value(
+      value: getIt<AuthCubit>(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -51,7 +49,6 @@ class _SignUpBodyState extends State<SignUpBody> {
             index: selectedIndex,
             onContinue: (index) => setState(() {
               selectedIndex = index;
-              log("index $selectedIndex");
             }),
           ),
         ],

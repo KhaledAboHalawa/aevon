@@ -279,12 +279,7 @@
 //   }
 // }
 
-
-
-
-
 import 'package:dio/dio.dart';
-
 
 class Failure<T> {
   int statusCode;
@@ -343,17 +338,19 @@ enum DataSource {
   sendTimeout,
   cacheError,
   noInternetConnection,
-  defaultError
+  defaultError,
 }
 
 class ApiResponseMessage {
   static String noContentError = 'No content available.';
   static String badRequestError = 'Bad request. Please check your input.';
-  static String unAuthenticationError = 'Authentication failed. Please login again.';
+  static String unAuthenticationError =
+      'Authentication failed. Please login again.';
   static String forbiddenError = 'Access forbidden.';
-  static String internalServerError = 'Internal server error. Please try again later.';
+  static String internalServerError =
+      'Internal server error. Please try again later.';
   static String notFoundError = 'Resource not found.';
-  
+
   static String conflictError = 'A conflict occurred. Please retry.';
   static String apiLogicalError = 'API returned a logical error.';
   static String connectTimeoutError = 'Connection timeout occurred.';
@@ -370,94 +367,109 @@ extension DataSourceExtension on DataSource {
     switch (this) {
       case DataSource.noContent:
         return Failure(
-            statusCode: ApiResponseCode.noContent,
-            message: ApiResponseMessage.noContentError,
-            status: ApiInternalStatus.failure,
-            success: false);
+          statusCode: ApiResponseCode.noContent,
+          message: ApiResponseMessage.noContentError,
+          status: ApiInternalStatus.failure,
+          success: false,
+        );
       case DataSource.badRequest:
         return Failure(
-            statusCode: ApiResponseCode.badRequest,
-            message: ApiResponseMessage.badRequestError,
-            status: ApiInternalStatus.failure,
-            success: false);
+          statusCode: ApiResponseCode.badRequest,
+          message: ApiResponseMessage.badRequestError,
+          status: ApiInternalStatus.failure,
+          success: false,
+        );
       case DataSource.conflict:
         return Failure(
-            statusCode: ApiResponseCode.conflict,
-            message: ApiResponseMessage.conflictError,
-            status: ApiInternalStatus.failure,
-            success: false);
+          statusCode: ApiResponseCode.conflict,
+          message: ApiResponseMessage.conflictError,
+          status: ApiInternalStatus.failure,
+          success: false,
+        );
       case DataSource.forbidden:
         return Failure(
-            statusCode: ApiResponseCode.forbidden,
-            message: ApiResponseMessage.forbiddenError,
-            status: ApiInternalStatus.failure,
-            success: false);
+          statusCode: ApiResponseCode.forbidden,
+          message: ApiResponseMessage.forbiddenError,
+          status: ApiInternalStatus.failure,
+          success: false,
+        );
       case DataSource.unAuth:
         return Failure(
-            statusCode: ApiResponseCode.unAuth,
-            status: ApiInternalStatus.failure,
-            message: ApiResponseMessage.unAuthenticationError,
-            success: false);
+          statusCode: ApiResponseCode.unAuth,
+          status: ApiInternalStatus.failure,
+          message: ApiResponseMessage.unAuthenticationError,
+          success: false,
+        );
       case DataSource.notFound:
         return Failure(
-            statusCode: ApiResponseCode.notFound,
-            message: ApiResponseMessage.notFoundError,
-            status: ApiInternalStatus.failure,
-            success: false);
+          statusCode: ApiResponseCode.notFound,
+          message: ApiResponseMessage.notFoundError,
+          status: ApiInternalStatus.failure,
+          success: false,
+        );
       case DataSource.internalServerError:
         return Failure(
-            statusCode: ApiResponseCode.internalServerError,
-            message: ApiResponseMessage.internalServerError,
-            status: ApiInternalStatus.failure,
-            success: false);
+          statusCode: ApiResponseCode.internalServerError,
+          message: ApiResponseMessage.internalServerError,
+          status: ApiInternalStatus.failure,
+          success: false,
+        );
       case DataSource.connectTimeout:
         return Failure(
-            statusCode: ApiResponseCode.connectTimeout,
-            message: ApiResponseMessage.connectTimeoutError,
-            status: ApiInternalStatus.failure,
-            success: false);
+          statusCode: ApiResponseCode.connectTimeout,
+          message: ApiResponseMessage.connectTimeoutError,
+          status: ApiInternalStatus.failure,
+          success: false,
+        );
       case DataSource.cancel:
         return Failure(
-            statusCode: ApiResponseCode.cancel,
-            message: ApiResponseMessage.cancelError,
-            status: ApiInternalStatus.failure,
-            success: false);
+          statusCode: ApiResponseCode.cancel,
+          message: ApiResponseMessage.cancelError,
+          status: ApiInternalStatus.failure,
+          success: false,
+        );
       case DataSource.receiveTimeout:
         return Failure(
-            statusCode: ApiResponseCode.receiveTimeout,
-            message: ApiResponseMessage.receiveTimeoutError,
-            status: ApiInternalStatus.failure,
-            success: false);
+          statusCode: ApiResponseCode.receiveTimeout,
+          message: ApiResponseMessage.receiveTimeoutError,
+          status: ApiInternalStatus.failure,
+          success: false,
+        );
       case DataSource.sendTimeout:
         return Failure(
-            statusCode: ApiResponseCode.sendTimeout,
-            message: ApiResponseMessage.sendTimeoutError,
-            status: ApiInternalStatus.failure,
-            success: false);
+          statusCode: ApiResponseCode.sendTimeout,
+          message: ApiResponseMessage.sendTimeoutError,
+          status: ApiInternalStatus.failure,
+          success: false,
+        );
       case DataSource.cacheError:
         return Failure(
-            statusCode: ApiResponseCode.cacheError,
-            message: ApiResponseMessage.cacheError,
-            status: ApiInternalStatus.failure,
-            success: false);
+          statusCode: ApiResponseCode.cacheError,
+          message: ApiResponseMessage.cacheError,
+          status: ApiInternalStatus.failure,
+          success: false,
+        );
       case DataSource.noInternetConnection:
         return Failure(
-            statusCode: ApiResponseCode.noInternetConnection,
-            message: ApiResponseMessage.noInternetConnectionError,
-            status: ApiInternalStatus.failure,
-            success: false);
+          statusCode: ApiResponseCode.noInternetConnection,
+          message: ApiResponseMessage.noInternetConnectionError,
+          status: ApiInternalStatus.failure,
+          success: false,
+        );
       case DataSource.defaultError:
         return Failure(
-            statusCode: ApiResponseCode.defaultError,
-            message: ApiResponseMessage.defaultError,
-            status: ApiInternalStatus.failure,
-            success: false);
+          statusCode: ApiResponseCode.defaultError,
+          message: ApiResponseMessage.defaultError,
+          status: ApiInternalStatus.failure,
+          success: false,
+        );
       case DataSource.apiLogicError:
         return Failure(
-            statusCode: ApiResponseCode.apiLogicalError,
-            message: ApiResponseMessage.apiLogicalError,
-            status: ApiInternalStatus.failure,
-            success: false);
+          statusCode: ApiResponseCode.apiLogicalError,
+          message: ApiResponseMessage.apiLogicalError,
+          status: ApiInternalStatus.failure,
+          success: false,
+        );
     }
   }
 }
@@ -506,19 +518,20 @@ Failure _handleError(DioException error) {
             }
           } else {
             errorsMessage =
-                jsonObject['message'] ?? ApiResponseMessage.badRequestError;
+                jsonObject['error'] ?? ApiResponseMessage.badRequestError;
           }
         }
         return Failure(
-            statusCode: statusCode ??
-                jsonObject['statusCode'] ??
-                ApiResponseCode.badRequest,
-            status: ApiInternalStatus.failure,
-            message:
-                jsonObject['message'] ?? ApiResponseMessage.badRequestError,
-            success: false,
-            jsonErrorObject: jsonObjectErrors,
-            prettyMessage: errorsMessage);
+          statusCode:
+              statusCode ??
+              jsonObject['statusCode'] ??
+              ApiResponseCode.badRequest,
+          status: ApiInternalStatus.failure,
+          message: jsonObject['error'] ?? ApiResponseMessage.badRequestError,
+          success: false,
+          jsonErrorObject: jsonObjectErrors,
+          prettyMessage: errorsMessage,
+        );
       } else {
         return DataSource.badRequest.getFailure();
       }

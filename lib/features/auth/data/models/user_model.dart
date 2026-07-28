@@ -1,14 +1,28 @@
 enum Gender { male, female }
+
 enum ActivityLevel { rookie, beginner, intermediate, advanced, trueBeast }
-enum Goal { loseWeight, gainWeight, getFitter, getMoreFlexible, learnTheBasic}
+
+enum Goal { loseWeight, gainWeight, getFitter, getMoreFlexible, learnTheBasic }
 
 extension ActivityLevelExtension on String {
-  ActivityLevel toActivityLevel() => ActivityLevel.values.firstWhere((g) => g.name == this);
+  ActivityLevel toActivityLevel() =>
+      ActivityLevel.values.firstWhere((g) => this == g.toStringActivityLevel());
+}
+
+extension ActivityLevelExtension2 on ActivityLevel {
+  String toStringActivityLevel() => switch (this) {
+    ActivityLevel.rookie => 'level1',
+    ActivityLevel.beginner => 'level2',
+    ActivityLevel.intermediate => 'level3',
+    ActivityLevel.advanced => 'level4',
+    ActivityLevel.trueBeast => 'level5',
+  };
 }
 
 extension GoalExtension on String {
   Goal toGoal() => Goal.values.firstWhere((g) => g.name == this);
 }
+
 extension GenderExtension on String {
   Gender toGender() => Gender.values.firstWhere((g) => g.name == this);
 }
@@ -84,7 +98,7 @@ class User {
     "age": age,
     "weight": weight,
     "height": height,
-    "activityLevel": activityLevel!.name,
+    "activityLevel": activityLevel!..toStringActivityLevel(),
     "goal": goal!.name,
   };
 }

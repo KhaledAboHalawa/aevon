@@ -9,6 +9,6 @@ Future<Result<T>> executeApiCall<T>({
     final result = await apiCall();
     return Success<T>(parser(result.data));
   } catch (e) {
-    return Error<T>(ErrorHandler.handle(e).failure as Failure<T>);
+    return Error<T>(ErrorHandler.handle(e).failure);
   }
 }

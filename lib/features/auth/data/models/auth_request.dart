@@ -39,12 +39,13 @@ class SignUpRequest {
     'lastName': lastName,
     'email': email,
     'password': password,
+    'rePassword': password,
     'gender': gender.name,
     'height': height,
     'weight': weight,
     'age': age,
     'goal': goal.name,
-    'activityLevel': activityLevel.name,
+    'activityLevel': activityLevel.toStringActivityLevel(),
   };
 
   @override

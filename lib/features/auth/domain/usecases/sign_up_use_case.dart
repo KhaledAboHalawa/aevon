@@ -9,5 +9,6 @@ class SignUpUseCase {
   final AuthRepo authRepo;
   SignUpUseCase({required this.authRepo});
 
-  Future<Result<AuthEntity>> call(SignUpRequest request) => authRepo.singUpWithREST(request);
+  Future<Result<AuthEntity>> call(SignUpRequest request) async =>
+      await authRepo.singUpWithREST(request);
 }

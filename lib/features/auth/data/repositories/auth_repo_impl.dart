@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/features/auth/data/datasource/auth_data_source.dart';
 import 'package:aevon/features/auth/data/datasource/auth_local_data_source.dart';
@@ -16,7 +18,7 @@ class AuthRepoImpl implements AuthRepo {
   Future<Result<AuthEntity>> singInWithREST(SignInRequest request) async {
     final result = await _authDataSource.singInWithREST(request);
     return result.when(
-      success: (data) async{
+      success: (data) async {
         await _authLocalDataSource.saveToken(data.token);
         return Success<AuthEntity>(data.toSignInEntity());
       },
@@ -26,9 +28,10 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Result<AuthEntity>> singUpWithREST(SignUpRequest request) async {
+    log("this inside repo");
     final result = await _authDataSource.singUpWithREST(request);
     return result.when(
-      success: (data) async{
+      success: (data) async {
         await _authLocalDataSource.saveToken(data.token);
         return Success<AuthEntity>(data.toSignInEntity());
       },

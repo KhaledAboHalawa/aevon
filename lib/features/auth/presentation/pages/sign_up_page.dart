@@ -1,5 +1,4 @@
 import 'package:aevon/core/utils/app_images.dart';
-import 'package:aevon/features/auth/presentation/widgets/sign_up/progress_indicator/progress_widget.dart';
 import 'package:aevon/features/auth/presentation/widgets/sign_up/sign_up_body.dart';
 import 'package:flutter/material.dart';
 
