@@ -1,4 +1,3 @@
-
 import 'package:aevon/core/shared/presentation/widgets/custom_button.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
@@ -8,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AgeSelection extends StatefulWidget {
-  const AgeSelection({super.key, required this.onContinue});
-  final void Function(int index) onContinue;
+  const AgeSelection({super.key, required this.onNext});
+  final void Function() onNext;
   @override
   State<AgeSelection> createState() => _AgeSelectionState();
 }
@@ -37,7 +36,7 @@ class _AgeSelectionState extends State<AgeSelection> {
           backgroundColor: AppColors.mainOrange,
           title: AppLocalizations.of(context)!.next,
           isLoading: false,
-          onPressed: (age == 0) ? null : () => widget.onContinue(3),
+          onPressed: (age == 0) ? null : () => widget.onNext.call(),
         ),
       ],
     );

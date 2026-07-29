@@ -9,6 +9,7 @@ import 'package:aevon/features/auth/presentation/widgets/sign_up/check_card.dart
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 class ActivityLevelSelection extends StatefulWidget {
@@ -32,6 +33,16 @@ class _ActivityLevelSelectionState extends State<ActivityLevelSelection> {
       listener: (BuildContext context, state) {
         if (state.authResonse != null) {
           context.pushReplacement(AppRoutes.home);
+        } else if (state.errorMessage != null) {
+          Fluttertoast.showToast(
+            msg: state.errorMessage!,
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.red,
+            textColor: AppColors.white,
+            fontSize: 14.0,
+          );
         }
       },
       builder: (BuildContext context, state) => Column(

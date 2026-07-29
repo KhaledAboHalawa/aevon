@@ -1,4 +1,5 @@
 import 'package:aevon/core/di/dependency_injection.dart';
+import 'package:aevon/core/router/app_routes.dart';
 import 'package:aevon/core/shared/presentation/widgets/custom_button.dart';
 import 'package:aevon/core/shared/presentation/widgets/custom_text_button.dart';
 import 'package:aevon/core/shared/presentation/widgets/custom_text_field.dart';
@@ -17,6 +18,8 @@ import 'package:aevon/features/auth/presentation/widgets/auth_options.dart';
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -33,16 +36,7 @@ class _SignInPageState extends State<SignInPage> {
   late final TextEditingController passwordController;
   late final FocusNode emailFocusNode;
   late final FocusNode passwordFocusNode;
-  late final formKey = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    emailFocusNode.dispose();
-    passwordFocusNode.dispose();
-    super.dispose();
-  }
+  late final GlobalKey<FormState> formKey;
 
   @override
   void initState() {
@@ -52,6 +46,16 @@ class _SignInPageState extends State<SignInPage> {
     emailFocusNode = FocusNode();
     passwordFocusNode = FocusNode();
     authCubit = getIt<AuthCubit>();
+    formKey = GlobalKey<FormState>();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -65,9 +69,24 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthCubit>(
-      create: (BuildContext context) => authCubit,
-      child: BlocSelector<AuthCubit, AuthState, bool>(
+    return BlocProvider<AuthCubit>.value(
+      value: authCubit,
+      child: BlocConsumer<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state.authResonse != null) {
+            context.pushReplacement(AppRoutes.home);
+          } else if (state.errorMessage != null) {
+            Fluttertoast.showToast(
+              msg: state.errorMessage!,
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 3,
+              backgroundColor: Colors.red,
+              textColor: AppColors.white,
+              fontSize: 14.0,
+            );
+          }
+        },
         builder: (context, state) {
           return Container(
             decoration: const BoxDecoration(
@@ -133,7 +152,7 @@ class _SignInPageState extends State<SignInPage> {
                             const SizedBox(height: 16),
                             CustomTextField(
                               hint: locale.email,
-                              canRequestFocus: !state,
+                              canRequestFocus: !state.isLoading,
                               isPassword: false,
                               controller: emailController,
                               validator: AppValidators.isValidEmail,
@@ -142,7 +161,7 @@ class _SignInPageState extends State<SignInPage> {
                             CustomTextField(
                               hint: locale.password,
                               isPassword: true,
-                              canRequestFocus: !state,
+                              canRequestFocus: !state.isLoading,
                               prefixIconPath: AppIcons.passwordIcon,
                               controller: passwordController,
                             ),
@@ -165,7 +184,7 @@ class _SignInPageState extends State<SignInPage> {
                             const SizedBox(height: 24),
                             CustomButton(
                               backgroundColor: AppColors.mainOrange,
-                              isLoading: state,
+                              isLoading: state.isLoading,
                               title: locale.signIn,
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
@@ -192,9 +211,6 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
           );
-        },
-        selector: (AuthState state) {
-          return state.isLoading;
         },
       ),
     );

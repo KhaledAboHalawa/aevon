@@ -28,7 +28,6 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Result<AuthEntity>> singUpWithREST(SignUpRequest request) async {
-    log("this inside repo");
     final result = await _authDataSource.singUpWithREST(request);
     return result.when(
       success: (data) async {

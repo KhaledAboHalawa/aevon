@@ -230,17 +230,17 @@ abstract class AppLocalizations {
   /// **'Year'**
   String get year;
 
-  /// No description provided for @weight.
+  /// No description provided for @kg.
   ///
   /// In en, this message translates to:
-  /// **'Weight'**
-  String get weight;
+  /// **'KG'**
+  String get kg;
 
-  /// No description provided for @height.
+  /// No description provided for @cm.
   ///
   /// In en, this message translates to:
-  /// **'Height'**
-  String get height;
+  /// **'CM'**
+  String get cm;
 
   /// No description provided for @heyThere.
   ///

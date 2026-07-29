@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WeightSelection extends StatefulWidget {
-  const WeightSelection({super.key, required this.onContinue});
-  final void Function(int index) onContinue;
+  const WeightSelection({super.key, required this.onNext});
+  final void Function() onNext;
   @override
   State<WeightSelection> createState() => _WeightSelectionState();
 }
@@ -20,7 +20,7 @@ class _WeightSelectionState extends State<WeightSelection> {
     return Column(
       children: [
         HorizontalYearPicker(
-          label: AppLocalizations.of(context)!.weight,
+          label: AppLocalizations.of(context)!.kg,
           minValue: 30,
           maxValue: 250,
           initialValue: 30,
@@ -36,7 +36,7 @@ class _WeightSelectionState extends State<WeightSelection> {
           backgroundColor: AppColors.mainOrange,
           title: AppLocalizations.of(context)!.next,
           isLoading: false,
-          onPressed: (weight == 0) ? null : () => widget.onContinue(4),
+          onPressed: (weight == 0) ? null : () => widget.onNext.call(),
         ),
       ],
     );

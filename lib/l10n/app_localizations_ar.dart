@@ -91,10 +91,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get year => 'Year';
 
   @override
-  String get weight => 'وزنك';
+  String get kg => 'كغ';
 
   @override
-  String get height => 'طولك';
+  String get cm => 'سم';
 
   @override
   String get heyThere => 'مرحبا';

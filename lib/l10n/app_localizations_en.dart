@@ -90,10 +90,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get year => 'Year';
 
   @override
-  String get weight => 'Weight';
+  String get kg => 'KG';
 
   @override
-  String get height => 'Height';
+  String get cm => 'CM';
 
   @override
   String get heyThere => 'Hey There';

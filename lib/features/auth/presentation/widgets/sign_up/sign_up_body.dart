@@ -1,4 +1,5 @@
 import 'package:aevon/core/di/dependency_injection.dart';
+import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/utils/app_images.dart';
 import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:aevon/features/auth/presentation/widgets/sign_up/progress_indicator/progress_widget.dart';
@@ -34,7 +35,39 @@ class _SignUpBodyState extends State<SignUpBody> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(AppImages.logo, width: 70, height: 48),
+          Row(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    const SizedBox(width: 16),
+                    IconButton(
+                      onPressed: () => setState(() {
+                        if (selectedIndex > 0) {
+                          --selectedIndex;
+                        } else {
+                          Navigator.pop(context);
+                        }
+                      }),
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                        color: AppColors.mainOrange,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Expanded(
+                child: Row(
+                  children: [
+                    Image.asset(AppImages.logo, width: 70, height: 48),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 70),
+            ],
+          ),
           const SizedBox(height: 34),
           if (selectedIndex != 0)
             Padding(
@@ -47,8 +80,8 @@ class _SignUpBodyState extends State<SignUpBody> {
             ),
           SignUpSlider(
             index: selectedIndex,
-            onContinue: (index) => setState(() {
-              selectedIndex = index;
+            onNext: () => setState(() {
+              ++selectedIndex;
             }),
           ),
         ],

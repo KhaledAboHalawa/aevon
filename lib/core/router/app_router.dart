@@ -5,6 +5,7 @@ import 'package:aevon/core/router/app_routes.dart';
 import 'package:aevon/core/utils/app_constants.dart';
 import 'package:aevon/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:aevon/features/auth/presentation/pages/sign_up_page.dart';
+import 'package:aevon/features/home/presentation/pages/home_page.dart';
 import 'package:aevon/features/onboarding/presentation/pages/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -29,11 +30,18 @@ GoRouter router = GoRouter(
     appRoute(
       name: AppRoutes.signIn,
       page: (state, context) => const SignInPage(),
+      redirect: (context, state) {
+        String? isSigned = getIt<SharedPreferences>().getString(AppKeys.token);
+        if (isSigned != null) return AppRoutes.home;
+        return null;
+      },
     ),
     appRoute(
       name: AppRoutes.signUp,
       page: (state, context) => const SignUpPage(),
     ),
+
+    appRoute(name: AppRoutes.home, page: (state, context) => const HomePage()),
   ],
 );
 

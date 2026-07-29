@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GoalSelection extends StatefulWidget {
-  const GoalSelection({super.key, required this.onContinue});
-  final void Function(int index) onContinue;
+  const GoalSelection({super.key, required this.onNext});
+  final void Function() onNext;
   @override
   State<GoalSelection> createState() => _GoalSelectionState();
 }
@@ -55,7 +55,7 @@ class _GoalSelectionState extends State<GoalSelection> {
             onPressed: (selectedGoal == null)
                 ? null
                 : () {
-                    widget.onContinue(6);
+                    widget.onNext();
                     BlocProvider.of<AuthCubit>(context).signUpRequest.goal =
                         selectedGoal!;
                   },

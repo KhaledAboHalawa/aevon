@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GenderSelection extends StatefulWidget {
-  const GenderSelection({super.key, required this.onContinue});
-  final void Function(int index) onContinue;
+  const GenderSelection({super.key, required this.onNext});
+  final void Function() onNext;
 
   @override
   State<GenderSelection> createState() => _GenderSelectionState();
@@ -50,7 +50,7 @@ class _GenderSelectionState extends State<GenderSelection> {
               : () {
                   BlocProvider.of<AuthCubit>(context).signUpRequest.gender =
                       selectedGender!;
-                  widget.onContinue(2);
+                  widget.onNext.call();
                 },
         ),
       ],

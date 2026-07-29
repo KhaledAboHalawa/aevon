@@ -1,7 +1,7 @@
 part of 'auth_cubit.dart';
 
 class AuthState extends Equatable {
-  final String errorMessage;
+  final String? errorMessage;
   final AuthEntity? authResonse;
   final bool isLoading;
   const AuthState({
@@ -11,7 +11,7 @@ class AuthState extends Equatable {
   });
 
   const AuthState.initial()
-    : errorMessage = '',
+    : errorMessage = null,
       authResonse = null,
       isLoading = false;
   AuthState copyWith({
@@ -20,8 +20,8 @@ class AuthState extends Equatable {
     bool? isLoading,
   }) {
     return AuthState(
-      errorMessage: errorMessage ?? this.errorMessage,
-      authResonse: authResonse ?? this.authResonse,
+      errorMessage: errorMessage,
+      authResonse: authResonse,
       isLoading: isLoading ?? this.isLoading,
     );
   }

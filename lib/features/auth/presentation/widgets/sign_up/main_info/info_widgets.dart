@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InfoWidget extends StatefulWidget {
-  const InfoWidget({super.key, required this.onContinue});
-  final void Function(int index) onContinue;
+  const InfoWidget({super.key, required this.onNext});
+  final void Function() onNext;
   @override
   State<InfoWidget> createState() => _InfoWidgetState();
 }
@@ -122,7 +122,7 @@ class _InfoWidgetState extends State<InfoWidget> {
                         ..lastName = lastNameController.text.trim()
                         ..email = emailController.text.trim()
                         ..password = passwordController.text.trim();
-                      widget.onContinue(1);
+                      widget.onNext.call();
                     }
                   },
           ),

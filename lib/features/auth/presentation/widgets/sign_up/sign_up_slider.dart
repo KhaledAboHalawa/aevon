@@ -13,13 +13,9 @@ import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class SignUpSlider extends StatefulWidget {
-  const SignUpSlider({
-    super.key,
-    required this.index,
-    required this.onContinue,
-  });
+  const SignUpSlider({super.key, required this.index, required this.onNext});
   final int index;
-  final void Function(int index) onContinue;
+  final void Function() onNext;
   @override
   State<SignUpSlider> createState() => _SignUpSliderState();
 }
@@ -29,12 +25,12 @@ class _SignUpSliderState extends State<SignUpSlider> {
   bool isFirstLoading = true;
   late AppLocalizations locale;
   List<Widget> get pages => [
-    InfoWidget(onContinue: widget.onContinue),
-    GenderSelection(onContinue: widget.onContinue),
-    AgeSelection(onContinue: widget.onContinue),
-    WeightSelection(onContinue: widget.onContinue),
-    HeightSelection(onContinue: widget.onContinue),
-    GoalSelection(onContinue: widget.onContinue),
+    InfoWidget(onNext: widget.onNext,),
+    GenderSelection(onNext: widget.onNext),
+    AgeSelection(onNext: widget.onNext),
+    WeightSelection(onNext: widget.onNext),
+    HeightSelection(onNext: widget.onNext),
+    GoalSelection(onNext: widget.onNext),
     const ActivityLevelSelection(),
   ];
 

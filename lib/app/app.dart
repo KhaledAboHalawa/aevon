@@ -6,6 +6,7 @@ import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -20,8 +21,9 @@ class MainApp extends StatelessWidget {
               value: const SystemUiOverlayStyle(
                 statusBarColor: Colors.transparent,
                 statusBarIconBrightness: Brightness.light,
-                systemNavigationBarColor: Color.fromARGB(255, 0, 0, 0),
+                systemNavigationBarColor: Colors.transparent,
                 systemNavigationBarIconBrightness: Brightness.light,
+                systemNavigationBarDividerColor: Colors.transparent,
               ),
               child: MaterialApp.router(
                 debugShowCheckedModeBanner: false,
