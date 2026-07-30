@@ -69,7 +69,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
         },
         listener: (BuildContext context, OnboardingState state) {
           if (state is OnboardingFinished) {
-            context.go(AppRoutes.home);
+            context.go(AppRoutes.signIn);
           }
         },
       ),

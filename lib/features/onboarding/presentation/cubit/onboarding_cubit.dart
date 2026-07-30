@@ -49,13 +49,8 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     }
   }
 
-  void _skip() {
+  Future<void> _skip() async {
     emit(OnboardingFinished());
-  }
-
-  @override
-  Future<void> close() async {
     await _sharedPreferences.setBool(AppKeys.seenOnboarding, true);
-    return super.close();
   }
 }
