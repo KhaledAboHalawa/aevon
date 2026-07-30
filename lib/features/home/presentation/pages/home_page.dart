@@ -1,9 +1,16 @@
 import 'package:aevon/core/utils/app_images.dart';
+import 'package:aevon/features/home/presentation/widgets/custom_nav_bar/custom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,9 +20,18 @@ class HomePage extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child: const Scaffold(
+      child: Scaffold(
         extendBody: true,
         backgroundColor: Colors.transparent,
+        body: const Column(children: [Center(child: Text('Home'))]),
+        bottomNavigationBar: CustomNavBar(
+          currentIndex: currentIndex,
+          onTap: (d) {
+            setState(() {
+              currentIndex = d;
+            });
+          },
+        ),
       ),
     );
   }

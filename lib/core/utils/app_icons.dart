@@ -9,4 +9,9 @@ class AppIcons {
   static const String apple = 'assets/icons/Apple.svg';
   static const String male = 'assets/icons/male.svg';
   static const String female = 'assets/icons/female.svg';
+  static const String profile = 'assets/icons/profile.svg';
+  static const String aiChat = 'assets/icons/chat_ai.svg';
+  static const String workOuts = 'assets/icons/gym.svg';
+  static const String home = 'assets/icons/home.svg';
+
 }

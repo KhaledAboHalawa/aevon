@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/features/auth/data/datasource/auth_data_source.dart';
 import 'package:aevon/features/auth/data/datasource/auth_local_data_source.dart';

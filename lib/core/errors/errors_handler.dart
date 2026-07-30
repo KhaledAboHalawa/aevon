@@ -488,6 +488,8 @@ class ErrorHandler implements Exception {
 
 Failure _handleError(DioException error) {
   switch (error.type) {
+    case DioExceptionType.transformTimeout:
+      return DataSource.sendTimeout.getFailure();
     case DioExceptionType.connectionTimeout:
       return DataSource.connectTimeout.getFailure();
     case DioExceptionType.sendTimeout:
