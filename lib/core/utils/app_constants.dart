@@ -16,7 +16,7 @@ class ApiConstants {
   static const String signIn = '${authBaseUrl}signin';
   static const String signUp = '${authBaseUrl}signup';
   static const String changePassword = '${authBaseUrl}change-password';
-  static const String forgotPassword = '${authBaseUrl}forgotPassword';
+  static const String forgetPassword = '${authBaseUrl}forgotPassword';
   static const String uploadProfilePhoto = '${authBaseUrl}upload-photo';
   static const String getProfile = '${authBaseUrl}profile-data';
   static const String logout = '${authBaseUrl}logout';
