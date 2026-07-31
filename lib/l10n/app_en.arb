@@ -58,7 +58,26 @@
     "step": {
       "type": "String"
     }
-  }}
+  }},
+  "forgetPasswordTitles": "{page, select, 0{Forget password} 1{OTP CODE} other{Create New Password}}",
+  "@forgetPasswordTitles": {
+  "description": "forgetPasswordTitles",
+  "placeholders": {
+    "page": {
+      "type": "String"
+    }
+  }},
+  "forgetPasswordSubtitles": "{page, select, 0{Enter Your Email} 1{Enter Your OTP Check your email} other{Create New Password}}",
+  "@forgetPasswordSubtitles": {
+    "description": "forgetPasswordSubtitles",
+    "placeholders": {
+      "page": {
+        "type": "String"
+      }
+    }
+  },
+  "sendOtp": "Send OTP",
+  "verify": "Verify"
 
 
 }

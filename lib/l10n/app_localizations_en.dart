@@ -152,4 +152,30 @@ class AppLocalizationsEn extends AppLocalizations {
     });
     return '$_temp0';
   }
+
+  @override
+  String forgetPasswordTitles(String page) {
+    String _temp0 = intl.Intl.selectLogic(page, {
+      '0': 'Forget password',
+      '1': 'OTP CODE',
+      'other': 'Create New Password',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String forgetPasswordSubtitles(String page) {
+    String _temp0 = intl.Intl.selectLogic(page, {
+      '0': 'Enter Your Email',
+      '1': 'Enter Your OTP Check your email',
+      'other': 'Create New Password',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get sendOtp => 'Send OTP';
+
+  @override
+  String get verify => 'Verify';
 }

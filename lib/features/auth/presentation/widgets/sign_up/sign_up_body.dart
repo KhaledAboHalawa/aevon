@@ -61,7 +61,7 @@ class _SignUpBodyState extends State<SignUpBody> {
               Expanded(
                 child: Row(
                   children: [
-                    Image.asset(AppImages.logo, width: 70, height: 48),
+                    Image.asset(AppImages.logo, width: 70),
                   ],
                 ),
               ),

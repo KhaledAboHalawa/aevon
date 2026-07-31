@@ -9,7 +9,7 @@ class CustomTextField extends StatefulWidget {
     required this.hint,
     this.onChange,
     required this.controller,
-    required this.isPassword,
+    this.isPassword = false,
     this.prefixIconPath,
     this.validator,
     this.canRequestFocus,

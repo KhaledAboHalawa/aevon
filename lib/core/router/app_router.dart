@@ -5,6 +5,7 @@ import 'package:aevon/core/router/app_routes.dart';
 import 'package:aevon/core/utils/app_constants.dart';
 import 'package:aevon/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:aevon/features/auth/presentation/pages/sign_up_page.dart';
+import 'package:aevon/features/forget_password/presentation/pages/forget_password_page.dart';
 import 'package:aevon/features/home/presentation/pages/home_page.dart';
 import 'package:aevon/features/onboarding/presentation/pages/onboarding.dart';
 import 'package:flutter/material.dart';
@@ -40,8 +41,15 @@ GoRouter router = GoRouter(
       name: AppRoutes.signUp,
       page: (state, context) => const SignUpPage(),
     ),
+    appRoute(
+      name: AppRoutes.forgetPassword,
+      page: (state, context) => const ForgetPasswordPage(),
+    ),
 
-    appRoute(name: AppRoutes.home, page: (state, context) => const HomePage()),
+    appRoute(
+      name: AppRoutes.home,
+      page: (state, context) => const ForgetPasswordPage(),
+    ),
   ],
 );
 

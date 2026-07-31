@@ -62,5 +62,25 @@
     "step": {
       "type": "String"
     }
-  }}
+  }},
+  "forgetPasswordTitles": "{page, select, 0{مرحبًا، نسيت كلمة المرور} 1{رمز التحقق} other{أنشئ كلمة مرور جديدة}}",
+  "@forgetPasswordTitles": {
+    "description": "forgetPasswordTitles",
+    "placeholders": {
+      "page": {
+        "type": "String"
+      }
+    }
+  },
+  "forgetPasswordSubtitles": "{page, select, 0{ادخل البريد الالكتروني} 1{ادخل رمز التحقق, المرسل على البريد الالكتروني} other{ادخل كلمة المرور الجديدة}}",
+  "@forgetPasswordSubtitles": {
+    "description": "forgetPasswordSubtitles",
+    "placeholders": {
+      "page": {
+        "type": "String"
+      }
+    }
+  },
+  "sendOtp": "ارسل رمز التحقق",
+  "verify": "تاكيد"
 }

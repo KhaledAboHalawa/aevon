@@ -153,4 +153,30 @@ class AppLocalizationsAr extends AppLocalizations {
     });
     return '$_temp0';
   }
+
+  @override
+  String forgetPasswordTitles(String page) {
+    String _temp0 = intl.Intl.selectLogic(page, {
+      '0': 'مرحبًا، نسيت كلمة المرور',
+      '1': 'رمز التحقق',
+      'other': 'أنشئ كلمة مرور جديدة',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String forgetPasswordSubtitles(String page) {
+    String _temp0 = intl.Intl.selectLogic(page, {
+      '0': 'ادخل البريد الالكتروني',
+      '1': 'ادخل رمز التحقق, المرسل على البريد الالكتروني',
+      'other': 'ادخل كلمة المرور الجديدة',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get sendOtp => 'ارسل رمز التحقق';
+
+  @override
+  String get verify => 'تاكيد';
 }

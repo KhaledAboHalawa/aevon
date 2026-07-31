@@ -319,6 +319,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{step, select, 0{Hey There} 1{We Need To Know Your Gender} other{this helps us create Your personalized plan}}'**
   String signUpSubtitle(String step);
+
+  /// forgetPasswordTitles
+  ///
+  /// In en, this message translates to:
+  /// **'{page, select, 0{Forget password} 1{OTP CODE} other{Create New Password}}'**
+  String forgetPasswordTitles(String page);
+
+  /// forgetPasswordSubtitles
+  ///
+  /// In en, this message translates to:
+  /// **'{page, select, 0{Enter Your Email} 1{Enter Your OTP Check your email} other{Create New Password}}'**
+  String forgetPasswordSubtitles(String page);
+
+  /// No description provided for @sendOtp.
+  ///
+  /// In en, this message translates to:
+  /// **'Send OTP'**
+  String get sendOtp;
+
+  /// No description provided for @verify.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verify;
 }
 
 class _AppLocalizationsDelegate

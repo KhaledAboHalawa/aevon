@@ -5,9 +5,8 @@ import 'package:injectable/injectable.dart';
 @lazySingleton
 class ForgetPasswordUseCase {
   final ForgetPasswordRepo forgetPasswordRepo;
-
   const ForgetPasswordUseCase({required this.forgetPasswordRepo});
-
+  
   Future<Result<void>> call({required String email}) =>
       forgetPasswordRepo.forgetPassword(email: email);
 }
