@@ -36,4 +36,13 @@ class AppValidators {
     }
     return null;
   }
+
+  static String? isValidConfirmPassword(String? value, String? password) {
+    if (value == null || value.isEmpty) {
+      return 'Confirm Password is required';
+    } else if (value != password) {
+      return 'Passwords do not match';
+    }
+    return null;
+  }
 }

@@ -24,12 +24,12 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     verifyCode: _verifyCode,
     resetPassword: _resetPassword,
   );
-  
+
   void _forgetPassword({required String email}) async {
     emit(state.copyWith(isLoading: true));
     final result = await forgetPasswordUseCase(email: email);
     return result.when(
-      success: (data) => emit(state.copyWith(currentPage: 1, isLoading: false)),
+      success: (data) => emit(state.copyWith(email: email, currentPage: 1, isLoading: false)),
       error: (failure) =>
           emit(state.copyWith(errorMessage: failure.message, isLoading: false)),
     );
@@ -45,9 +45,9 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     );
   }
 
-  void _resetPassword({required String email, required String password}) async {
+  void _resetPassword({required String password}) async {
     emit(state.copyWith(isLoading: true));
-    final result = await resetPasswordUseCase(email: email, password: password);
+    final result = await resetPasswordUseCase(email: state.email, password: password);
     return result.when(
       success: (data) => emit(state.copyWith(isLoading: false)),
       error: (failure) =>

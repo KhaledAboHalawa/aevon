@@ -178,4 +178,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get verify => 'Verify';
+
+  @override
+  String get rePassword => 'Re-Password';
+
+  @override
+  String get didntReceiveCode => 'Didn\'t Receive Verification Code?';
+
+  @override
+  String get resendCode => 'Resend Code';
 }

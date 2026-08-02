@@ -27,7 +27,7 @@ class ForgetPasswordDataSource {
     required String email,
     required String password,
   }) async => await executeApiCall<void>(
-    apiCall: () async => await dio.post(
+    apiCall: () async => await dio.put(
       ApiConstants.resetPassword,
       data: {'email': email, 'newPassword': password},
     ),

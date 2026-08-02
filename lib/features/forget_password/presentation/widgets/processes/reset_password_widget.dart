@@ -9,25 +9,25 @@ import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ForgetPasswordSentEmailWidget extends StatefulWidget {
-  const ForgetPasswordSentEmailWidget({super.key});
+class ResetPasswordWidget extends StatefulWidget {
+  const ResetPasswordWidget({super.key});
 
   @override
-  State<ForgetPasswordSentEmailWidget> createState() =>
-      _ForgetPasswordSentEmailWidgetState();
+  State<ResetPasswordWidget> createState() => _ResetPasswordWidgetState();
 }
 
-class _ForgetPasswordSentEmailWidgetState
-    extends State<ForgetPasswordSentEmailWidget> {
+class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
   bool localized = false;
   late final AppLocalizations locale;
-  late final TextEditingController controller;
+  late final TextEditingController passwordController;
+  late final TextEditingController rePasswordController;
   late final GlobalKey<FormState> formKey;
   late final ForgetPasswordCubit cubit;
   @override
   void initState() {
     super.initState();
-    controller = TextEditingController();
+    passwordController = TextEditingController();
+    rePasswordController = TextEditingController();
     cubit = getIt<ForgetPasswordCubit>();
     formKey = GlobalKey<FormState>();
   }
@@ -43,7 +43,8 @@ class _ForgetPasswordSentEmailWidgetState
 
   @override
   void dispose() {
-    controller.dispose();
+    passwordController.dispose();
+    rePasswordController.dispose();
     super.dispose();
   }
 
@@ -52,24 +53,38 @@ class _ForgetPasswordSentEmailWidgetState
     return Form(
       key: formKey,
       child: Column(
-        spacing: 24,
+        spacing: 10,
         children: [
           CustomTextField(
-            hint: locale.email,
-            controller: controller,
-            prefixIconPath: AppIcons.mailIcon,
-            validator: (p0) => AppValidators.isValidEmail(p0),
+            hint: locale.password,
+            controller: passwordController,
+            isPassword: true,
+            prefixIconPath: AppIcons.passwordIcon,
+            validator: (p0) => AppValidators.isValidPassword(p0),
           ),
+          CustomTextField(
+            hint: locale.rePassword,
+            controller: rePasswordController,
+            isPassword: true,
+            prefixIconPath: AppIcons.passwordIcon,
+            validator: (p0) => AppValidators.isValidConfirmPassword(
+              p0,
+              passwordController.text,
+            ),
+          ),
+          const SizedBox(height: 0),
           CustomButton(
             onPressed: () {
               if (formKey.currentState!.validate()) {
                 cubit.doIntent(
-                  ForgetPasswordEventSendEmail(email: controller.text),
+                  ForgetPasswordEventResetPassword(
+                    password: passwordController.text,
+                  ),
                 );
               }
             },
             backgroundColor: AppColors.mainOrange,
-            title: locale.sendOtp,
+            title: locale.next,
             isLoading: context.select(
               (ForgetPasswordCubit cubit) => cubit.state.isLoading,
             ),

@@ -179,4 +179,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get verify => 'تاكيد';
+
+  @override
+  String get rePassword => 'تاكيد كلمة المرور';
+
+  @override
+  String get didntReceiveCode => 'لم يتم الاستلام منك رمز التحقق';
+
+  @override
+  String get resendCode => 'ارسل رمز التحقق مرة اخرى';
 }

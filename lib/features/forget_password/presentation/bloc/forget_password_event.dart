@@ -6,8 +6,7 @@ abstract class ForgetPasswordEvent extends Equatable {
   void when({
     required Function({required String email}) sendEmail,
     required Function({required String code}) verifyCode,
-    required Function({required String email, required String password})
-    resetPassword,
+    required Function({required String password}) resetPassword,
   }) {
     switch (this) {
       case ForgetPasswordEventSendEmail event:
@@ -15,7 +14,7 @@ abstract class ForgetPasswordEvent extends Equatable {
       case ForgetPasswordEventVerifyCode event:
         verifyCode(code: event.code);
       case ForgetPasswordEventResetPassword event:
-        resetPassword(email: event.email, password: event.password);
+        resetPassword(password: event.password);
     }
   }
 
@@ -38,12 +37,8 @@ class ForgetPasswordEventVerifyCode extends ForgetPasswordEvent {
 }
 
 class ForgetPasswordEventResetPassword extends ForgetPasswordEvent {
-  final String email;
   final String password;
-  const ForgetPasswordEventResetPassword({
-    required this.email,
-    required this.password,
-  });
+  const ForgetPasswordEventResetPassword({required this.password});
   @override
-  List<Object> get props => [email, password];
+  List<Object> get props => [password];
 }

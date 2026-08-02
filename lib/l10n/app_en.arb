@@ -77,7 +77,10 @@
     }
   },
   "sendOtp": "Send OTP",
-  "verify": "Verify"
+  "verify": "Verify",
+  "rePassword": "Re-Password",
+  "didntReceiveCode": "Didn't Receive Verification Code?",
+  "resendCode": "Resend Code"
 
 
 }

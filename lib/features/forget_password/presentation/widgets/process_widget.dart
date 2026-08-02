@@ -1,5 +1,7 @@
 import 'package:aevon/features/auth/presentation/widgets/blured_card.dart';
 import 'package:aevon/features/forget_password/presentation/widgets/processes/forget_password_sent_email_widget.dart';
+import 'package:aevon/features/forget_password/presentation/widgets/processes/reset_password_widget.dart';
+import 'package:aevon/features/forget_password/presentation/widgets/processes/verify_code_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProcessWidget extends StatefulWidget {
@@ -10,7 +12,11 @@ class ProcessWidget extends StatefulWidget {
 }
 
 class _ProcessWidgetState extends State<ProcessWidget> {
-  List<Widget> pages = [const ForgetPasswordSentEmailWidget()];
+  List<Widget> pages = [
+    const ForgetPasswordSentEmailWidget(),
+    const VerifyCodeWidget(),
+    const ResetPasswordWidget(),
+  ];
   @override
   Widget build(BuildContext context) {
     return BluredCard(

@@ -13,12 +13,12 @@ class ForgetPasswordRepoImpl implements ForgetPasswordRepo {
       await dataSource.forgetPassword(email: email);
 
   @override
+  Future<Result<void>> verifyCode({required String code}) async =>
+      await dataSource.verifyCode(code: code);
+      
+  @override
   Future<Result<void>> resetPassword({
     required String email,
     required String password,
   }) async => await dataSource.resetPassword(email: email, password: password);
-
-  @override
-  Future<Result<void>> verifyCode({required String code}) async =>
-      await dataSource.verifyCode(code: code);
 }
