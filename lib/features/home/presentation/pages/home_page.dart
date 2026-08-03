@@ -10,7 +10,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int currentIndex = 0;
+  late final PageController _pageController;
+  final List<Widget> _tabs = const [
+    Center(child: Text('Home')),
+    Center(child: Text('Search')),
+    Center(child: Text('Profile')),
+  ];
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,13 +40,14 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         extendBody: true,
         backgroundColor: Colors.transparent,
-        body: const Column(children: [Center(child: Text('Home'))]),
+        body: PageView(controller: _pageController, children: _tabs),
         bottomNavigationBar: CustomNavBar(
-          currentIndex: currentIndex,
           onTap: (d) {
-            setState(() {
-              currentIndex = d;
-            });
+            _pageController.animateToPage(
+              d,
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+            );
           },
         ),
       ),

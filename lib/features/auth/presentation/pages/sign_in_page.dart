@@ -169,7 +169,9 @@ class _SignInPageState extends State<SignInPage> {
                               alignment: Alignment.topRight,
                               child: CustomTextButton(
                                 title: locale.forgetPassword,
-                                onPressed: () {},
+                                onPressed: () {
+                                  context.push(AppRoutes.forgetPassword);
+                                },
                                 style: AppFont.balooThambi2Regular(
                                   fontSize: 12,
                                   color: AppColors.mainOrange,

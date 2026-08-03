@@ -48,7 +48,7 @@ GoRouter router = GoRouter(
 
     appRoute(
       name: AppRoutes.home,
-      page: (state, context) => const ForgetPasswordPage(),
+      page: (state, context) => const HomePage(),
     ),
   ],
 );

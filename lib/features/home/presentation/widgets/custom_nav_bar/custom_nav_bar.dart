@@ -4,16 +4,17 @@ import 'package:aevon/features/home/presentation/widgets/custom_nav_bar/custmo_n
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class CustomNavBar extends StatelessWidget {
-  final int currentIndex;
+class CustomNavBar extends StatefulWidget {
   final ValueChanged<int> onTap;
 
-  const CustomNavBar({
-    super.key,
-    required this.currentIndex,
-    required this.onTap,
-  });
+  const CustomNavBar({super.key, required this.onTap});
 
+  @override
+  State<CustomNavBar> createState() => _CustomNavBarState();
+}
+
+class _CustomNavBarState extends State<CustomNavBar> {
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,40 +31,52 @@ class CustomNavBar extends StatelessWidget {
               CustmoNavBarItem(
                 iconPath: AppIcons.home,
                 title: 'Explore',
-                selected: currentIndex == 0,
+                selected: _currentIndex == 0,
                 onTap: (index) {
-                  HapticFeedback.selectionClick();
-                  onTap(index);
+                  setState(() {
+                    HapticFeedback.selectionClick();
+                    _currentIndex = index;
+                    widget.onTap(index);
+                  });
                 },
                 index: 0,
               ),
               CustmoNavBarItem(
                 iconPath: AppIcons.aiChat,
                 title: 'Chat',
-                selected: currentIndex == 1,
+                selected: _currentIndex == 1,
                 onTap: (index) {
-                  HapticFeedback.selectionClick();
-                  onTap(index);
+                  setState(() {
+                    HapticFeedback.selectionClick();
+                    _currentIndex = index;
+                    widget.onTap(index);
+                  });
                 },
                 index: 1,
               ),
               CustmoNavBarItem(
                 iconPath: AppIcons.workOuts,
                 title: 'Workouts',
-                selected: currentIndex == 2,
+                selected: _currentIndex == 2,
                 onTap: (index) {
-                  HapticFeedback.selectionClick();
-                  onTap(index);
+                  setState(() {
+                    HapticFeedback.selectionClick();
+                    _currentIndex = index;
+                    widget.onTap(index);
+                  });
                 },
                 index: 2,
               ),
               CustmoNavBarItem(
                 iconPath: AppIcons.profile,
                 title: 'Profile',
-                selected: currentIndex == 3,
+                selected: _currentIndex == 3,
                 onTap: (index) {
-                  HapticFeedback.selectionClick();
-                  onTap(index);
+                  setState(() {
+                    HapticFeedback.selectionClick();
+                    _currentIndex = index;
+                    widget.onTap(index);
+                  });
                 },
                 index: 3,
               ),
