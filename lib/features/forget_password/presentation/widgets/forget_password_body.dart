@@ -41,14 +41,14 @@ class _ForgetPasswordBodyState extends State<ForgetPasswordBody> {
             );
           }
         },
-        builder: (BuildContext context, state) => const Column(
+        builder: (BuildContext context, state) => Column(
           spacing: 8,
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 60),
-            TextHintsWidget(currentPage: 1),
-            ProcessWidget(currentPage: 1),
+            const SizedBox(height: 60),
+            TextHintsWidget(currentPage: state.currentPage),
+            ProcessWidget(currentPage: state.currentPage),
           ],
         ),
       ),

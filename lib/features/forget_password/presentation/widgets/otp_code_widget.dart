@@ -50,26 +50,17 @@ class _OtpCodeWidgetState extends State<OtpCodeWidget> {
   void _focusCurrent() {
     final index = _currentIndex();
     _focusNodes[index].requestFocus();
-    // put cursor at the end of that field's text
-    _controllers[index].selection = TextSelection.fromPosition(
-      TextPosition(offset: _controllers[index].text.length),
-    );
   }
 
   void _onChanged(String value, int index) {
     if (value.isNotEmpty) {
-      // move to next field
       if (index < widget.length - 1) {
         _focusNodes[index + 1].requestFocus();
       } else {
-        _focusNodes[index].unfocus(); // last field, close keyboard
+        _focusNodes[index].unfocus(); 
+        final otp = _controllers.map((c) => c.text).join();
+        widget.onCompleted(otp);
       }
-    }
-
-    final otp = _controllers.map((c) => c.text).join();
-    widget.onChanged?.call(otp);
-    if (otp.length == widget.length) {
-      widget.onCompleted(otp);
     }
   }
 
