@@ -361,6 +361,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resend Code'**
   String get resendCode;
+
+  /// No description provided for @chatOnboardingBottomSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How Can I Assist You\n Today?'**
+  String get chatOnboardingBottomSheetTitle;
+
+  /// No description provided for @getStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
+  /// No description provided for @hi.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi'**
+  String get hi;
+
+  /// No description provided for @chatOnboardingHeaderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'I am your smart coach'**
+  String get chatOnboardingHeaderTitle;
+
+  /// No description provided for @chatHeaderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart Coach'**
+  String get chatHeaderTitle;
 }
 
 class _AppLocalizationsDelegate

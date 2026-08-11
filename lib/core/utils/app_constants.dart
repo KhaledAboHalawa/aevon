@@ -5,6 +5,7 @@ class AppKeys {
   static const String arabicLocale = 'ar';
   static const String seenOnboarding = "seenOnboarding";
   static const String token = "token";
+  static const String chatOnboardingSeen = "chatOnboardingSeen";
 }
 
 class ApiConstants {
@@ -24,4 +25,7 @@ class ApiConstants {
   static const String resetPassword = '${authBaseUrl}resetPassword';
   static const String deleteAcount = '${authBaseUrl}deleteMe';
   static const String editProfile = '${authBaseUrl}editProfile';
+
+  // Chat Endpoints
+  static const String aiChatEndpoint = 'https://api.openai.com/v1/chat/completions';
 }

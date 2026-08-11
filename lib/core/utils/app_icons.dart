@@ -13,5 +13,6 @@ class AppIcons {
   static const String aiChat = 'assets/icons/chat_ai.svg';
   static const String workOuts = 'assets/icons/gym.svg';
   static const String home = 'assets/icons/home.svg';
+  static const String menu = 'assets/icons/menu.svg';
 
 }

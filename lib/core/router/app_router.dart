@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/router/app_routes.dart';
 import 'package:aevon/core/utils/app_constants.dart';
+import 'package:aevon/features/ai_chat/presentation/pages/chat_onboarding.dart';
 import 'package:aevon/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:aevon/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:aevon/features/forget_password/presentation/pages/forget_password_page.dart';
@@ -49,6 +50,11 @@ GoRouter router = GoRouter(
     appRoute(
       name: AppRoutes.home,
       page: (state, context) => const HomePage(),
+    ),
+
+    appRoute(
+      name: AppRoutes.chatOnboarding,
+      page: (state, context) => const ChatOnboarding(),
     ),
   ],
 );

@@ -80,7 +80,12 @@
   "verify": "Verify",
   "rePassword": "Re-Password",
   "didntReceiveCode": "Didn't Receive Verification Code?",
-  "resendCode": "Resend Code"
+  "resendCode": "Resend Code",
+  "chatOnboardingBottomSheetTitle":"How Can I Assist You\n Today?",
+  "getStarted" :"Get Started",
+  "hi":"Hi",
+  "chatOnboardingHeaderTitle" : "I am your smart coach",
+  "chatHeaderTitle" : "Smart Coach"
 
 
 }

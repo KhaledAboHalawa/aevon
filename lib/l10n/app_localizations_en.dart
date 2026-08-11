@@ -187,4 +187,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resendCode => 'Resend Code';
+
+  @override
+  String get chatOnboardingBottomSheetTitle => 'How Can I Assist You\n Today?';
+
+  @override
+  String get getStarted => 'Get Started';
+
+  @override
+  String get hi => 'Hi';
+
+  @override
+  String get chatOnboardingHeaderTitle => 'I am your smart coach';
+
+  @override
+  String get chatHeaderTitle => 'Smart Coach';
 }

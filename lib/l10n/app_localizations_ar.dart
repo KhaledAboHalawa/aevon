@@ -188,4 +188,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get resendCode => 'ارسل رمز التحقق مرة اخرى';
+
+  @override
+  String get chatOnboardingBottomSheetTitle => 'كيف يمكنني مساعدتك\n اليوم؟';
+
+  @override
+  String get getStarted => 'ابدأ';
+
+  @override
+  String get hi => 'مرحبًا';
+
+  @override
+  String get chatOnboardingHeaderTitle => 'أنا مدربك الذكي';
+
+  @override
+  String get chatHeaderTitle => 'المدرب الذكي';
 }

@@ -7,8 +7,12 @@ environment:
   sdk: ^3.12.2
 
 dependencies:
+  cached_network_image: ^3.4.1
   dio: ^5.9.2
   equatable: ^2.0.8
+  firebase_ai: ^3.15.0
+  firebase_app_check: ^0.4.6
+  firebase_core: ^4.13.0
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1

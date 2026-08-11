@@ -85,5 +85,10 @@
   "verify": "تاكيد",
   "rePassword": "تاكيد كلمة المرور",
   "didntReceiveCode": "لم يتم الاستلام منك رمز التحقق",
-  "resendCode": "ارسل رمز التحقق مرة اخرى"
+  "resendCode": "ارسل رمز التحقق مرة اخرى",
+  "chatOnboardingBottomSheetTitle":"كيف يمكنني مساعدتك\n اليوم؟",
+  "getStarted" :"ابدأ",
+  "hi":"مرحبًا",
+  "chatOnboardingHeaderTitle" : "أنا مدربك الذكي",
+  "chatHeaderTitle" : "المدرب الذكي"
 }

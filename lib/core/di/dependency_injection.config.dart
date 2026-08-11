@@ -11,6 +11,18 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:aevon/core/di/dependency_injection_module.dart' as _i685;
 import 'package:aevon/core/localization/localization_cubit.dart' as _i653;
+import 'package:aevon/features/ai_chat/data/datasources/chat_local_data_source.dart'
+    as _i661;
+import 'package:aevon/features/ai_chat/data/repositories/chat_repo_impl.dart'
+    as _i117;
+import 'package:aevon/features/ai_chat/domain/repositories/chat_repo.dart'
+    as _i416;
+import 'package:aevon/features/ai_chat/domain/usecases/get_chat_onboarding_state_use_case.dart'
+    as _i453;
+import 'package:aevon/features/ai_chat/domain/usecases/set_chat_onboarding_state_use_case.dart'
+    as _i466;
+import 'package:aevon/features/ai_chat/presentation/bloc/ai_chat_bloc.dart'
+    as _i623;
 import 'package:aevon/features/auth/data/datasource/auth_data_source.dart'
     as _i412;
 import 'package:aevon/features/auth/data/datasource/auth_data_source_impl.dart'
@@ -67,6 +79,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i412.AuthDataSource>(
       () => _i125.AuthDataSourceImpl(gh<_i361.Dio>()),
     );
+    gh.singleton<_i661.ChatLocalDataSource>(
+      () => _i661.ChatLocalDataSource(gh<_i460.SharedPreferences>()),
+    );
     gh.lazySingleton<_i809.AuthLocalDataSource>(
       () => _i809.AuthLocalDataSource(
         sharedPreferences: gh<_i460.SharedPreferences>(),
@@ -89,6 +104,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i196.ForgetPasswordRepo>(
       () => _i628.ForgetPasswordRepoImpl(gh<_i1041.ForgetPasswordDataSource>()),
     );
+    gh.singleton<_i416.ChatRepo>(
+      () => _i117.ChatRepoImpl(gh<_i661.ChatLocalDataSource>()),
+    );
     gh.lazySingleton<_i729.SignInUseCase>(
       () => _i729.SignInUseCase(repo: gh<_i973.AuthRepo>()),
     );
@@ -107,6 +125,12 @@ extension GetItInjectableX on _i174.GetIt {
         forgetPasswordRepo: gh<_i196.ForgetPasswordRepo>(),
       ),
     );
+    gh.singleton<_i453.GetChatOnboardingStateUseCase>(
+      () => _i453.GetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
+    );
+    gh.singleton<_i466.SetChatOnboardingStateUseCase>(
+      () => _i466.SetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
+    );
     gh.lazySingleton<_i372.SignUpUseCase>(
       () => _i372.SignUpUseCase(authRepo: gh<_i973.AuthRepo>()),
     );
@@ -115,6 +139,14 @@ extension GetItInjectableX on _i174.GetIt {
         forgetPasswordUseCase: gh<_i389.ForgetPasswordUseCase>(),
         resetPasswordUseCase: gh<_i555.ResetPasswordUseCase>(),
         verifyCodeUseCase: gh<_i605.VerifyCodeUseCase>(),
+      ),
+    );
+    gh.singleton<_i623.AiChatCubit>(
+      () => _i623.AiChatCubit(
+        getChatOnboardingStateUseCase:
+            gh<_i453.GetChatOnboardingStateUseCase>(),
+        setChatOnboardingStateUseCase:
+            gh<_i466.SetChatOnboardingStateUseCase>(),
       ),
     );
     gh.lazySingleton<_i262.AuthCubit>(

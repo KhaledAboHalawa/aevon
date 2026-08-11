@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/router/app_routes.dart';
 import 'package:aevon/core/theme/app_colors.dart';
@@ -35,7 +33,6 @@ class _OnboardingBodyState extends State<OnboardingBody> {
       create: (context) => _onboardingCubit,
       child: BlocConsumer<OnboardingCubit, OnboardingState>(
         builder: (context, state) {
-          log(state.toString());
           return Stack(
             children: [
               Column(
