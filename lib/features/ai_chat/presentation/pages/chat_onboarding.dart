@@ -1,10 +1,7 @@
-import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/utils/app_images.dart';
-import 'package:aevon/features/ai_chat/presentation/bloc/ai_chat_bloc.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/chat_header.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/chat_onboarding_bottom_shet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChatOnboarding extends StatefulWidget {
   const ChatOnboarding({super.key});
@@ -14,13 +11,6 @@ class ChatOnboarding extends StatefulWidget {
 }
 
 class _ChatOnboardingState extends State<ChatOnboarding> {
-  late final AiChatCubit _aiChatCubit;
-
-  @override
-  initState() {
-    super.initState();
-    _aiChatCubit = getIt<AiChatCubit>();
-  }
 
   @override
   Widget build(BuildContext context) {

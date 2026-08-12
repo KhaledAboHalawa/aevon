@@ -23,6 +23,9 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
   late final TextEditingController rePasswordController;
   late final GlobalKey<FormState> formKey;
   late final ForgetPasswordCubit cubit;
+  late final FocusNode focusNode1;
+  late final FocusNode focusNode2;
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +33,8 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
     rePasswordController = TextEditingController();
     cubit = getIt<ForgetPasswordCubit>();
     formKey = GlobalKey<FormState>();
+    focusNode1 = FocusNode();
+    focusNode2 = FocusNode();
   }
 
   @override
@@ -45,6 +50,8 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
   void dispose() {
     passwordController.dispose();
     rePasswordController.dispose();
+    focusNode1.dispose();
+    focusNode2.dispose();
     super.dispose();
   }
 
@@ -61,6 +68,8 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
             isPassword: true,
             prefixIconPath: AppIcons.passwordIcon,
             validator: (p0) => AppValidators.isValidPassword(p0),
+            focusNode: focusNode1,
+            onSubmitted: (_) => focusNode2.requestFocus(),
           ),
           CustomTextField(
             hint: locale.rePassword,
@@ -71,6 +80,8 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
               p0,
               passwordController.text,
             ),
+            focusNode: focusNode2,
+            onSubmitted: (_) => focusNode2.unfocus(),
           ),
           const SizedBox(height: 0),
           CustomButton(

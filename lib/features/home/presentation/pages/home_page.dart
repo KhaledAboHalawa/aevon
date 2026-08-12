@@ -1,4 +1,5 @@
 import 'package:aevon/core/utils/app_images.dart';
+import 'package:aevon/features/ai_chat/presentation/pages/chat_tab.dart';
 import 'package:aevon/features/home/presentation/widgets/custom_nav_bar/custom_nav_bar.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/chat_header.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/chat_onboarding_bottom_shet.dart';
@@ -22,6 +23,7 @@ class _HomePageState extends State<HomePage> {
         const ChatOnboardingBottomShet(),
       ],
     ),
+    const ChatTab(),
     const Center(child: Text('Search')),
     const Center(child: Text('Profile')),
   ];
@@ -51,11 +53,11 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
         body: PageView(controller: _pageController, children: _tabs),
         bottomNavigationBar: CustomNavBar(
-          onTap: (d) {
+          onTap: (index) {
             _pageController.animateToPage(
-              d,
+              index,
               duration: const Duration(milliseconds: 200),
-              curve: Curves.easeInOut,
+              curve: Curves.easeOut,
             );
           },
         ),

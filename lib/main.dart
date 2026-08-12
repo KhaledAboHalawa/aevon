@@ -7,9 +7,8 @@ import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp();
   await Future.wait([
-    Firebase.initializeApp(),
     configureDependencies(),
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -18,7 +17,6 @@ void main() async {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge),
   ]);
   await FirebaseAppCheck.instance.activate(
-    // Set androidProvider to `AndroidProvider.debug`
     androidProvider: AndroidProvider.debug,
   );
   runApp(const MainApp());

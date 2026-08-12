@@ -27,6 +27,19 @@ class _InfoWidgetState extends State<InfoWidget> {
   late final TextEditingController lastNameController;
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
+  late final FocusNode firstNameFocusNode;
+  late final FocusNode lastNameFocusNode;
+  late final FocusNode emailFocusNode;
+  late final FocusNode passwordFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    emailFocusNode = FocusNode();
+    passwordFocusNode = FocusNode();
+    firstNameFocusNode = FocusNode();
+    lastNameFocusNode = FocusNode();
+  }
 
   @override
   void didChangeDependencies() {
@@ -48,6 +61,10 @@ class _InfoWidgetState extends State<InfoWidget> {
     lastNameController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    firstNameFocusNode.dispose();
+    lastNameFocusNode.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
   }
 
   @override
@@ -71,6 +88,8 @@ class _InfoWidgetState extends State<InfoWidget> {
             isPassword: false,
             prefixIconPath: AppIcons.userIcon,
             validator: (p0) => AppValidators.isValidName(p0),
+            focusNode: firstNameFocusNode,
+            onSubmitted: (_) => lastNameFocusNode.requestFocus(),
           ),
           const SizedBox(height: 8),
           CustomTextField(
@@ -80,6 +99,8 @@ class _InfoWidgetState extends State<InfoWidget> {
             isPassword: false,
             prefixIconPath: AppIcons.userIcon,
             validator: (p0) => AppValidators.isValidName(p0),
+            focusNode: lastNameFocusNode,
+            onSubmitted: (_) => emailFocusNode.requestFocus(),
           ),
           const SizedBox(height: 8),
           CustomTextField(
@@ -89,6 +110,8 @@ class _InfoWidgetState extends State<InfoWidget> {
             prefixIconPath: AppIcons.mailIcon,
             onChange: (p0) => setState(() {}),
             validator: (p0) => AppValidators.isValidEmail(p0),
+            focusNode: emailFocusNode,
+            onSubmitted: (_) => passwordFocusNode.requestFocus(),
           ),
           const SizedBox(height: 8),
           CustomTextField(
@@ -98,6 +121,8 @@ class _InfoWidgetState extends State<InfoWidget> {
             prefixIconPath: AppIcons.passwordIcon,
             onChange: (p0) => setState(() {}),
             validator: (p0) => AppValidators.isValidPassword(p0),
+            focusNode: passwordFocusNode,
+            onSubmitted: (_) => passwordFocusNode.unfocus(),
           ),
           const SizedBox(height: 24),
           const CustomDivider(),

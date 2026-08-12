@@ -21,6 +21,7 @@ class _ForgetPasswordSentEmailWidgetState
     extends State<ForgetPasswordSentEmailWidget> {
   bool localized = false;
   late final AppLocalizations locale;
+  late final FocusNode focusNode;
   late final TextEditingController controller;
   late final GlobalKey<FormState> formKey;
   late final ForgetPasswordCubit cubit;
@@ -30,6 +31,7 @@ class _ForgetPasswordSentEmailWidgetState
     controller = TextEditingController();
     cubit = getIt<ForgetPasswordCubit>();
     formKey = GlobalKey<FormState>();
+    focusNode=FocusNode();
   }
 
   @override
@@ -44,6 +46,7 @@ class _ForgetPasswordSentEmailWidgetState
   @override
   void dispose() {
     controller.dispose();
+    focusNode.dispose();
     super.dispose();
   }
 
@@ -58,7 +61,8 @@ class _ForgetPasswordSentEmailWidgetState
             hint: locale.email,
             controller: controller,
             prefixIconPath: AppIcons.mailIcon,
-            validator: (p0) => AppValidators.isValidEmail(p0),
+            validator: (p0) => AppValidators.isValidEmail(p0), focusNode: focusNode,
+            onSubmitted: (value) => focusNode.unfocus(),
           ),
           CustomButton(
             onPressed: () {

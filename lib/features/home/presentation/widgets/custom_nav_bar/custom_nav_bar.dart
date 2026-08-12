@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/router/app_routes.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/utils/app_icons.dart';
-import 'package:aevon/features/ai_chat/data/datasources/gemini_data_source.dart';
 import 'package:aevon/features/ai_chat/presentation/bloc/ai_chat_bloc.dart';
 import 'package:aevon/features/home/presentation/widgets/custom_nav_bar/custmo_nav_bar_item.dart';
 import 'package:flutter/material.dart';
@@ -97,12 +94,6 @@ class _CustomNavBarState extends State<CustomNavBar> {
                 selected: _currentIndex == 3,
                 onTap: (index) async {
                   _onItemTapped(index);
-                  log(
-                    (await GeminiChatDataSource().sendMessage(
-                      history: [],
-                      message: 'Hi there',
-                    )).content,
-                  );
                 },
                 index: 3,
               ),

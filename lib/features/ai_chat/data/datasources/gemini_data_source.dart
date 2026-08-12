@@ -6,11 +6,11 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/errors/errors_handler.dart';
 
 @LazySingleton(as: ChatRemoteDataSource)
-class AiChatDataSource implements ChatRemoteDataSource {
+class GeminiDataSource implements ChatRemoteDataSource {
   late final GenerativeModel _model;
   late final ChatSession _chat;
 
-  AiChatDataSource() {
+  GeminiDataSource() {
     _model = FirebaseAI.googleAI().generativeModel(model: 'gemini-3.6-flash');
 
     _chat = _model.startChat();
