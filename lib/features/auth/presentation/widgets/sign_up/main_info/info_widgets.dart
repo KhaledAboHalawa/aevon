@@ -130,6 +130,7 @@ class _InfoWidgetState extends State<InfoWidget> {
           const AuthOptions(),
           const SizedBox(height: 24),
           CustomButton(
+            isExpanded: true,
             backgroundColor: AppColors.mainOrange,
             isLoading: false,
             title: locale.signIn,

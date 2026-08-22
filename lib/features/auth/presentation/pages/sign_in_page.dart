@@ -158,7 +158,8 @@ class _SignInPageState extends State<SignInPage> {
                               validator: AppValidators.isValidEmail,
                               prefixIconPath: AppIcons.mailIcon,
                               focusNode: emailFocusNode,
-                              onSubmitted: (_) => passwordFocusNode.requestFocus(),
+                              onSubmitted: (_) =>
+                                  passwordFocusNode.requestFocus(),
                             ),
                             CustomTextField(
                               hint: locale.password,
@@ -167,7 +168,8 @@ class _SignInPageState extends State<SignInPage> {
                               prefixIconPath: AppIcons.passwordIcon,
                               controller: passwordController,
                               focusNode: passwordFocusNode,
-                              onSubmitted: (_) => FocusScope.of(context).unfocus(),
+                              onSubmitted: (_) =>
+                                  FocusScope.of(context).unfocus(),
                             ),
                             Align(
                               alignment: Alignment.topRight,
@@ -192,6 +194,7 @@ class _SignInPageState extends State<SignInPage> {
                               backgroundColor: AppColors.mainOrange,
                               isLoading: state.isLoading,
                               title: locale.signIn,
+                              isExpanded: true,
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
                                   FocusScope.of(context).unfocus();

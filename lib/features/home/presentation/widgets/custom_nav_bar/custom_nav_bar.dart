@@ -29,6 +29,14 @@ class _CustomNavBarState extends State<CustomNavBar> {
     _aiChatCubit = getIt<AiChatCubit>();
   }
 
+  void selectNavIcon(int index) {
+    setState(() {
+      HapticFeedback.heavyImpact();
+      _previousIndex = _currentIndex;
+      _currentIndex = index;
+    });
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       HapticFeedback.heavyImpact();
@@ -67,11 +75,11 @@ class _CustomNavBarState extends State<CustomNavBar> {
                   title: 'Chat',
                   selected: _currentIndex == 1,
                   onTap: (index) async {
-                    _onItemTapped(index);
+                    selectNavIcon(index);
                     if (!_aiChatCubit.state.isOnboardingSeen) {
-                      final result =
+                      final didNotFinished =
                           await context.push(AppRoutes.chatOnboarding) as bool?;
-                      if (result ?? true) {
+                      if (didNotFinished ?? true) {
                         _onItemTapped(_previousIndex);
                       }
                     }

@@ -5,6 +5,7 @@ import 'package:aevon/features/onboarding/presentation/cubit/onboarding_cubit.da
 import 'package:aevon/features/onboarding/presentation/cubit/onboarding_events.dart';
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NavSection extends StatefulWidget {
   const NavSection({super.key});
@@ -34,33 +35,40 @@ class _NavSectionState extends State<NavSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisAlignment: (onboardingCubit.index == 0)
-          ? MainAxisAlignment.center
-          : MainAxisAlignment.spaceBetween,
-      children: [
-        if (onboardingCubit.index != 0)
-          CustomButton(
-            isLoading: false,
-            onPressed: () {
-              onboardingCubit.doIntent(const OnboardingPreviousEvent());
-            },
-            backgroundColor: Colors.transparent,
-            title: locale.back,
-          ),
-        Flexible(
-          child: AnimatedSizeButton(
-            onPressed: () {
-              onboardingCubit.index == 2
-                  ? onboardingCubit.doIntent(const OnboardingDoneEvent())
-                  : onboardingCubit.doIntent(const OnboardingNextEvent());
-            },
-            title: onboardingCubit.index == 2 ? locale.doIt : locale.next,
-            isExpanded: (onboardingCubit.index == 0),
-          ),
+    return BlocBuilder<OnboardingCubit, OnboardingState>(
+      builder: (context, state) => Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: (onboardingCubit.index == 0) ? 20 : 0,
         ),
-      ],
+        child: Row(
+          crossAxisAlignment: .end,
+          mainAxisAlignment: (onboardingCubit.index == 0)
+              ? .end
+              : .spaceBetween,
+          children: [
+            if (onboardingCubit.index != 0)
+              CustomButton(
+                isLoading: false,
+                onPressed: () {
+                  onboardingCubit.doIntent(const OnboardingPreviousEvent());
+                },
+                backgroundColor: Colors.transparent,
+                title: locale.back,
+              ),
+            Flexible(
+              child: AnimatedSizeButton(
+                onPressed: () {
+                  onboardingCubit.index == 2
+                      ? onboardingCubit.doIntent(const OnboardingDoneEvent())
+                      : onboardingCubit.doIntent(const OnboardingNextEvent());
+                },
+                title: onboardingCubit.index == 2 ? locale.doIt : locale.next,
+                isExpanded: (onboardingCubit.index == 0),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

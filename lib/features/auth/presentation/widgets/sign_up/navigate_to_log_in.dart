@@ -31,6 +31,7 @@ class NavigateToLogIn extends StatelessWidget {
             fontSize: 14,
             color: AppColors.lightOrange.withAlpha(255),
           ),
+          
           color: AppColors.lightOrange.withAlpha(255),
         ),
       ],

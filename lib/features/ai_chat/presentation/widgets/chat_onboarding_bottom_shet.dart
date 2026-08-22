@@ -60,6 +60,7 @@ class _ChatOnboardingBottomShetState extends State<ChatOnboardingBottomShet> {
                 backgroundColor: AppColors.mainOrange,
                 title: locale.getStarted,
                 isLoading: false,
+                isExpanded: true,
                 onPressed: () {
                   cubit.doIntent(const OnBoardingSeenEvent());
                   context.pop(false);

@@ -42,7 +42,7 @@ class _AnimatedSizeButtonState extends State<AnimatedSizeButton> {
           onTap: widget.onPressed,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 400),
-            curve: Curves.easeInOut,
+            curve: Curves.easeOut,
             width:
                 (widget.width) ??
                 (widget.isExpanded
