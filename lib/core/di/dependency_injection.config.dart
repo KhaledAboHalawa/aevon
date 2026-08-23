@@ -39,6 +39,8 @@ import 'package:aevon/features/auth/data/repositories/auth_repo_impl.dart'
     as _i242;
 import 'package:aevon/features/auth/domain/repositories/sign_in_repo.dart'
     as _i973;
+import 'package:aevon/features/auth/domain/usecases/fetch_user_info_use_case.dart'
+    as _i386;
 import 'package:aevon/features/auth/domain/usecases/sign_in_use_case.dart'
     as _i729;
 import 'package:aevon/features/auth/domain/usecases/sign_up_use_case.dart'
@@ -153,6 +155,9 @@ extension GetItInjectableX on _i174.GetIt {
         forgetPasswordRepo: gh<_i196.ForgetPasswordRepo>(),
       ),
     );
+    gh.lazySingleton<_i386.FetchUserInfoUseCase>(
+      () => _i386.FetchUserInfoUseCase(authRepo: gh<_i973.AuthRepo>()),
+    );
     gh.lazySingleton<_i372.SignUpUseCase>(
       () => _i372.SignUpUseCase(authRepo: gh<_i973.AuthRepo>()),
     );
@@ -167,6 +172,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i262.AuthCubit(
         signInUseCase: gh<_i729.SignInUseCase>(),
         signUpUseCase: gh<_i372.SignUpUseCase>(),
+        fetchUserInfoUseCase: gh<_i386.FetchUserInfoUseCase>(),
       ),
     );
     return this;

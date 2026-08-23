@@ -12,6 +12,7 @@ import 'package:aevon/features/auth/data/datasource/auth_local_data_source.dart'
     as _i8;
 import 'package:aevon/features/auth/data/models/auth_request.dart' as _i7;
 import 'package:aevon/features/auth/data/models/auth_respons.dart' as _i6;
+import 'package:aevon/features/auth/data/models/user_model.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:shared_preferences/shared_preferences.dart' as _i3;
 
@@ -99,6 +100,15 @@ class MockAuthLocalDataSource extends _i1.Mock
             ),
           )
           as _i3.SharedPreferences);
+
+  @override
+  _i5.Future<void> saveUserInfo(_i9.User? user) =>
+      (super.noSuchMethod(
+            Invocation.method(#saveUserInfo, [user]),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
 
   @override
   _i5.Future<void> saveToken(String? token) =>

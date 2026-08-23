@@ -1,8 +1,6 @@
 import 'package:aevon/core/utils/app_images.dart';
 import 'package:aevon/features/ai_chat/presentation/pages/chat_tab.dart';
 import 'package:aevon/features/home/presentation/widgets/custom_nav_bar/custom_nav_bar.dart';
-import 'package:aevon/features/ai_chat/presentation/widgets/chat_header.dart';
-import 'package:aevon/features/ai_chat/presentation/widgets/chat_onboarding_bottom_shet.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,14 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final PageController _pageController;
   final List<Widget> _tabs = [
-    Column(
-      children: [
-        const SizedBox(height: 32),
-        const ChatHeader(isInboarding: true, userName: "Aevon"),
-        Image.asset(AppImages.robot),
-        const ChatOnboardingBottomShet(),
-      ],
-    ),
+    const Center(child: Text('Explore')),
     const ChatTab(),
     const Center(child: Text('Search')),
     const Center(child: Text('Profile')),
@@ -51,7 +42,11 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         extendBody: true,
         backgroundColor: Colors.transparent,
-        body: PageView(controller: _pageController, children: _tabs),
+        body: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: _pageController,
+          children: _tabs,
+        ),
         bottomNavigationBar: CustomNavBar(
           onTap: (index) {
             _pageController.animateToPage(

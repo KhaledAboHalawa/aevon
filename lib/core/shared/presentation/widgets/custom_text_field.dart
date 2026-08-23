@@ -16,8 +16,11 @@ class CustomTextField extends StatefulWidget {
     this.isError,
     required this.focusNode,
     this.onSubmitted,
+    this.showLableOnTop = true,
+    this.isEnabled = true,
   });
   final String hint;
+  final bool showLableOnTop;
   final FocusNode focusNode;
   final void Function(String value)? onSubmitted;
   final bool? canRequestFocus;
@@ -27,6 +30,7 @@ class CustomTextField extends StatefulWidget {
   final bool isPassword;
   final String? prefixIconPath;
   final bool? isError;
+  final bool isEnabled;
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -39,16 +43,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return SizedBox(
       height: 56,
       child: TextFormField(
+        enabled: widget.isEnabled,
         canRequestFocus: widget.canRequestFocus ?? true,
         validator: widget.validator,
         focusNode: widget.focusNode,
-      
         onFieldSubmitted: widget.onSubmitted,
         onTapOutside: (event) => widget.focusNode.unfocus(),
         onChanged: widget.onChange,
         controller: widget.controller,
         obscureText: widget.isPassword && _obscureText,
         decoration: InputDecoration(
+          floatingLabelBehavior: widget.showLableOnTop ? .auto : .never,
           helperText: " ",
           helperStyle: const TextStyle(height: .75),
           errorStyle: AppFont.balooThambi2Medium(
@@ -102,7 +107,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           fillColor: Colors.transparent,
           labelText: widget.hint,
           labelStyle: AppFont.balooThambi2Regular(
-            color: AppColors.textGrey,
+            color: widget.isEnabled ? AppColors.textGrey : AppColors.lightBlack,
             fontSize: 14,
           ),
           contentPadding: const EdgeInsets.symmetric(
@@ -123,6 +128,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ),
             borderRadius: BorderRadius.circular(20.0),
           ),
+          disabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: AppColors.lightBlack,
+              width: 1.0,
+            ),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
           errorBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.red, width: 1.0),
             borderRadius: BorderRadius.circular(20.0),
@@ -135,7 +147,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         cursorColor: AppColors.buttonGrey,
         cursorHeight: 20,
         style: AppFont.balooThambi2Regular(
-          color: AppColors.textGrey,
+          color: widget.isEnabled ? AppColors.textGrey : AppColors.lightBlack,
           fontSize: 14,
         ),
       ),

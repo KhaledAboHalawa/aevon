@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:aevon/features/auth/data/models/auth_request.dart';
 import 'package:aevon/features/auth/domain/entities/sign_in_entity.dart';
+import 'package:aevon/features/auth/domain/usecases/fetch_user_info_use_case.dart';
 import 'package:aevon/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:aevon/features/auth/presentation/cubit/auth_events.dart';
 import 'package:equatable/equatable.dart';
@@ -15,13 +16,29 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   final SignInUseCase _signInUseCase;
   final SignUpUseCase _signUpUseCase;
+  final FetchUserInfoUseCase fetchUserInfoUseCase;
   SignUpRequest signUpRequest;
-  AuthCubit({required this._signInUseCase, required this._signUpUseCase})
-    : signUpRequest = SignUpRequest(),
-      super(const AuthState.initial());
+  AuthCubit({
+    required this._signInUseCase,
+    required this._signUpUseCase,
+    required this.fetchUserInfoUseCase,
+  }) : signUpRequest = SignUpRequest(),
+       super(const AuthState.initial());
 
   void doIntent(AuthEvent event) {
     event.when(signIn: _signIn, signUp: _signUp);
+  }
+
+  void fetchUserInfo({required String token}) {
+    final result = fetchUserInfoUseCase();
+    result.when(
+      success: (data) => emit(
+        state.copyWith(
+          authResonse: AuthEntity(token: token, user: data),
+        ),
+      ),
+      error: (failure) => emit(state.copyWith(errorMessage: failure.message)),
+    );
   }
 
   void _signIn({required SignInRequest request}) async {

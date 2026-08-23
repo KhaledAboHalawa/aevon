@@ -1,10 +1,12 @@
 import 'package:aevon/core/di/dependency_injection.dart';
+import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/features/ai_chat/presentation/bloc/ai_chat_bloc.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/chat_header.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/chat_input.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/messages_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ChatTab extends StatefulWidget {
   const ChatTab({super.key});
@@ -13,7 +15,7 @@ class ChatTab extends StatefulWidget {
   State<ChatTab> createState() => _ChatTabState();
 }
 
-class _ChatTabState extends State<ChatTab> {
+class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
   late final TextEditingController _messageController;
   late final FocusNode _focusNode;
   late final ScrollController _scrollController;
@@ -38,16 +40,77 @@ class _ChatTabState extends State<ChatTab> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<AiChatCubit>(),
-      child: Column(
-        children: [
-          SizedBox(height: MediaQuery.of(context).padding.top+8),
-          const ChatHeader(isInboarding: false, userName: "Aevon"),
-          Expanded(child: MessagesList(scrollController: _scrollController)),
-          ChatInput(controller: _messageController, focusNode: _focusNode),
-        ],
+    super.build(context);
+    return BlocProvider.value(
+      value: getIt<AiChatCubit>(),
+      child: BlocListener<AiChatCubit, AiChatState>(
+        listenWhen: (previous, current) {
+          if (previous.messages.length != current.messages.length) {
+            return true;
+          }
+
+          if (previous.messages.isEmpty || current.messages.isEmpty) {
+            return false;
+          }
+
+          if (current.errorMessage != null) return true;
+
+          return previous.messages.last.content !=
+              current.messages.last.content;
+        },
+        listener: (BuildContext context, state) {
+          handleScroll();
+          if (state.errorMessage != null) {
+            Fluttertoast.showToast(
+              msg: state.errorMessage!,
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 3,
+              backgroundColor: AppColors.mainOrange,
+              textColor: AppColors.white,
+              fontSize: 14.0,
+            );
+          }
+        },
+        child: Column(
+          children: [
+            SizedBox(height: MediaQuery.of(context).padding.top + 8),
+            const ChatHeader(isInboarding: false, userName: "Aevon"),
+            Expanded(child: MessagesList(scrollController: _scrollController)),
+            ChatInput(controller: _messageController, focusNode: _focusNode),
+          ],
+        ),
       ),
     );
   }
+
+  void handleScroll() {
+    if (!_isNearBottom) return;
+    _scrollToBottom();
+  }
+
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_scrollController.hasClients) return;
+
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+      );
+    });
+  }
+
+  bool get _isNearBottom {
+    if (!_scrollController.hasClients) {
+      return true;
+    }
+
+    final position = _scrollController.position;
+
+    return position.maxScrollExtent - position.pixels < 100;
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 }

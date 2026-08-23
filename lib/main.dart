@@ -1,9 +1,11 @@
 import 'package:aevon/app/app.dart';
 import 'package:aevon/core/di/dependency_injection.dart';
+import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,5 +21,10 @@ void main() async {
   await FirebaseAppCheck.instance.activate(
     androidProvider: AndroidProvider.debug,
   );
-  runApp(const MainApp());
+  runApp(
+    BlocProvider(
+      create: (context) => getIt<AuthCubit>(),
+      child: const MainApp(),
+    ),
+  );
 }

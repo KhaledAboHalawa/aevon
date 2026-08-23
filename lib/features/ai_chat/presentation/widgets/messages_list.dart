@@ -16,6 +16,8 @@ class _MessagesListState extends State<MessagesList> {
   Widget build(BuildContext context) {
     return BlocBuilder<AiChatCubit, AiChatState>(
       builder: (context, state) => ListView.builder(
+        padding: const EdgeInsets.only(top: 16, bottom: 16),
+        dragStartBehavior: .down,
         controller: widget.scrollController,
         itemCount: state.messages.length,
         itemBuilder: (context, index) {

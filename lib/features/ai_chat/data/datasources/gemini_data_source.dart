@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/features/ai_chat/data/datasources/chat_remote_data_source.dart';
 import 'package:firebase_ai/firebase_ai.dart';
@@ -11,7 +13,7 @@ class GeminiDataSource implements ChatRemoteDataSource {
   late final ChatSession _chat;
 
   GeminiDataSource() {
-    _model = FirebaseAI.googleAI().generativeModel(model: 'gemini-3.6-flash');
+    _model = FirebaseAI.googleAI().generativeModel(model: 'gemini-3.7-flash');
 
     _chat = _model.startChat();
   }
@@ -34,7 +36,7 @@ class GeminiDataSource implements ChatRemoteDataSource {
           success: false,
           status: 0,
           statusCode: 0,
-          message: e.toString(),
+          message: e.toString().split(',').first,
         ),
       );
     }

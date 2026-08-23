@@ -4,6 +4,7 @@ import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/router/app_routes.dart';
 import 'package:aevon/core/utils/app_constants.dart';
 import 'package:aevon/features/ai_chat/presentation/pages/chat_onboarding.dart';
+import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:aevon/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:aevon/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:aevon/features/forget_password/presentation/pages/forget_password_page.dart';
@@ -33,8 +34,12 @@ GoRouter router = GoRouter(
       name: AppRoutes.signIn,
       page: (state, context) => const SignInPage(),
       redirect: (context, state) {
-        String? isSigned = getIt<SharedPreferences>().getString(AppKeys.token);
-        if (isSigned != null) return AppRoutes.home;
+        String? token = getIt<SharedPreferences>().getString(AppKeys.token);
+        if (token != null) {
+          getIt<AuthCubit>().fetchUserInfo(token: token);
+
+          return AppRoutes.home;
+        }
         return null;
       },
     ),
@@ -47,10 +52,7 @@ GoRouter router = GoRouter(
       page: (state, context) => const ForgetPasswordPage(),
     ),
 
-    appRoute(
-      name: AppRoutes.home,
-      page: (state, context) => const HomePage(),
-    ),
+    appRoute(name: AppRoutes.home, page: (state, context) => const HomePage()),
 
     appRoute(
       name: AppRoutes.chatOnboarding,

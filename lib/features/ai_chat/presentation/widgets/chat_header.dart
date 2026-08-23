@@ -1,7 +1,11 @@
+import 'dart:developer';
+
+import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/shared/presentation/widgets/profile_avatar.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:aevon/core/utils/app_icons.dart';
+import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,25 +22,27 @@ class ChatHeader extends StatefulWidget {
 class _ChatHeaderState extends State<ChatHeader> {
   bool isFirstLoad = true;
   late final AppLocalizations? locale;
+  late final AuthCubit authCubit;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (isFirstLoad) {
       locale = AppLocalizations.of(context);
+      authCubit = getIt<AuthCubit>();
       isFirstLoad = false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    log(authCubit.state.authResonse?.user.photo ?? " no photo url");
     return Row(
       children: [
         const SizedBox(width: 16),
-        const ProfileAvatar(
-          imageUrl:
-              "https://www.themealdb.com/images/media/meals/dxs5t71782678369.jpg",
-          initials: "k",
+        ProfileAvatar(
+          imageUrl: authCubit.state.authResonse?.user.photo,
+          initials: authCubit.state.authResonse?.user.firstName?[0] ?? "T",
         ),
         Expanded(
           child: RichText(

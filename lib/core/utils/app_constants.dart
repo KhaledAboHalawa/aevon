@@ -5,6 +5,7 @@ class AppKeys {
   static const String arabicLocale = 'ar';
   static const String seenOnboarding = "seenOnboarding";
   static const String token = "token";
+  static const String userInfo = "userInfo";
   static const String chatOnboardingSeen = "chatOnboardingSeen";
 }
 

@@ -28,12 +28,14 @@ class ProfileAvatar extends StatelessWidget {
                   ),
                 ),
                 errorWidget: (context, url, error) => Center(
-                  child: Text(
-                    initials ?? '',
-                    textAlign: TextAlign.center,
-                    style: AppFont.balooThambi2Medium(
-                      color: AppColors.white,
-                      fontSize: 20,
+                  child: Center(
+                    child: Text(
+                      initials ?? '',
+                      textAlign: TextAlign.center,
+                      style: AppFont.balooThambi2Medium(
+                        color: AppColors.white,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ),
@@ -41,12 +43,14 @@ class ProfileAvatar extends StatelessWidget {
             : SizedBox(
                 width: 35,
                 height: 35,
-                child: Text(
-                  initials ?? '',
-                  textAlign: TextAlign.center,
-                  style: AppFont.balooThambi2Medium(
-                    color: AppColors.white,
-                    fontSize: 18,
+                child: Center(
+                  child: Text(
+                    initials ?? '',
+                    textAlign: TextAlign.center,
+                    style: AppFont.balooThambi2Medium(
+                      color: AppColors.white,
+                      fontSize: 18,
+                    ),
                   ),
                 ),
               ),

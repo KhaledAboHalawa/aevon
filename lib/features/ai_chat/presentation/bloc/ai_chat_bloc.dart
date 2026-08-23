@@ -69,17 +69,11 @@ class AiChatCubit extends Cubit<AiChatState> {
     _messageSubscription = sendMessageUseCase(message: message).listen(
       (result) {
         result.when(
-          success: (chunk) {
-            _handleChunk(chunk);
-          },
-          error: (failure) {
-            _handleError(failure);
-          },
+          success: (chunk) => _handleChunk(chunk),
+          error: (failure) => _handleError(failure),
         );
       },
-      onDone: () {
-        _handleStreamDone();
-      },
+      onDone: () => _handleStreamDone(),
     );
   }
 
@@ -102,21 +96,12 @@ class AiChatCubit extends Cubit<AiChatState> {
     emit(state.copyWith(messages: messages));
   }
 
-    void _handleError(Failure failure) {
-    emit(
-      state.copyWith(
-        isStreaming: false,
-        errorMessage: failure.message,
-      ),
-    );
+  void _handleError(Failure failure) {
+    emit(state.copyWith(isStreaming: false, errorMessage: failure.message));
   }
 
   void _handleStreamDone() {
-    emit(
-      state.copyWith(
-        isStreaming: false,
-      ),
-    );
+    emit(state.copyWith(isStreaming: false));
   }
 
   @override

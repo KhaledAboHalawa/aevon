@@ -54,6 +54,35 @@ class User {
     this.photo,
   });
 
+  List<String> toList() => [
+        id ?? '',
+        firstName ?? '',
+        lastName ?? '',
+        email ?? '',
+        gender?.name ?? '',
+        age?.toString() ?? '',
+        weight?.toString() ?? '',
+        height?.toString() ?? '',
+        activityLevel?.toStringActivityLevel() ?? '',
+        goal?.name ?? '',
+        photo ?? '',
+  ];
+
+  User.fromList(List<String> list) {
+    if(list.isEmpty) return;
+    id = list[0];
+    firstName = list[1];
+    lastName = list[2];
+    email = list[3];
+    gender = list[4].toGender();
+    age = int.parse(list[5]);
+    weight = int.parse(list[6]);
+    height = int.parse(list[7]);
+    activityLevel = list[8].toActivityLevel();
+    goal = list[9].toGoal();
+    photo = list[10];
+  }
+
   User.fromJson(Map<String, dynamic> json) {
     if (json["_id"] is String) {
       id = json["_id"];

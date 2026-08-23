@@ -81,8 +81,10 @@ class _CustomNavBarState extends State<CustomNavBar> {
                           await context.push(AppRoutes.chatOnboarding) as bool?;
                       if (didNotFinished ?? true) {
                         _onItemTapped(_previousIndex);
+                        return;
                       }
                     }
+                    _onItemTapped(index);
                   },
                   index: 1,
                 ),
