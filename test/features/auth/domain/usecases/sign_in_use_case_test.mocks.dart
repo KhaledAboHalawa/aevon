@@ -7,9 +7,12 @@ import 'dart:async' as _i5;
 
 import 'package:aevon/core/shared/data/model/result.dart' as _i2;
 import 'package:aevon/features/auth/data/models/auth_request.dart' as _i7;
+import 'package:aevon/features/auth/data/models/user_model.dart' as _i10;
 import 'package:aevon/features/auth/domain/entities/sign_in_entity.dart' as _i6;
 import 'package:aevon/features/auth/domain/repositories/sign_in_repo.dart'
     as _i3;
+import 'package:aevon/features/auth/domain/usecases/fetch_user_info_use_case.dart'
+    as _i9;
 import 'package:aevon/features/auth/domain/usecases/sign_in_use_case.dart'
     as _i4;
 import 'package:aevon/features/auth/domain/usecases/sign_up_use_case.dart'
@@ -91,4 +94,33 @@ class MockSignUpUseCase extends _i1.Mock implements _i8.SignUpUseCase {
             ),
           )
           as _i5.Future<_i2.Result<_i6.AuthEntity>>);
+}
+
+/// A class which mocks [FetchUserInfoUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFetchUserInfoUseCase extends _i1.Mock
+    implements _i9.FetchUserInfoUseCase {
+  MockFetchUserInfoUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.AuthRepo get authRepo =>
+      (super.noSuchMethod(
+            Invocation.getter(#authRepo),
+            returnValue: _FakeAuthRepo_1(this, Invocation.getter(#authRepo)),
+          )
+          as _i3.AuthRepo);
+
+  @override
+  _i2.Result<_i10.User> call() =>
+      (super.noSuchMethod(
+            Invocation.method(#call, []),
+            returnValue: _FakeResult_0<_i10.User>(
+              this,
+              Invocation.method(#call, []),
+            ),
+          )
+          as _i2.Result<_i10.User>);
 }

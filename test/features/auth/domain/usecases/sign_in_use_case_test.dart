@@ -2,6 +2,7 @@ import 'package:aevon/core/errors/errors_handler.dart';
 import 'package:aevon/features/auth/data/models/auth_request.dart';
 import 'package:aevon/features/auth/data/models/user_model.dart';
 import 'package:aevon/features/auth/domain/entities/sign_in_entity.dart';
+import 'package:aevon/features/auth/domain/usecases/fetch_user_info_use_case.dart';
 import 'package:aevon/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:aevon/features/auth/domain/usecases/sign_up_use_case.dart';
 import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
@@ -14,14 +15,16 @@ import 'package:mockito/mockito.dart';
 
 import 'sign_in_use_case_test.mocks.dart';
 
-@GenerateMocks([SignInUseCase, SignUpUseCase])
+@GenerateMocks([SignInUseCase, SignUpUseCase, FetchUserInfoUseCase])
 void main() {
   late MockSignInUseCase mockSignInUseCase;
   late MockSignUpUseCase mockSignUpUseCase;
+  late MockFetchUserInfoUseCase mockFetchUserInfoUseCase;
 
   setUp(() {
     mockSignInUseCase = MockSignInUseCase();
     mockSignUpUseCase = MockSignUpUseCase();
+    mockFetchUserInfoUseCase = MockFetchUserInfoUseCase();
   });
 
   final tRequest = SignInRequest(email: 'test@example.com', password: '123456');
@@ -47,7 +50,7 @@ void main() {
       return AuthCubit(
         signInUseCase: mockSignInUseCase,
         signUpUseCase: mockSignUpUseCase,
-        
+        fetchUserInfoUseCase: mockFetchUserInfoUseCase,
       );
     },
     act: (cubit) => cubit.doIntent(SignInEvent(request: tRequest)),
@@ -79,6 +82,7 @@ void main() {
       return AuthCubit(
         signInUseCase: mockSignInUseCase,
         signUpUseCase: mockSignUpUseCase,
+        fetchUserInfoUseCase: mockFetchUserInfoUseCase,
       );
     },
     act: (cubit) => cubit.doIntent(SignInEvent(request: tRequest)),
