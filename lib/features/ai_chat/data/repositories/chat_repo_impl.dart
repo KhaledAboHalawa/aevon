@@ -21,9 +21,12 @@ class ChatRepoImpl implements ChatRepo {
   }
 
   @override
-  Stream<Result<String>> sendMessage({
-    required String message,
-  }) {
+  Stream<Result<String>> sendMessage({required String message}) {
     return _remoteDataSource.sendMessage(message: message);
+  }
+
+  @override
+  Result<bool> createNewChat() {
+    return _remoteDataSource.startNewChat();
   }
 }

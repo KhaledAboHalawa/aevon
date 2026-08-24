@@ -1,4 +1,5 @@
 import 'package:aevon/core/utils/app_constants.dart';
+import 'package:aevon/features/ai_chat/domain/entity/ai_context.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,4 +17,5 @@ abstract class RegisterModule {
   @preResolve // if you need to pre resolve the value
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
   // Also, make sure you await for your configure function before running the App.
+
 }

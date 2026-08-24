@@ -14,6 +14,7 @@ class AuthLocalDataSource {
   }
 
   User? fetchUserInfo() {
+    if(sharedPreferences.getString(AppKeys.token) == null) return null;
     try{
       final userInfo = sharedPreferences.getStringList(AppKeys.userInfo);
       return userInfo != null ? User.fromList(userInfo) : null;

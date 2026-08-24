@@ -47,6 +47,7 @@ void main() {
       return AuthCubit(
         signInUseCase: mockSignInUseCase,
         signUpUseCase: mockSignUpUseCase,
+        
       );
     },
     act: (cubit) => cubit.doIntent(SignInEvent(request: tRequest)),

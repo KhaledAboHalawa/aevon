@@ -6,4 +6,6 @@ abstract class ChatRepo {
   });
   Future<Result<bool>> saveChatOnboardingSeen();
   Result<bool> isChatOnboardingSeen();
+  Result<bool> createNewChat();
+
 }

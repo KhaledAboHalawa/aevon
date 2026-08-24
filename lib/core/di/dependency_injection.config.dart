@@ -27,6 +27,8 @@ import 'package:aevon/features/ai_chat/domain/usecases/send_message_use_case.dar
     as _i612;
 import 'package:aevon/features/ai_chat/domain/usecases/set_chat_onboarding_state_use_case.dart'
     as _i466;
+import 'package:aevon/features/ai_chat/domain/usecases/start_new_chat_use_case.dart'
+    as _i68;
 import 'package:aevon/features/ai_chat/presentation/bloc/ai_chat_bloc.dart'
     as _i623;
 import 'package:aevon/features/auth/data/datasource/auth_data_source.dart'
@@ -87,24 +89,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i412.AuthDataSource>(
       () => _i125.AuthDataSourceImpl(gh<_i361.Dio>()),
     );
-    gh.lazySingleton<_i23.ChatRemoteDataSource>(() => _i246.GeminiDataSource());
     gh.singleton<_i661.ChatLocalDataSource>(
       () => _i661.ChatLocalDataSource(gh<_i460.SharedPreferences>()),
-    );
-    gh.singleton<_i416.ChatRepo>(
-      () => _i117.ChatRepoImpl(
-        gh<_i661.ChatLocalDataSource>(),
-        gh<_i23.ChatRemoteDataSource>(),
-      ),
-    );
-    gh.singleton<_i453.GetChatOnboardingStateUseCase>(
-      () => _i453.GetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
-    );
-    gh.singleton<_i466.SetChatOnboardingStateUseCase>(
-      () => _i466.SetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
-    );
-    gh.lazySingleton<_i612.SendMessageUseCase>(
-      () => _i612.SendMessageUseCase(repository: gh<_i416.ChatRepo>()),
     );
     gh.lazySingleton<_i809.AuthLocalDataSource>(
       () => _i809.AuthLocalDataSource(
@@ -116,17 +102,13 @@ extension GetItInjectableX on _i174.GetIt {
         sharedPreferences: gh<_i460.SharedPreferences>(),
       ),
     );
-    gh.singleton<_i623.AiChatCubit>(
-      () => _i623.AiChatCubit(
-        getChatOnboardingStateUseCase:
-            gh<_i453.GetChatOnboardingStateUseCase>(),
-        setChatOnboardingStateUseCase:
-            gh<_i466.SetChatOnboardingStateUseCase>(),
-        sendMessageUseCase: gh<_i612.SendMessageUseCase>(),
-      ),
-    );
     gh.lazySingleton<_i653.LocalizationCubit>(
       () => _i653.LocalizationCubit(gh<_i460.SharedPreferences>()),
+    );
+    gh.lazySingleton<_i23.ChatRemoteDataSource>(
+      () => _i246.GeminiDataSource(
+        authDataSource: gh<_i809.AuthLocalDataSource>(),
+      ),
     );
     gh.lazySingleton<_i973.AuthRepo>(
       () => _i242.AuthRepoImpl(
@@ -155,17 +137,45 @@ extension GetItInjectableX on _i174.GetIt {
         forgetPasswordRepo: gh<_i196.ForgetPasswordRepo>(),
       ),
     );
+    gh.singleton<_i416.ChatRepo>(
+      () => _i117.ChatRepoImpl(
+        gh<_i661.ChatLocalDataSource>(),
+        gh<_i23.ChatRemoteDataSource>(),
+      ),
+    );
+    gh.singleton<_i453.GetChatOnboardingStateUseCase>(
+      () => _i453.GetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
+    );
+    gh.singleton<_i466.SetChatOnboardingStateUseCase>(
+      () => _i466.SetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
+    );
     gh.lazySingleton<_i386.FetchUserInfoUseCase>(
       () => _i386.FetchUserInfoUseCase(authRepo: gh<_i973.AuthRepo>()),
     );
     gh.lazySingleton<_i372.SignUpUseCase>(
       () => _i372.SignUpUseCase(authRepo: gh<_i973.AuthRepo>()),
     );
+    gh.lazySingleton<_i612.SendMessageUseCase>(
+      () => _i612.SendMessageUseCase(repository: gh<_i416.ChatRepo>()),
+    );
     gh.lazySingleton<_i103.ForgetPasswordCubit>(
       () => _i103.ForgetPasswordCubit(
         forgetPasswordUseCase: gh<_i389.ForgetPasswordUseCase>(),
         resetPasswordUseCase: gh<_i555.ResetPasswordUseCase>(),
         verifyCodeUseCase: gh<_i605.VerifyCodeUseCase>(),
+      ),
+    );
+    gh.singleton<_i68.StartNewChatUseCase>(
+      () => _i68.StartNewChatUseCase(gh<_i416.ChatRepo>()),
+    );
+    gh.singleton<_i623.AiChatCubit>(
+      () => _i623.AiChatCubit(
+        getChatOnboardingStateUseCase:
+            gh<_i453.GetChatOnboardingStateUseCase>(),
+        setChatOnboardingStateUseCase:
+            gh<_i466.SetChatOnboardingStateUseCase>(),
+        sendMessageUseCase: gh<_i612.SendMessageUseCase>(),
+        startNewChatUseCase: gh<_i68.StartNewChatUseCase>(),
       ),
     );
     gh.lazySingleton<_i262.AuthCubit>(

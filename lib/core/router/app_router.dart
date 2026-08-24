@@ -36,8 +36,6 @@ GoRouter router = GoRouter(
       redirect: (context, state) {
         String? token = getIt<SharedPreferences>().getString(AppKeys.token);
         if (token != null) {
-          getIt<AuthCubit>().fetchUserInfo(token: token);
-
           return AppRoutes.home;
         }
         return null;

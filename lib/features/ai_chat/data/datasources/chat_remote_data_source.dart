@@ -4,4 +4,5 @@ abstract class ChatRemoteDataSource {
   Stream<Result<String>> sendMessage({
     required String message,
   });
+  Result<bool> startNewChat();
 }

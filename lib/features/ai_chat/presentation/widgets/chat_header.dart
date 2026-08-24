@@ -36,12 +36,11 @@ class _ChatHeaderState extends State<ChatHeader> {
 
   @override
   Widget build(BuildContext context) {
-    log(authCubit.state.authResonse?.user.photo ?? " no photo url");
     return Row(
       children: [
         const SizedBox(width: 16),
         ProfileAvatar(
-          imageUrl: authCubit.state.authResonse?.user.photo,
+          imageUrl:  authCubit.state.authResonse?.user.photo,
           initials: authCubit.state.authResonse?.user.firstName?[0] ?? "T",
         ),
         Expanded(
@@ -75,7 +74,12 @@ class _ChatHeaderState extends State<ChatHeader> {
             ),
           ),
         ),
-        GestureDetector(onTap: () {}, child: SvgPicture.asset(AppIcons.menu)),
+        GestureDetector(
+          onTap: () {
+            Scaffold.of(context).openEndDrawer();
+          },
+          child: SvgPicture.asset(AppIcons.menu),
+        ),
         const SizedBox(width: 16),
       ],
     );

@@ -6,6 +6,7 @@ import 'package:aevon/features/ai_chat/domain/entity/chat_message.dart';
 import 'package:aevon/features/ai_chat/domain/usecases/get_chat_onboarding_state_use_case.dart';
 import 'package:aevon/features/ai_chat/domain/usecases/send_message_use_case.dart';
 import 'package:aevon/features/ai_chat/domain/usecases/set_chat_onboarding_state_use_case.dart';
+import 'package:aevon/features/ai_chat/domain/usecases/start_new_chat_use_case.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -18,11 +19,13 @@ class AiChatCubit extends Cubit<AiChatState> {
   final GetChatOnboardingStateUseCase getChatOnboardingStateUseCase;
   final SetChatOnboardingStateUseCase setChatOnboardingStateUseCase;
   final SendMessageUseCase sendMessageUseCase;
+  final StartNewChatUseCase startNewChatUseCase;
   StreamSubscription<Result<String>>? _messageSubscription;
   AiChatCubit({
     required this.getChatOnboardingStateUseCase,
     required this.setChatOnboardingStateUseCase,
     required this.sendMessageUseCase,
+    required this.startNewChatUseCase,
   }) : super(const AiChatState.initial()) {
     _checkOnBoardingSeen();
   }
@@ -50,6 +53,16 @@ class AiChatCubit extends Cubit<AiChatState> {
     );
   }
 
+  Future<void> startNewChat() async {
+    final result = startNewChatUseCase();
+    result.when(
+      success: (value) => emit(
+        state.copyWith(messages: [], isStreaming: false, errorMessage: null),
+      ),
+      error: (error) => emit(state.copyWith(errorMessage: error.message)),
+    );
+  }
+
   Future<void> sendMessage({required String message}) async {
     if (message.trim().isEmpty) return;
     if (state.isStreaming) return;
@@ -66,15 +79,14 @@ class AiChatCubit extends Cubit<AiChatState> {
       ),
     );
 
-    _messageSubscription = sendMessageUseCase(message: message).listen(
-      (result) {
-        result.when(
-          success: (chunk) => _handleChunk(chunk),
-          error: (failure) => _handleError(failure),
-        );
-      },
-      onDone: () => _handleStreamDone(),
-    );
+    _messageSubscription = sendMessageUseCase(message: message).listen((
+      result,
+    ) {
+      result.when(
+        success: (chunk) => _handleChunk(chunk),
+        error: (failure) => _handleError(failure),
+      );
+    }, onDone: () => _handleStreamDone());
   }
 
   void _handleChunk(String chunk) {

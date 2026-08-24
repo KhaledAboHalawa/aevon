@@ -21,6 +21,7 @@ void main() async {
   await FirebaseAppCheck.instance.activate(
     androidProvider: AndroidProvider.debug,
   );
+  
   runApp(
     BlocProvider(
       create: (context) => getIt<AuthCubit>(),

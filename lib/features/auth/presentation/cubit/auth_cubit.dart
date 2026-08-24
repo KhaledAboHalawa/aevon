@@ -23,18 +23,20 @@ class AuthCubit extends Cubit<AuthState> {
     required this._signUpUseCase,
     required this.fetchUserInfoUseCase,
   }) : signUpRequest = SignUpRequest(),
-       super(const AuthState.initial());
+       super(const AuthState.initial()) {
+    fetchUserInfo();
+  }
 
   void doIntent(AuthEvent event) {
     event.when(signIn: _signIn, signUp: _signUp);
   }
 
-  void fetchUserInfo({required String token}) {
+  void fetchUserInfo() {
     final result = fetchUserInfoUseCase();
     result.when(
       success: (data) => emit(
         state.copyWith(
-          authResonse: AuthEntity(token: token, user: data),
+          authResonse: AuthEntity(token: '', user: data),
         ),
       ),
       error: (failure) => emit(state.copyWith(errorMessage: failure.message)),

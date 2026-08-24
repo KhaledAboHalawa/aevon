@@ -2,6 +2,7 @@ import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/shared/presentation/widgets/profile_avatar.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
+import 'package:aevon/core/utils/app_images.dart';
 import 'package:aevon/features/ai_chat/domain/entity/chat_message.dart';
 import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,9 @@ class _MessageBubbleState extends State<MessageBubble> {
         spacing: 16,
         children: [
           ProfileAvatar(
-            imageUrl: isUser ? authCubit.state.authResonse?.user.photo : null,
+            imageUrl: isUser
+                ? authCubit.state.authResonse?.user.photo
+                : AppImages.ai,
             initials: isUser
                 ? (authCubit.state.authResonse?.user.firstName?[0] ?? "T")
                 : "AI",
@@ -47,13 +50,13 @@ class _MessageBubbleState extends State<MessageBubble> {
               color: isUser ? AppColors.lightOrange : AppColors.lightBlack,
               borderRadius: BorderRadius.only(
                 topLeft: isUser
-                    ? const Radius.circular(20)
+                    ? const Radius.circular(15)
                     : const Radius.circular(0),
                 topRight: isUser
                     ? const Radius.circular(0)
-                    : const Radius.circular(20),
-                bottomLeft: const Radius.circular(20),
-                bottomRight: const Radius.circular(20),
+                    : const Radius.circular(15),
+                bottomLeft: const Radius.circular(15),
+                bottomRight: const Radius.circular(15),
               ),
             ),
             constraints: BoxConstraints(
