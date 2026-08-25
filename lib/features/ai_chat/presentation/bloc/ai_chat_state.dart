@@ -2,43 +2,43 @@ part of 'ai_chat_bloc.dart';
 
 class AiChatState extends Equatable {
   final bool isOnboardingSeen;
-  final List<ChatMessage> messages;
+  final Conversation conversation;
   final bool isLoading;
   final bool isStreaming;
   final String? errorMessage;
-  const AiChatState.initial()
+  AiChatState.initial()
     : isOnboardingSeen = false,
       isLoading = false,
       isStreaming = false,
-      messages = const [],
+      conversation = Conversation.empty(),
       errorMessage = null;
   const AiChatState({
     required this.isOnboardingSeen,
-    required this.messages,
     required this.isLoading,
     required this.isStreaming,
     required this.errorMessage,
+    required this.conversation,
   });
 
   AiChatState copyWith({
-    List<ChatMessage>? messages,
     bool? isLoading,
     bool? isStreaming,
     bool? isOnboardingSeen,
     String? errorMessage,
+    Conversation? conversation,
   }) {
     return AiChatState(
-      messages: messages ?? this.messages,
       isLoading: isLoading ?? this.isLoading,
       isStreaming: isStreaming ?? this.isStreaming,
       errorMessage: errorMessage,
       isOnboardingSeen: isOnboardingSeen ?? this.isOnboardingSeen,
+      conversation: conversation ?? this.conversation,
     );
   }
 
   @override
   List<Object?> get props => [
-    messages,
+    conversation,
     isLoading,
     isStreaming,
     isOnboardingSeen,

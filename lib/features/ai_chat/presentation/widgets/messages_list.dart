@@ -19,9 +19,9 @@ class _MessagesListState extends State<MessagesList> {
         padding: const EdgeInsets.only(top: 16, bottom: 16),
         dragStartBehavior: .down,
         controller: widget.scrollController,
-        itemCount: state.messages.length,
+        itemCount: state.conversation.messages.length,
         itemBuilder: (context, index) {
-          final message = state.messages[index];
+          final message = state.conversation.messages[index];
           return MessageBubble(message: message);
         },
       ),

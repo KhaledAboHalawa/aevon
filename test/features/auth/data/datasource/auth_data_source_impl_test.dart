@@ -1,4 +1,5 @@
 import 'package:aevon/core/errors/errors_handler.dart';
+import 'package:aevon/core/shared/data/datasource/local_storage/auth_session.dart';
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/core/utils/app_constants.dart';
 import 'package:aevon/features/auth/data/datasource/auth_data_source_impl.dart';
@@ -12,14 +13,16 @@ import 'package:mockito/mockito.dart';
 
 import 'auth_data_source_impl_test.mocks.dart';
 
-@GenerateMocks([Dio])
+@GenerateMocks([Dio,AuthSession])
 void main() {
   late MockDio mockDio;
+  late MockAuthSession mockAuthSession;
   late AuthDataSourceImpl authDataSourceImpl;
 
   setUpAll(() {
     mockDio = MockDio();
-    authDataSourceImpl = AuthDataSourceImpl(mockDio);
+    mockAuthSession = MockAuthSession();
+    authDataSourceImpl = AuthDataSourceImpl(mockDio, mockAuthSession);
   });
 
   final tRequest = SignInRequest(email: 'test@gmail.com', password: 'Test123');

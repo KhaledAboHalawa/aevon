@@ -3,6 +3,7 @@ import 'package:aevon/features/ai_chat/data/datasources/chat_history_data_source
 import 'package:aevon/features/ai_chat/data/datasources/chat_local_data_source.dart';
 import 'package:aevon/features/ai_chat/data/datasources/chat_remote_data_source.dart';
 import 'package:aevon/features/ai_chat/data/model/chat_message_model.dart';
+import 'package:aevon/features/ai_chat/data/model/conversation_model.dart';
 import 'package:aevon/features/ai_chat/domain/entity/chat_message.dart';
 import 'package:aevon/features/ai_chat/domain/entity/conversation.dart';
 import 'package:aevon/features/ai_chat/domain/repositories/chat_repo.dart';
@@ -45,13 +46,23 @@ class ChatRepoImpl implements ChatRepo {
   }
 
   @override
-  Future<Result<bool>> saveChatHistory({
+  Future<Result<bool>> saveMessageInHistory({
     required ChatMessage message,
     required String conversationId,
   }) {
     return _chatHistoryDataSource.saveChatHistory(
-      message: ChatMessageModel(content: message.content, role: message.role),
+      message: ChatMessageModel(
+        content: message.content,
+        role: message.role,
+        id: message.id,
+      ),
       conversationId: conversationId,
     );
   }
+
+  @override
+  Future<Result<bool>> initConversation({required Conversation conversation}) =>
+      _chatHistoryDataSource.initConversation(
+        conversation: ConversationModel.fromEntity(conversation),
+      );
 }

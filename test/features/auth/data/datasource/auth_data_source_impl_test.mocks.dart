@@ -5,6 +5,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i8;
 
+import 'package:aevon/core/shared/data/datasource/local_storage/auth_session.dart'
+    as _i10;
+import 'package:aevon/features/auth/data/models/user_model.dart' as _i11;
 import 'package:dio/src/adapter.dart' as _i4;
 import 'package:dio/src/cancel_token.dart' as _i9;
 import 'package:dio/src/dio.dart' as _i7;
@@ -886,4 +889,29 @@ class MockDio extends _i1.Mock implements _i7.Dio {
             ),
           )
           as _i7.Dio);
+}
+
+/// A class which mocks [AuthSession].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAuthSession extends _i1.Mock implements _i10.AuthSession {
+  MockAuthSession() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i8.Future<bool> saveUserInfo(_i11.User? user) =>
+      (super.noSuchMethod(
+            Invocation.method(#saveUserInfo, [user]),
+            returnValue: _i8.Future<bool>.value(false),
+          )
+          as _i8.Future<bool>);
+
+  @override
+  _i8.Future<bool> saveToken({required String? token}) =>
+      (super.noSuchMethod(
+            Invocation.method(#saveToken, [], {#token: token}),
+            returnValue: _i8.Future<bool>.value(false),
+          )
+          as _i8.Future<bool>);
 }

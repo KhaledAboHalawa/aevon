@@ -45,18 +45,18 @@ class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
       value: getIt<AiChatCubit>(),
       child: BlocListener<AiChatCubit, AiChatState>(
         listenWhen: (previous, current) {
-          if (previous.messages.length != current.messages.length) {
+          if (previous.conversation.messages.length != current.conversation.messages.length) {
             return true;
           }
 
-          if (previous.messages.isEmpty || current.messages.isEmpty) {
+          if ((previous.conversation.messages.isEmpty) || (current.conversation.messages.isEmpty)) {
             return false;
           }
 
           if (current.errorMessage != null) return true;
 
-          return previous.messages.last.content !=
-              current.messages.last.content;
+          return previous.conversation.messages.last.content !=
+              current.conversation.messages.last.content;
         },
         listener: (BuildContext context, state) {
           handleScroll();

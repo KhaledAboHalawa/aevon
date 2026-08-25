@@ -8,8 +8,9 @@ abstract class ChatRepo {
   Result<bool> isChatOnboardingSeen();
   Result<bool> createNewChat();
   Future<Result<List<Conversation>>> getChatHistory();
-  Future<Result<bool>> saveChatHistory({
+  Future<Result<bool>> saveMessageInHistory({
     required ChatMessage message,
     required String conversationId,
   });
+  Future<Result<bool>> initConversation({required Conversation conversation});
 }

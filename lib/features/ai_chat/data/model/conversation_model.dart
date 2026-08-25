@@ -19,11 +19,12 @@ class ConversationModel extends Conversation {
             (message) => ChatMessageModel(
               content: message.content,
               role: message.role,
+              id: message.id,
             ).toJson(),
           )
           .toList(),
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
+      'createdAt': createdAt!.toIso8601String(),
+      'updatedAt': updatedAt!.toIso8601String(),
     };
   }
 
@@ -39,6 +40,16 @@ class ConversationModel extends Conversation {
       ),
       createdAt: DateTime.parse(map['createdAt'] as String),
       updatedAt: DateTime.parse(map['updatedAt'] as String),
+    );
+  }
+
+  factory ConversationModel.fromEntity(Conversation conversation) {
+    return ConversationModel(
+      id: conversation.id,
+      title: conversation.title,
+      messages: conversation.messages,
+      createdAt: conversation.createdAt,
+      updatedAt: conversation.updatedAt,
     );
   }
 }

@@ -27,6 +27,12 @@ import 'package:aevon/features/ai_chat/domain/repositories/chat_repo.dart'
     as _i416;
 import 'package:aevon/features/ai_chat/domain/usecases/get_chat_onboarding_state_use_case.dart'
     as _i453;
+import 'package:aevon/features/ai_chat/domain/usecases/get_conversations_history_use_case.dart'
+    as _i39;
+import 'package:aevon/features/ai_chat/domain/usecases/init_conversation_history_use_case.dart'
+    as _i197;
+import 'package:aevon/features/ai_chat/domain/usecases/save_message_in_history_use_case.dart'
+    as _i418;
 import 'package:aevon/features/ai_chat/domain/usecases/send_message_use_case.dart'
     as _i612;
 import 'package:aevon/features/ai_chat/domain/usecases/set_chat_onboarding_state_use_case.dart'
@@ -140,26 +146,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i503.AuthSession>(),
       ),
     );
-    gh.singleton<_i416.ChatRepo>(
-      () => _i117.ChatRepoImpl(
-        gh<_i661.ChatLocalDataSource>(),
-        gh<_i23.ChatRemoteDataSource>(),
-      ),
-    );
-    gh.singleton<_i453.GetChatOnboardingStateUseCase>(
-      () => _i453.GetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
-    );
-    gh.singleton<_i466.SetChatOnboardingStateUseCase>(
-      () => _i466.SetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
-    );
     gh.lazySingleton<_i386.FetchUserInfoUseCase>(
       () => _i386.FetchUserInfoUseCase(authRepo: gh<_i973.AuthRepo>()),
     );
     gh.lazySingleton<_i372.SignUpUseCase>(
       () => _i372.SignUpUseCase(authRepo: gh<_i973.AuthRepo>()),
-    );
-    gh.lazySingleton<_i612.SendMessageUseCase>(
-      () => _i612.SendMessageUseCase(repository: gh<_i416.ChatRepo>()),
     );
     gh.lazySingleton<_i103.ForgetPasswordCubit>(
       () => _i103.ForgetPasswordCubit(
@@ -168,8 +159,43 @@ extension GetItInjectableX on _i174.GetIt {
         verifyCodeUseCase: gh<_i605.VerifyCodeUseCase>(),
       ),
     );
+    gh.singleton<_i416.ChatRepo>(
+      () => _i117.ChatRepoImpl(
+        gh<_i661.ChatLocalDataSource>(),
+        gh<_i23.ChatRemoteDataSource>(),
+        gh<_i851.ChatHistoryDataSource>(),
+      ),
+    );
+    gh.singleton<_i39.GetConversationsHistoryUseCase>(
+      () => _i39.GetConversationsHistoryUseCase(gh<_i416.ChatRepo>()),
+    );
+    gh.singleton<_i418.SaveMessageInHistoryUseCase>(
+      () => _i418.SaveMessageInHistoryUseCase(gh<_i416.ChatRepo>()),
+    );
     gh.singleton<_i68.StartNewChatUseCase>(
       () => _i68.StartNewChatUseCase(gh<_i416.ChatRepo>()),
+    );
+    gh.lazySingleton<_i729.SignInUseCase>(
+      () => _i729.SignInUseCase(repo: gh<_i973.AuthRepo>()),
+    );
+    gh.lazySingleton<_i197.InitConversationHistoryUseCase>(
+      () => _i197.InitConversationHistoryUseCase(gh<_i416.ChatRepo>()),
+    );
+    gh.lazySingleton<_i262.AuthCubit>(
+      () => _i262.AuthCubit(
+        signInUseCase: gh<_i729.SignInUseCase>(),
+        signUpUseCase: gh<_i372.SignUpUseCase>(),
+        fetchUserInfoUseCase: gh<_i386.FetchUserInfoUseCase>(),
+      ),
+    );
+    gh.singleton<_i453.GetChatOnboardingStateUseCase>(
+      () => _i453.GetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
+    );
+    gh.singleton<_i466.SetChatOnboardingStateUseCase>(
+      () => _i466.SetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
+    );
+    gh.lazySingleton<_i612.SendMessageUseCase>(
+      () => _i612.SendMessageUseCase(repository: gh<_i416.ChatRepo>()),
     );
     gh.singleton<_i623.AiChatCubit>(
       () => _i623.AiChatCubit(
@@ -179,16 +205,10 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i466.SetChatOnboardingStateUseCase>(),
         sendMessageUseCase: gh<_i612.SendMessageUseCase>(),
         startNewChatUseCase: gh<_i68.StartNewChatUseCase>(),
-      ),
-    );
-    gh.lazySingleton<_i729.SignInUseCase>(
-      () => _i729.SignInUseCase(repo: gh<_i973.AuthRepo>()),
-    );
-    gh.lazySingleton<_i262.AuthCubit>(
-      () => _i262.AuthCubit(
-        signInUseCase: gh<_i729.SignInUseCase>(),
-        signUpUseCase: gh<_i372.SignUpUseCase>(),
-        fetchUserInfoUseCase: gh<_i386.FetchUserInfoUseCase>(),
+        getChatHistoryUseCase: gh<_i39.GetConversationsHistoryUseCase>(),
+        saveMessageInHistoryUseCase: gh<_i418.SaveMessageInHistoryUseCase>(),
+        initConversationHistoryUseCase:
+            gh<_i197.InitConversationHistoryUseCase>(),
       ),
     );
     return this;

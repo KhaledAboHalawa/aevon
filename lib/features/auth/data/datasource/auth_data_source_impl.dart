@@ -22,8 +22,9 @@ class AuthDataSourceImpl implements AuthDataSource {
     );
 
     return resutl..when(
-      success: (data) {
-        _authSession.saveToken(token: data.token!);
+      success: (data) async {
+        await _authSession.saveToken(token: data.token!);
+        await _authSession.saveUserInfo(data.user);
       },
       error: (failure) {},
     );
@@ -37,8 +38,9 @@ class AuthDataSourceImpl implements AuthDataSource {
       parser: (data) => AuthResonse.fromJson(data),
     );
     return resutl..when(
-      success: (data) {
-        _authSession.saveToken(token: data.token!);
+      success: (data) async {
+        await _authSession.saveToken(token: data.token!);
+        await _authSession.saveUserInfo(data.user);
       },
       error: (failure) {},
     );

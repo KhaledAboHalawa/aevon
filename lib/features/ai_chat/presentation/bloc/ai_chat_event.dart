@@ -9,12 +9,18 @@ abstract class AiChatEvent extends Equatable {
   void when({
     required Function() onBoardingSeen,
     required Function() checkOnBoardingSeen,
+    required Function(String message) sendMessage,
+    required Function() startNewChat,
   }) {
     switch (this) {
       case OnBoardingSeenEvent _:
-         onBoardingSeen();
+        onBoardingSeen();
       case CheckOnBoardingSeenEvent _:
-         checkOnBoardingSeen();
+        checkOnBoardingSeen();
+      case SendMessageEvent sendMessageEvent:
+        sendMessage(sendMessageEvent.message);
+      case StartNewChatEvent _:
+        startNewChat();
     }
   }
 }
@@ -22,13 +28,16 @@ abstract class AiChatEvent extends Equatable {
 class OnBoardingSeenEvent extends AiChatEvent {
   const OnBoardingSeenEvent();
 }
+
 class CheckOnBoardingSeenEvent extends AiChatEvent {
   const CheckOnBoardingSeenEvent();
 }
 
 class SendMessageEvent extends AiChatEvent {
   final String message;
-  const SendMessageEvent({
-    required this.message,
-  });
+  const SendMessageEvent({required this.message});
+}
+
+class StartNewChatEvent extends AiChatEvent {
+  const StartNewChatEvent();
 }

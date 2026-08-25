@@ -18,7 +18,6 @@ class ChatInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
-      
       child: BlocSelector<AiChatCubit, AiChatState, bool>(
         selector: (state) => state.isStreaming,
         builder: (BuildContext context, state) => Padding(
@@ -57,8 +56,8 @@ class ChatInput extends StatelessWidget {
 
   void _sendMessage(BuildContext context) {
     final message = controller.text;
-    // if (message.trim().isEmpty) return;
-    context.read<AiChatCubit>().sendMessage(message: message);
+    if (message.trim().isEmpty) return;
+    context.read<AiChatCubit>().doIntent(SendMessageEvent(message: message));
     controller.clear();
   }
 }

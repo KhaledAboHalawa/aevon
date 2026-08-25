@@ -1,7 +1,6 @@
 import 'package:aevon/core/errors/errors_handler.dart';
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/features/auth/data/datasource/auth_data_source.dart';
-import 'package:aevon/features/auth/data/datasource/auth_local_data_source.dart';
 import 'package:aevon/features/auth/data/mapper/auth_response_mapper.dart';
 import 'package:aevon/features/auth/data/models/auth_request.dart';
 import 'package:aevon/features/auth/data/models/auth_respons.dart';
@@ -12,19 +11,20 @@ import 'package:aevon/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../datasource/auth_data_source_impl_test.mocks.dart';
 import 'auth_repo_impl_test.mocks.dart';
 
-@GenerateMocks([AuthDataSource, AuthLocalDataSource])
+@GenerateMocks([AuthDataSource])
 void main() {
   late MockAuthDataSource authDataSourceMock;
-  late MockAuthLocalDataSource authLocalDataSourceMock;
+  late MockAuthSession mockAuthSession;
   late AuthRepoImpl authRepoImpl;
   late SignInRequest tRequest;
   late AuthResonse tResponse;
   setUpAll(() {
     authDataSourceMock = MockAuthDataSource();
-    authLocalDataSourceMock = MockAuthLocalDataSource();
-    authRepoImpl = AuthRepoImpl(authDataSourceMock,authLocalDataSourceMock);
+    mockAuthSession = MockAuthSession();
+    authRepoImpl = AuthRepoImpl(authDataSourceMock,mockAuthSession);
     tRequest = SignInRequest(email: 'test@gmail.com', password: 'Test123');
     tResponse = AuthResonse(
       token: 'token',
