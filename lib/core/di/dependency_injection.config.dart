@@ -11,6 +11,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:aevon/core/di/dependency_injection_module.dart' as _i685;
 import 'package:aevon/core/localization/localization_cubit.dart' as _i653;
+import 'package:aevon/core/shared/data/datasource/local_storage/auth_session.dart'
+    as _i503;
+import 'package:aevon/features/ai_chat/data/datasources/chat_history_data_source.dart'
+    as _i851;
 import 'package:aevon/features/ai_chat/data/datasources/chat_local_data_source.dart'
     as _i661;
 import 'package:aevon/features/ai_chat/data/datasources/chat_remote_data_source.dart'
@@ -35,8 +39,6 @@ import 'package:aevon/features/auth/data/datasource/auth_data_source.dart'
     as _i412;
 import 'package:aevon/features/auth/data/datasource/auth_data_source_impl.dart'
     as _i125;
-import 'package:aevon/features/auth/data/datasource/auth_local_data_source.dart'
-    as _i809;
 import 'package:aevon/features/auth/data/repositories/auth_repo_impl.dart'
     as _i242;
 import 'package:aevon/features/auth/domain/repositories/sign_in_repo.dart'
@@ -65,6 +67,7 @@ import 'package:aevon/features/forget_password/presentation/bloc/forget_password
     as _i103;
 import 'package:aevon/features/onboarding/presentation/cubit/onboarding_cubit.dart'
     as _i705;
+import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -83,44 +86,38 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.lazySingleton<_i361.Dio>(() => registerModule.dio());
+    gh.lazySingleton<_i974.FirebaseFirestore>(() => registerModule.firestore());
     gh.lazySingleton<_i1041.ForgetPasswordDataSource>(
       () => _i1041.ForgetPasswordDataSource(dio: gh<_i361.Dio>()),
-    );
-    gh.lazySingleton<_i412.AuthDataSource>(
-      () => _i125.AuthDataSourceImpl(gh<_i361.Dio>()),
     );
     gh.singleton<_i661.ChatLocalDataSource>(
       () => _i661.ChatLocalDataSource(gh<_i460.SharedPreferences>()),
     );
-    gh.lazySingleton<_i809.AuthLocalDataSource>(
-      () => _i809.AuthLocalDataSource(
-        sharedPreferences: gh<_i460.SharedPreferences>(),
-      ),
+    gh.lazySingleton<_i503.AuthSession>(
+      () => _i503.AuthSession(gh<_i460.SharedPreferences>()),
+    );
+    gh.lazySingleton<_i23.ChatRemoteDataSource>(
+      () => _i246.GeminiDataSource(authSession: gh<_i503.AuthSession>()),
     );
     gh.lazySingleton<_i705.OnboardingCubit>(
       () => _i705.OnboardingCubit(
         sharedPreferences: gh<_i460.SharedPreferences>(),
       ),
     );
+    gh.lazySingleton<_i851.ChatHistoryDataSource>(
+      () => _i851.ChatHistoryDataSource(
+        firestore: gh<_i974.FirebaseFirestore>(),
+        authSession: gh<_i503.AuthSession>(),
+      ),
+    );
     gh.lazySingleton<_i653.LocalizationCubit>(
       () => _i653.LocalizationCubit(gh<_i460.SharedPreferences>()),
-    );
-    gh.lazySingleton<_i23.ChatRemoteDataSource>(
-      () => _i246.GeminiDataSource(
-        authDataSource: gh<_i809.AuthLocalDataSource>(),
-      ),
-    );
-    gh.lazySingleton<_i973.AuthRepo>(
-      () => _i242.AuthRepoImpl(
-        gh<_i412.AuthDataSource>(),
-        gh<_i809.AuthLocalDataSource>(),
-      ),
     );
     gh.lazySingleton<_i196.ForgetPasswordRepo>(
       () => _i628.ForgetPasswordRepoImpl(gh<_i1041.ForgetPasswordDataSource>()),
     );
-    gh.lazySingleton<_i729.SignInUseCase>(
-      () => _i729.SignInUseCase(repo: gh<_i973.AuthRepo>()),
+    gh.lazySingleton<_i412.AuthDataSource>(
+      () => _i125.AuthDataSourceImpl(gh<_i361.Dio>(), gh<_i503.AuthSession>()),
     );
     gh.lazySingleton<_i389.ForgetPasswordUseCase>(
       () => _i389.ForgetPasswordUseCase(
@@ -135,6 +132,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i605.VerifyCodeUseCase>(
       () => _i605.VerifyCodeUseCase(
         forgetPasswordRepo: gh<_i196.ForgetPasswordRepo>(),
+      ),
+    );
+    gh.lazySingleton<_i973.AuthRepo>(
+      () => _i242.AuthRepoImpl(
+        gh<_i412.AuthDataSource>(),
+        gh<_i503.AuthSession>(),
       ),
     );
     gh.singleton<_i416.ChatRepo>(
@@ -177,6 +180,9 @@ extension GetItInjectableX on _i174.GetIt {
         sendMessageUseCase: gh<_i612.SendMessageUseCase>(),
         startNewChatUseCase: gh<_i68.StartNewChatUseCase>(),
       ),
+    );
+    gh.lazySingleton<_i729.SignInUseCase>(
+      () => _i729.SignInUseCase(repo: gh<_i973.AuthRepo>()),
     );
     gh.lazySingleton<_i262.AuthCubit>(
       () => _i262.AuthCubit(

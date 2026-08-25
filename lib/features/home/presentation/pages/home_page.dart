@@ -1,5 +1,3 @@
-import 'package:aevon/core/theme/app_colors.dart';
-import 'package:aevon/core/theme/app_font.dart';
 import 'package:aevon/core/utils/app_images.dart';
 import 'package:aevon/features/ai_chat/presentation/pages/chat_tab.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/app_drawer.dart';

@@ -1,7 +1,6 @@
 import 'package:aevon/core/errors/errors_handler.dart';
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/core/utils/app_constants.dart';
-import 'package:aevon/features/ai_chat/domain/entity/ai_context.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

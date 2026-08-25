@@ -29,4 +29,8 @@ class ApiConstants {
 
   // Chat Endpoints
   static const String aiChatEndpoint = 'https://api.openai.com/v1/chat/completions';
+
+  //Firestore Endpoints
+  static const String usersCollection = 'users';
+  static const String conversationsCollection = 'conversations';
 }

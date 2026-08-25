@@ -1,16 +1,12 @@
 import 'package:equatable/equatable.dart';
 
 class ChatMessage extends Equatable {
-  // final String id;
   final String content;
-  final MessageRole role; // user, assistant, system
-  // final DateTime timestamp;
+  final MessageRole role;
 
   const ChatMessage({
-    // required this.id,
     required this.content,
     required this.role,
-    // required this.timestamp,
   });
 
   @override
