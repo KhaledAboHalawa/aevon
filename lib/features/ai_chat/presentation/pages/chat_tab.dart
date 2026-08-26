@@ -23,7 +23,6 @@ class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
-
     _messageController = TextEditingController();
     _focusNode = FocusNode();
     _scrollController = ScrollController();
@@ -42,14 +41,16 @@ class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
   Widget build(BuildContext context) {
     super.build(context);
     return BlocProvider.value(
-      value: getIt<AiChatCubit>(),
+      value: getIt<AiChatCubit>()..doIntent(const StartNewChatEvent()),
       child: BlocListener<AiChatCubit, AiChatState>(
         listenWhen: (previous, current) {
-          if (previous.conversation.messages.length != current.conversation.messages.length) {
+          if (previous.conversation.messages.length !=
+              current.conversation.messages.length) {
             return true;
           }
 
-          if ((previous.conversation.messages.isEmpty) || (current.conversation.messages.isEmpty)) {
+          if ((previous.conversation.messages.isEmpty) ||
+              (current.conversation.messages.isEmpty)) {
             return false;
           }
 

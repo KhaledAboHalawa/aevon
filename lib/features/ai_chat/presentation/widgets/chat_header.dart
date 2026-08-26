@@ -1,4 +1,3 @@
-
 import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/shared/presentation/widgets/profile_avatar.dart';
 import 'package:aevon/core/theme/app_colors.dart';
@@ -39,7 +38,7 @@ class _ChatHeaderState extends State<ChatHeader> {
       children: [
         const SizedBox(width: 16),
         ProfileAvatar(
-          imageUrl:  authCubit.state.authResonse?.user.photo,
+          imageUrl: authCubit.state.authResonse?.user.photo,
           initials: authCubit.state.authResonse?.user.firstName?[0] ?? "T",
         ),
         Expanded(
@@ -75,6 +74,7 @@ class _ChatHeaderState extends State<ChatHeader> {
         ),
         GestureDetector(
           onTap: () {
+            // getIt<AiChatCubit>().doIntent(const GetConversationsHistoryEvent());
             Scaffold.of(context).openEndDrawer();
           },
           child: SvgPicture.asset(AppIcons.menu),

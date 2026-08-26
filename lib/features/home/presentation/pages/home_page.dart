@@ -1,6 +1,6 @@
 import 'package:aevon/core/utils/app_images.dart';
 import 'package:aevon/features/ai_chat/presentation/pages/chat_tab.dart';
-import 'package:aevon/features/ai_chat/presentation/widgets/app_drawer.dart';
+import 'package:aevon/features/ai_chat/presentation/widgets/conversation_history_drawer.dart';
 import 'package:aevon/features/home/presentation/widgets/custom_nav_bar/custom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Scaffold(
         extendBody: true,
-        endDrawer: const AiChatDrawer(),
+        endDrawer: const ConversationHistoryDrawer(),
         backgroundColor: Colors.transparent,
         body: PageView(
           physics: const NeverScrollableScrollPhysics(),

@@ -36,7 +36,7 @@ class ChatRepoImpl implements ChatRepo {
   }
 
   @override
-  Result<bool> createNewChat() {
+  Result<bool> startNewChat() {
     return _remoteDataSource.startNewChat();
   }
 
@@ -62,7 +62,7 @@ class ChatRepoImpl implements ChatRepo {
 
   @override
   Future<Result<bool>> initConversation({required Conversation conversation}) =>
-      _chatHistoryDataSource.initConversation(
+      _chatHistoryDataSource.initConversationCollection(
         conversation: ConversationModel.fromEntity(conversation),
       );
 }

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:aevon/features/auth/data/models/auth_request.dart';
 import 'package:aevon/features/auth/domain/entities/sign_in_entity.dart';
@@ -59,11 +58,10 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await _signUpUseCase(signUpRequest);
     return result.when(
       success: (data) {
-        log(data.toString());
+        
         emit(state.copyWith(authResonse: data, isLoading: false));
       },
       error: (failure) {
-        log(failure.message);
         emit(state.copyWith(errorMessage: failure.message, isLoading: false));
       },
     );

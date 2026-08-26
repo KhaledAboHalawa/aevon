@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aevon/core/shared/data/datasource/local_storage/auth_session.dart';
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/features/ai_chat/data/datasources/chat_remote_data_source.dart';
@@ -9,18 +11,19 @@ import '../../../../core/errors/errors_handler.dart';
 
 @LazySingleton(as: ChatRemoteDataSource)
 class GeminiDataSource implements ChatRemoteDataSource {
-  late final GenerativeModel _model;
+  GenerativeModel? _model;
   late ChatSession _chat;
   final AuthSession _authSession;
-  GeminiDataSource({required this._authSession}) {
+  GeminiDataSource({required this._authSession});
+
+  void initTheModel() {
+    if (_model != null) return;
     _model = FirebaseAI.googleAI().generativeModel(
-      model: 'gemini-3.7-flash',
+      model: 'gemini-3.6-flash',
       systemInstruction: Content.system(
-        buildSystemInstruction(_authSession.fetchUserInfo()!.toAiContext()),
+        buildSystemInstruction(_authSession.fetchUserInfo()?.toAiContext()),
       ),
     );
-
-    _chat = _model.startChat();
   }
 
   @override
@@ -29,6 +32,7 @@ class GeminiDataSource implements ChatRemoteDataSource {
       final response = _chat.sendMessageStream(Content.text(message));
       await for (final chunk in response) {
         final text = chunk.text;
+
         if (text != null && text.isNotEmpty) {
           yield Success(text);
         }
@@ -47,8 +51,9 @@ class GeminiDataSource implements ChatRemoteDataSource {
 
   @override
   Result<bool> startNewChat() {
+    initTheModel();
     try {
-      _chat = _model.startChat();
+      _chat = _model!.startChat();
       return const Success(true);
     } catch (e) {
       return Error(
@@ -62,7 +67,7 @@ class GeminiDataSource implements ChatRemoteDataSource {
     }
   }
 
-  String buildSystemInstruction(AiContext user) {
+  String buildSystemInstruction(AiContext? user) {
     return '''
 You are an AI fitness coach inside a fitness application.
 
@@ -80,11 +85,11 @@ Rules:
 - Keep responses practical and easy to understand.
 
 User fitness profile:
-- Age: ${user.age}
-- Height: ${user.height} cm
-- Weight: ${user.weight} kg
-- Goal: ${user.goal}
-- Activity level: ${user.activityLevel}
+- Age: ${user?.age ?? 'unknown'}
+- Height: ${user?.height ?? 'unknown'} cm
+- Weight: ${user?.weight} kg
+- Goal: ${user?.goal ?? 'unknown'}
+- Activity level: ${user?.activityLevel ?? 'unknown'}
 ''';
   }
 }

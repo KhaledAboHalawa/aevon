@@ -23,8 +23,8 @@ class AuthDataSourceImpl implements AuthDataSource {
 
     return resutl..when(
       success: (data) async {
-        await _authSession.saveToken(token: data.token!);
-        await _authSession.saveUserInfo(data.user);
+        _authSession.saveUserInfo(data.user);
+        _authSession.saveToken(token: data.token!);
       },
       error: (failure) {},
     );
@@ -39,8 +39,8 @@ class AuthDataSourceImpl implements AuthDataSource {
     );
     return resutl..when(
       success: (data) async {
-        await _authSession.saveToken(token: data.token!);
-        await _authSession.saveUserInfo(data.user);
+        _authSession.saveUserInfo(data.user);
+        _authSession.saveToken(token: data.token!);
       },
       error: (failure) {},
     );

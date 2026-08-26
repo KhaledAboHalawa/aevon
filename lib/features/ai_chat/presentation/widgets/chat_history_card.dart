@@ -1,10 +1,11 @@
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
+import 'package:aevon/features/ai_chat/domain/entity/conversation.dart';
 import 'package:flutter/material.dart';
 
 class ChatHistoryCard extends StatelessWidget {
-  const ChatHistoryCard({super.key, required this.title, this.onTap});
-  final String title;
+  const ChatHistoryCard({super.key, required this.conversation, this.onTap});
+  final Conversation conversation;
   final void Function()? onTap;
 
   @override
@@ -25,7 +26,7 @@ class ChatHistoryCard extends StatelessWidget {
                   size: 16,
                 ),
                 Text(
-                  title,
+                  conversation.title,
                   style: AppFont.balooThambi2Medium(
                     fontSize: 12,
                     color: AppColors.textGrey,

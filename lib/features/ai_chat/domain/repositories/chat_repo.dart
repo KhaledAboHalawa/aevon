@@ -6,7 +6,7 @@ abstract class ChatRepo {
   Stream<Result<String>> sendMessage({required String message});
   Future<Result<bool>> saveChatOnboardingSeen();
   Result<bool> isChatOnboardingSeen();
-  Result<bool> createNewChat();
+  Result<bool> startNewChat();
   Future<Result<List<Conversation>>> getChatHistory();
   Future<Result<bool>> saveMessageInHistory({
     required ChatMessage message,

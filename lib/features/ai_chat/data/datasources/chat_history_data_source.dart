@@ -11,6 +11,7 @@ import 'package:injectable/injectable.dart';
 class ChatHistoryDataSource {
   final FirebaseFirestore _firestore;
   final AuthSession _authSession;
+  String? userId;
   ChatHistoryDataSource({required this._firestore, required this._authSession});
 
   Future<Result<bool>> saveChatHistory({
@@ -23,7 +24,7 @@ class ChatHistoryDataSource {
     return const Success(true);
   }
 
-  Future<Result<bool>> initConversation({
+  Future<Result<bool>> initConversationCollection({
     required ConversationModel conversation,
   }) async {
     try {
@@ -46,34 +47,56 @@ class ChatHistoryDataSource {
   Future<Result<bool>> deleteChatHistory({
     required String conversationId,
   }) async {
-    (await getConversationCollection()).doc(conversationId).delete();
-    return const Success(true);
+    try {
+      (await getConversationCollection()).doc(conversationId).delete();
+      return const Success(true);
+    } catch (e) {
+      return Error(
+        Failure(
+          message: e.toString(),
+          statusCode: 1,
+          success: false,
+          status: 0,
+        ),
+      );
+    }
   }
 
   Future<Result<List<ConversationModel>>> getChatHistory() async {
-    final conversationCollection = await getConversationCollection();
-    final result = await conversationCollection.get();
-    return Success<List<ConversationModel>>(
-      result.docs.map((doc) => doc.data()).toList(),
-    );
+    try {
+      final conversationCollection = await getConversationCollection();
+      final result = await conversationCollection.get();
+      return Success<List<ConversationModel>>(
+        result.docs.map((doc) => doc.data()).toList(),
+      );
+    } catch (e) {
+      return Error(
+        Failure(
+          message: e.toString(),
+          statusCode: 1,
+          success: false,
+          status: 0,
+        ),
+      );
+    }
   }
-
-  // Future<DocumentReference<Map<String, dynamic>>> getConversationDocument({required String conversationId}) async {
-  //   final user = _authSession.fetchUserInfo();
-  //   return getConversationCollection().then((value) => value.doc(conversationId));
-  // }
 
   Future<CollectionReference<ConversationModel>>
   getConversationCollection() async {
-    final user = _authSession.fetchUserInfo();
-    return _firestore
-        .collection(ApiConstants.usersCollection)
-        .doc(user!.id)
-        .collection(ApiConstants.conversationsCollection)
-        .withConverter<ConversationModel>(
-          fromFirestore: (snapshot, options) =>
-              ConversationModel.fromJson(snapshot.data()!),
-          toFirestore: (value, options) => value.toJson(),
-        );
+    try {
+      userId ??= _authSession.fetchUserInfo()?.id;
+      final result = _firestore
+          .collection(ApiConstants.usersCollection)
+          .doc(userId)
+          .collection(ApiConstants.conversationsCollection)
+          .withConverter<ConversationModel>(
+            fromFirestore: (snapshot, options) =>
+                ConversationModel.fromJson(snapshot.data()!),
+            toFirestore: (value, options) => value.toJson(),
+          );
+      return result;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

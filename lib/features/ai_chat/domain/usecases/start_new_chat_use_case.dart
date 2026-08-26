@@ -6,5 +6,5 @@ import 'package:injectable/injectable.dart';
 class StartNewChatUseCase {
   final ChatRepo chatRepo;
   StartNewChatUseCase(this.chatRepo);
-  Result<bool> call() => chatRepo.createNewChat();
+  Result<bool> call() => chatRepo.startNewChat();
 }

@@ -11,6 +11,8 @@ abstract class AiChatEvent extends Equatable {
     required Function() checkOnBoardingSeen,
     required Function(String message) sendMessage,
     required Function() startNewChat,
+    required Function() getConversationsHistory,
+    required void Function(Conversation conversation) changeCurrentConversation,
   }) {
     switch (this) {
       case OnBoardingSeenEvent _:
@@ -21,6 +23,10 @@ abstract class AiChatEvent extends Equatable {
         sendMessage(sendMessageEvent.message);
       case StartNewChatEvent _:
         startNewChat();
+      case GetConversationsHistoryEvent _:
+        getConversationsHistory();
+      case ChangeCurrentConversation changeCurrentConversationEvent:
+        changeCurrentConversation(changeCurrentConversationEvent.conversation);
     }
   }
 }
@@ -40,4 +46,13 @@ class SendMessageEvent extends AiChatEvent {
 
 class StartNewChatEvent extends AiChatEvent {
   const StartNewChatEvent();
+}
+
+class GetConversationsHistoryEvent extends AiChatEvent {
+  const GetConversationsHistoryEvent();
+}
+
+class ChangeCurrentConversation {
+  final Conversation conversation;
+  const ChangeCurrentConversation({required this.conversation});
 }

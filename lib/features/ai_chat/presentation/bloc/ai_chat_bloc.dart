@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:aevon/core/errors/errors_handler.dart';
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/features/ai_chat/domain/entity/chat_message.dart';
@@ -36,34 +35,45 @@ class AiChatCubit extends Cubit<AiChatState> {
     required this.startNewChatUseCase,
     required this.getChatHistoryUseCase,
     required this.saveMessageInHistoryUseCase,
-    required this.initConversationHistoryUseCase,
+    required this.initConversationHistoryUseCase, 
   }) : super(AiChatState.initial()) {
     _checkOnBoardingSeen();
-    _startNewChat();
   }
 
   void doIntent(AiChatEvent event) {
     event.when(
-      onBoardingSeen: () => _setOnBoardingSeen,
-      checkOnBoardingSeen: () => _checkOnBoardingSeen,
+      onBoardingSeen: _setOnBoardingSeen,
+      checkOnBoardingSeen: _checkOnBoardingSeen,
       sendMessage: (String message) => _sendMessage(message: message),
-      startNewChat: () => _startNewChat,
+      startNewChat: _startNewChat,
+      getConversationsHistory: _getConversationHistory,
+      changeCurrentConversation: (Conversation conversation) =>
+          _changeCurrentConversation(conversation: conversation),
     );
   }
 
-  void _setOnBoardingSeen() async {
-    final result = await setChatOnboardingStateUseCase();
-    result.when(
-      success: (value) => emit(state.copyWith(isOnboardingSeen: value)),
-      error: (error) => emit(state.copyWith(errorMessage: error.message)),
-    );
+  Future<void> _changeCurrentConversation({
+    required Conversation conversation,
+  }) async {
+    emit(state.copyWith(conversation: conversation));
   }
 
-  void _checkOnBoardingSeen() {
-    final result = getChatOnboardingStateUseCase();
+  Future<void> _getConversationHistory() async {
+    emit(state.copyWith(conversatoinsHistoryisLoading: true));
+    final result = await getChatHistoryUseCase();
     result.when(
-      success: (value) => emit(state.copyWith(isOnboardingSeen: value)),
-      error: (error) => emit(state.copyWith(errorMessage: error.message)),
+      success: (value) => emit(
+        state.copyWith(
+          conversationsHistory: value,
+          conversatoinsHistoryisLoading: false,
+        ),
+      ),
+      error: (error) => emit(
+        state.copyWith(
+          errorMessage: error.message,
+          conversatoinsHistoryisLoading: false,
+        ),
+      ),
     );
   }
 
@@ -174,6 +184,22 @@ class AiChatCubit extends Cubit<AiChatState> {
       );
     }
     emit(state.copyWith(isStreaming: false));
+  }
+
+  void _setOnBoardingSeen() async {
+    final result = await setChatOnboardingStateUseCase();
+    result.when(
+      success: (value) => emit(state.copyWith(isOnboardingSeen: value)),
+      error: (error) => emit(state.copyWith(errorMessage: error.message)),
+    );
+  }
+
+  void _checkOnBoardingSeen() {
+    final result = getChatOnboardingStateUseCase();
+    result.when(
+      success: (value) => emit(state.copyWith(isOnboardingSeen: value)),
+      error: (error) => emit(state.copyWith(errorMessage: error.message)),
+    );
   }
 
   @override
