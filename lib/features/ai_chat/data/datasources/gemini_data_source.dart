@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:aevon/core/shared/data/datasource/local_storage/auth_session.dart';
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/features/ai_chat/data/datasources/chat_remote_data_source.dart';
@@ -50,10 +48,10 @@ class GeminiDataSource implements ChatRemoteDataSource {
   }
 
   @override
-  Result<bool> startNewChat() {
+  Result<bool> startNewChat({List<Content>? history}) {
     initTheModel();
     try {
-      _chat = _model!.startChat();
+      _chat = _model!.startChat(history: history);
       return const Success(true);
     } catch (e) {
       return Error(

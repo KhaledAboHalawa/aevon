@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:aevon/core/errors/errors_handler.dart';
 import 'package:aevon/core/shared/data/model/result.dart';
+import 'package:aevon/features/ai_chat/data/mapper/conversation_mapper.dart';
 import 'package:aevon/features/ai_chat/domain/entity/chat_message.dart';
 import 'package:aevon/features/ai_chat/domain/entity/conversation.dart';
 import 'package:aevon/features/ai_chat/domain/usecases/get_chat_onboarding_state_use_case.dart';
@@ -11,6 +12,7 @@ import 'package:aevon/features/ai_chat/domain/usecases/send_message_use_case.dar
 import 'package:aevon/features/ai_chat/domain/usecases/set_chat_onboarding_state_use_case.dart';
 import 'package:aevon/features/ai_chat/domain/usecases/start_new_chat_use_case.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -35,7 +37,7 @@ class AiChatCubit extends Cubit<AiChatState> {
     required this.startNewChatUseCase,
     required this.getChatHistoryUseCase,
     required this.saveMessageInHistoryUseCase,
-    required this.initConversationHistoryUseCase, 
+    required this.initConversationHistoryUseCase,
   }) : super(AiChatState.initial()) {
     _checkOnBoardingSeen();
   }
@@ -55,6 +57,7 @@ class AiChatCubit extends Cubit<AiChatState> {
   Future<void> _changeCurrentConversation({
     required Conversation conversation,
   }) async {
+    _startNewChat(history: conversation.messages.toModelMessages());
     emit(state.copyWith(conversation: conversation));
   }
 
@@ -77,22 +80,22 @@ class AiChatCubit extends Cubit<AiChatState> {
     );
   }
 
-  Future<void> _startNewChat() async {
-    final result = startNewChatUseCase();
+  Future<void> _startNewChat({List<Content>? history}) async {
+    final result = startNewChatUseCase(history: history);
     result.when(
       success: (value) => emit(
-        state.copyWith(
-          conversation: Conversation(
-            id: UniqueKey().toString(),
-            title: '',
-            createdAt: DateTime.now(),
-            updatedAt: DateTime.now(),
-            messages: [],
+          state.copyWith(
+            conversation: Conversation(
+              id: UniqueKey().toString(),
+              title: '',
+              createdAt: DateTime.now(),
+              updatedAt: DateTime.now(),
+              messages: [],
+            ),
+            isStreaming: false,
+            errorMessage: null,
           ),
-          isStreaming: false,
-          errorMessage: null,
         ),
-      ),
       error: (error) => emit(state.copyWith(errorMessage: error.message)),
     );
   }

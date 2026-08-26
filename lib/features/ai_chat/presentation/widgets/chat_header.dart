@@ -73,10 +73,7 @@ class _ChatHeaderState extends State<ChatHeader> {
           ),
         ),
         GestureDetector(
-          onTap: () {
-            // getIt<AiChatCubit>().doIntent(const GetConversationsHistoryEvent());
-            Scaffold.of(context).openEndDrawer();
-          },
+          onTap: () => Scaffold.of(context).openEndDrawer(),
           child: SvgPicture.asset(AppIcons.menu),
         ),
         const SizedBox(width: 16),

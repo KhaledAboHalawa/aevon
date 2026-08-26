@@ -7,6 +7,7 @@ import 'package:aevon/features/ai_chat/data/model/conversation_model.dart';
 import 'package:aevon/features/ai_chat/domain/entity/chat_message.dart';
 import 'package:aevon/features/ai_chat/domain/entity/conversation.dart';
 import 'package:aevon/features/ai_chat/domain/repositories/chat_repo.dart';
+import 'package:firebase_ai/firebase_ai.dart';
 import 'package:injectable/injectable.dart';
 
 @Singleton(as: ChatRepo)
@@ -36,8 +37,8 @@ class ChatRepoImpl implements ChatRepo {
   }
 
   @override
-  Result<bool> startNewChat() {
-    return _remoteDataSource.startNewChat();
+  Result<bool> startNewChat({List<Content>? history}) {
+    return _remoteDataSource.startNewChat(history: history);
   }
 
   @override

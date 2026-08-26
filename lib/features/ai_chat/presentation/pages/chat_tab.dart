@@ -16,6 +16,7 @@ class ChatTab extends StatefulWidget {
 }
 
 class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
+  late final AiChatCubit _aiChatCubit;
   late final TextEditingController _messageController;
   late final FocusNode _focusNode;
   late final ScrollController _scrollController;
@@ -23,6 +24,9 @@ class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
+    _aiChatCubit = getIt<AiChatCubit>()
+      ..doIntent(const StartNewChatEvent())
+      ..doIntent(const GetConversationsHistoryEvent());
     _messageController = TextEditingController();
     _focusNode = FocusNode();
     _scrollController = ScrollController();
@@ -41,7 +45,7 @@ class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
   Widget build(BuildContext context) {
     super.build(context);
     return BlocProvider.value(
-      value: getIt<AiChatCubit>()..doIntent(const StartNewChatEvent()),
+      value: _aiChatCubit,
       child: BlocListener<AiChatCubit, AiChatState>(
         listenWhen: (previous, current) {
           if (previous.conversation.messages.length !=

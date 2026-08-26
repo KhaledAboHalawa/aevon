@@ -36,6 +36,7 @@ class _MessageBubbleState extends State<MessageBubble> {
         spacing: 16,
         children: [
           ProfileAvatar(
+            isUser: isUser,
             imageUrl: isUser
                 ? authCubit.state.authResonse?.user.photo
                 : AppImages.ai,
