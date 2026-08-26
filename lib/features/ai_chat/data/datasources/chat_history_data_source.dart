@@ -20,6 +20,7 @@ class ChatHistoryDataSource {
   }) async {
     (await getConversationCollection()).doc(conversationId).update({
       "messages": FieldValue.arrayUnion([message.toJson()]),
+      "updatedAt": DateTime.now().toIso8601String(),
     });
     return const Success(true);
   }
