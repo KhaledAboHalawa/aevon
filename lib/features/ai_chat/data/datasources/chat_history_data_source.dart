@@ -66,7 +66,9 @@ class ChatHistoryDataSource {
   Future<Result<List<ConversationModel>>> getChatHistory() async {
     try {
       final conversationCollection = await getConversationCollection();
-      final result = await conversationCollection.get();
+      final result = await conversationCollection
+          .orderBy('updatedAt', descending: true)
+          .get();
       return Success<List<ConversationModel>>(
         result.docs.map((doc) => doc.data()).toList(),
       );
