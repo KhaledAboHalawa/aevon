@@ -11,12 +11,12 @@ class GetConversationsHistoryUseCase {
   GetConversationsHistoryUseCase(this.chatRepo);
 
   Future<Result<List<Conversation>>> call() async {
-    final result = await chatRepo.getChatHistory();
-    return result.when(
-      success: (data) async =>
-          Success(await sortConversationsByCreatedAt(data)),
-      error: (error) => Error(error),
-    );
+    return await chatRepo.getChatHistory();
+    // return result.when(
+    //   success: (data) async =>
+    //       Success(await sortConversationsByCreatedAt(data)),
+    //   error: (error) => Error(error),
+    // );
   }
 
   Future<List<Conversation>> sortConversationsByCreatedAt(

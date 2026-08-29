@@ -1,5 +1,6 @@
 
 import 'package:aevon/features/auth/data/models/auth_request.dart';
+import 'package:aevon/features/auth/data/models/user_model.dart';
 import 'package:aevon/features/auth/domain/entities/sign_in_entity.dart';
 import 'package:aevon/features/auth/domain/usecases/fetch_user_info_use_case.dart';
 import 'package:aevon/features/auth/domain/usecases/sign_in_use_case.dart';
@@ -39,6 +40,16 @@ class AuthCubit extends Cubit<AuthState> {
         ),
       ),
       error: (failure) => emit(state.copyWith(errorMessage: failure.message)),
+    );
+  }
+
+  void updateUser(User user) {
+    final current = state.authResonse;
+    if (current == null) return;
+    emit(
+      state.copyWith(
+        authResonse: AuthEntity(token: current.token, user: user),
+      ),
     );
   }
 

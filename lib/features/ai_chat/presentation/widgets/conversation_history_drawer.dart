@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/shared/presentation/widgets/custom_button.dart';

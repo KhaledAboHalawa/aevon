@@ -1,5 +1,5 @@
 import 'package:aevon/core/utils/app_images.dart';
-import 'package:aevon/features/ai_chat/presentation/widgets/chat_header.dart';
+import 'package:aevon/features/ai_chat/presentation/widgets/app_header.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/chat_onboarding_bottom_shet.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +11,6 @@ class ChatOnboarding extends StatefulWidget {
 }
 
 class _ChatOnboardingState extends State<ChatOnboarding> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,7 +26,7 @@ class _ChatOnboardingState extends State<ChatOnboarding> {
         body: Column(
           spacing: 8,
           children: [
-            const ChatHeader(isInboarding: true, userName: "Aevon"),
+            const AppHeader(type: .chatOnboarding, userName: "Aevon"),
             Image.asset(AppImages.robot),
             const ChatOnboardingBottomShet(),
           ],

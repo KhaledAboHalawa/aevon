@@ -2,6 +2,7 @@ import 'package:aevon/core/utils/app_images.dart';
 import 'package:aevon/features/ai_chat/presentation/pages/chat_tab.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/conversation_history_drawer.dart';
 import 'package:aevon/features/home/presentation/widgets/custom_nav_bar/custom_nav_bar.dart';
+import 'package:aevon/features/profile/presentation/pages/profle_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,8 +17,8 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _tabs = [
     const Center(child: Text('Explore')),
     const ChatTab(),
-    const Center(child: Text('Search')),
-    const Center(child: Text('Profile')),
+    const Center(child: Text('exercises')),
+    const ProfleTab(),
   ];
   @override
   void initState() {

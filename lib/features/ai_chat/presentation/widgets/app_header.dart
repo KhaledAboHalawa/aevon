@@ -8,16 +8,16 @@ import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class ChatHeader extends StatefulWidget {
-  const ChatHeader({super.key, required this.isInboarding, this.userName});
-  final bool isInboarding;
+class AppHeader extends StatefulWidget {
+  const AppHeader({super.key, this.userName, this.type = HeaderType.chat});
   final String? userName;
+  final HeaderType type;
 
   @override
-  State<ChatHeader> createState() => _ChatHeaderState();
+  State<AppHeader> createState() => _AppHeaderState();
 }
 
-class _ChatHeaderState extends State<ChatHeader> {
+class _AppHeaderState extends State<AppHeader> {
   bool isFirstLoad = true;
   late final AppLocalizations? locale;
   late final AuthCubit authCubit;
@@ -34,24 +34,26 @@ class _ChatHeaderState extends State<ChatHeader> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const SizedBox(width: 16),
-        ProfileAvatar(
-          imageUrl: authCubit.state.authResonse?.user.photo,
-          initials: authCubit.state.authResonse?.user.firstName?[0] ?? "T",
-        ),
-        Expanded(
-          child: RichText(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ProfileAvatar(
+            imageUrl: widget.type != .profile
+                ? authCubit.state.authResonse?.user.photo
+                : null,
+            initials: authCubit.state.authResonse?.user.firstName?[0] ?? "T",
+          ),
+          RichText(
             textHeightBehavior: const TextHeightBehavior(
               applyHeightToFirstAscent: false,
               applyHeightToLastDescent: true,
               leadingDistribution: TextLeadingDistribution.even,
             ),
-            textAlign: TextAlign.center,
             text: TextSpan(
               children: [
-                if (widget.isInboarding)
+                if (widget.type == HeaderType.chatOnboarding)
                   TextSpan(
                     text: "${locale!.hi} ${widget.userName},\n",
                     style: AppFont.balooThambi2Medium(
@@ -60,24 +62,37 @@ class _ChatHeaderState extends State<ChatHeader> {
                     ),
                   ),
                 TextSpan(
-                  text: widget.isInboarding
-                      ? locale!.chatOnboardingBottomSheetTitle
-                      : locale!.chatHeaderTitle,
+                  text: switch (widget.type) {
+                    HeaderType.chatOnboarding =>
+                      locale!.chatOnboardingBottomSheetTitle,
+                    HeaderType.chat => locale!.chatHeaderTitle,
+                    HeaderType.profile => "Profile",
+                  },
                   style: AppFont.balooThambi2Bold(
-                    fontSize: widget.isInboarding ? 18 : 24,
+                    fontSize: switch (widget.type) {
+                      HeaderType.chatOnboarding => 18,
+                      HeaderType.chat => 24,
+                      HeaderType.profile => 24,
+                    },
                     color: AppColors.white,
                   ),
                 ),
               ],
             ),
           ),
-        ),
-        GestureDetector(
-          onTap: () => Scaffold.of(context).openEndDrawer(),
-          child: SvgPicture.asset(AppIcons.menu),
-        ),
-        const SizedBox(width: 16),
-      ],
+
+          GestureDetector(
+            onTap: () => widget.type == HeaderType.chat
+                ? Scaffold.of(context).openEndDrawer()
+                : null,
+            child: (widget.type == HeaderType.chat)
+                ? SvgPicture.asset(AppIcons.menu, width: 29)
+                : const SizedBox(width: 29),
+          ),
+        ],
+      ),
     );
   }
 }
+
+enum HeaderType { chatOnboarding, chat, profile }

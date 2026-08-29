@@ -40,4 +40,14 @@ class AuthSession {
       return false;
     }
   }
+
+  Future<bool> clearSession() async {
+    try {
+      await _preferences.remove(AppKeys.token);
+      await _preferences.remove(AppKeys.userInfo);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

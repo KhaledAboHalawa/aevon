@@ -14,5 +14,11 @@ class AppIcons {
   static const String workOuts = 'assets/icons/gym.svg';
   static const String home = 'assets/icons/home.svg';
   static const String menu = 'assets/icons/menu.svg';
+  static const String change = 'assets/icons/change.svg';
+  static const String security = 'assets/icons/security.svg';
+  static const String pricacyPolicy = 'assets/icons/privacy_policy.svg';
+  static const String logout = 'assets/icons/logout.svg';
+  static const String help = 'assets/icons/help.svg';
+  static const String language = 'assets/icons/language.svg';
 
 }
