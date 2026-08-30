@@ -914,4 +914,12 @@ class MockAuthSession extends _i1.Mock implements _i10.AuthSession {
             returnValue: _i8.Future<bool>.value(false),
           )
           as _i8.Future<bool>);
+
+  @override
+  _i8.Future<bool> clearSession() =>
+      (super.noSuchMethod(
+            Invocation.method(#clearSession, []),
+            returnValue: _i8.Future<bool>.value(false),
+          )
+          as _i8.Future<bool>);
 }

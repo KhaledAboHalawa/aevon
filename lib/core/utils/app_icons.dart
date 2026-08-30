@@ -20,5 +20,5 @@ class AppIcons {
   static const String logout = 'assets/icons/logout.svg';
   static const String help = 'assets/icons/help.svg';
   static const String language = 'assets/icons/language.svg';
-
+  static const String edit = 'assets/icons/edit.svg';
 }

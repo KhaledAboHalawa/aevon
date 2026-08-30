@@ -73,6 +73,30 @@ import 'package:aevon/features/forget_password/presentation/bloc/forget_password
     as _i103;
 import 'package:aevon/features/onboarding/presentation/cubit/onboarding_cubit.dart'
     as _i705;
+import 'package:aevon/features/profile/data/data_source/edit_profile_data_source.dart'
+    as _i55;
+import 'package:aevon/features/profile/data/data_source/local_edit_profile_data_source.dart'
+    as _i192;
+import 'package:aevon/features/profile/data/data_source/remote_edit_profile_data_source.dart'
+    as _i758;
+import 'package:aevon/features/profile/data/reposetory/edit_profile_repo_impl.dart'
+    as _i710;
+import 'package:aevon/features/profile/domain/reposetory/edit_profile_repo.dart'
+    as _i375;
+import 'package:aevon/features/profile/domain/use_cases/update_activity_level_use_case.dart'
+    as _i923;
+import 'package:aevon/features/profile/domain/use_cases/update_email_use_case.dart'
+    as _i333;
+import 'package:aevon/features/profile/domain/use_cases/update_first_name_use_case.dart'
+    as _i519;
+import 'package:aevon/features/profile/domain/use_cases/update_goal_use_case.dart'
+    as _i93;
+import 'package:aevon/features/profile/domain/use_cases/update_last_name_use_case.dart'
+    as _i284;
+import 'package:aevon/features/profile/domain/use_cases/update_profile_image_use_case.dart'
+    as _i1032;
+import 'package:aevon/features/profile/domain/use_cases/update_weight_use_case.dart'
+    as _i14;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
@@ -96,11 +120,29 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1041.ForgetPasswordDataSource>(
       () => _i1041.ForgetPasswordDataSource(dio: gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i55.EditProfileDataSource>(
+      () => _i758.RemoteEditProfileDataSource(gh<_i361.Dio>()),
+      instanceName: 'remoteEditProfileDataSource',
+    );
     gh.singleton<_i661.ChatLocalDataSource>(
       () => _i661.ChatLocalDataSource(gh<_i460.SharedPreferences>()),
     );
     gh.lazySingleton<_i503.AuthSession>(
       () => _i503.AuthSession(gh<_i460.SharedPreferences>()),
+    );
+    gh.lazySingleton<_i375.EditProfileRepo>(
+      () => _i710.EditProfileRepoImpl(
+        gh<_i55.EditProfileDataSource>(
+          instanceName: 'RemoteEditProfileDataSource',
+        ),
+        gh<_i55.EditProfileDataSource>(
+          instanceName: 'LocalEditProfileDataSource',
+        ),
+      ),
+    );
+    gh.lazySingleton<_i55.EditProfileDataSource>(
+      () => _i192.LocalEditProfileDataSource(gh<_i460.SharedPreferences>()),
+      instanceName: 'localEditProfileDataSource',
     );
     gh.lazySingleton<_i23.ChatRemoteDataSource>(
       () => _i246.GeminiDataSource(authSession: gh<_i503.AuthSession>()),
@@ -121,6 +163,27 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i196.ForgetPasswordRepo>(
       () => _i628.ForgetPasswordRepoImpl(gh<_i1041.ForgetPasswordDataSource>()),
+    );
+    gh.lazySingleton<_i923.UpdateActivityLevelUseCase>(
+      () => _i923.UpdateActivityLevelUseCase(gh<_i375.EditProfileRepo>()),
+    );
+    gh.lazySingleton<_i333.UpdateEmailUseCase>(
+      () => _i333.UpdateEmailUseCase(gh<_i375.EditProfileRepo>()),
+    );
+    gh.lazySingleton<_i519.UpdateFirstNameUseCase>(
+      () => _i519.UpdateFirstNameUseCase(gh<_i375.EditProfileRepo>()),
+    );
+    gh.lazySingleton<_i93.UpdateGoalUseCase>(
+      () => _i93.UpdateGoalUseCase(gh<_i375.EditProfileRepo>()),
+    );
+    gh.lazySingleton<_i284.UpdateLastNameUseCase>(
+      () => _i284.UpdateLastNameUseCase(gh<_i375.EditProfileRepo>()),
+    );
+    gh.lazySingleton<_i1032.UpdateProfileImageUseCase>(
+      () => _i1032.UpdateProfileImageUseCase(gh<_i375.EditProfileRepo>()),
+    );
+    gh.lazySingleton<_i14.UpdateWeightUseCase>(
+      () => _i14.UpdateWeightUseCase(gh<_i375.EditProfileRepo>()),
     );
     gh.lazySingleton<_i412.AuthDataSource>(
       () => _i125.AuthDataSourceImpl(gh<_i361.Dio>(), gh<_i503.AuthSession>()),
