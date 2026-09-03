@@ -22,27 +22,27 @@ class _GoalSelectionState extends State<GoalSelection> {
       spacing: 16,
       children: [
         CheckCard(
-          title: Goal.loseWeight.name,
+          title: Goal.loseWeight.getTitle(context),
           isSelected: Goal.loseWeight == selectedGoal,
           onTap: () => setState(() => selectedGoal = Goal.loseWeight),
         ),
         CheckCard(
-          title: Goal.gainWeight.name,
+          title: Goal.gainWeight.getTitle(context),
           isSelected: Goal.gainWeight == selectedGoal,
           onTap: () => setState(() => selectedGoal = Goal.gainWeight),
         ),
         CheckCard(
-          title: Goal.getFitter.name,
+          title: Goal.getFitter.getTitle(context),
           isSelected: Goal.getFitter == selectedGoal,
           onTap: () => setState(() => selectedGoal = Goal.getFitter),
         ),
         CheckCard(
-          title: Goal.getMoreFlexible.name,
+          title: Goal.getMoreFlexible.getTitle(context),
           isSelected: Goal.getMoreFlexible == selectedGoal,
           onTap: () => setState(() => selectedGoal = Goal.getMoreFlexible),
         ),
         CheckCard(
-          title: Goal.learnTheBasic.name,
+          title: Goal.learnTheBasic.getTitle(context),
           isSelected: Goal.learnTheBasic == selectedGoal,
           onTap: () => setState(() => selectedGoal = Goal.learnTheBasic),
         ),

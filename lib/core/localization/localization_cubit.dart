@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:aevon/core/utils/app_constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -8,11 +9,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LocalizationCubit extends Cubit<Locale> {
   final SharedPreferences prefs;
 
-  LocalizationCubit(this.prefs) : super(_loadSavedLocale(prefs));
+  LocalizationCubit(this.prefs) : super(const Locale(AppKeys.englishLocale));
 
-  static Locale _loadSavedLocale(SharedPreferences prefs) {
-    final code = prefs.getString(AppKeys.localeKey) ?? AppKeys.englishLocale;
-    return Locale(code);
+  Locale loadSavedLocale({String? deviceLocale = AppKeys.englishLocale}) {
+    final code = prefs.getString(AppKeys.localeKey) ?? deviceLocale;
+    return Locale(code!);
   }
 
   void changeLocale(String languageCode) {

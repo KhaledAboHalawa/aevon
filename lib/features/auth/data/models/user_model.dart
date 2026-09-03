@@ -1,3 +1,6 @@
+import 'package:aevon/l10n/app_localizations.dart';
+import 'package:flutter/widgets.dart';
+
 enum Gender { male, female }
 
 enum ActivityLevel { rookie, beginner, intermediate, advanced, trueBeast }
@@ -17,10 +20,28 @@ extension ActivityLevelExtension2 on ActivityLevel {
     ActivityLevel.advanced => 'level4',
     ActivityLevel.trueBeast => 'level5',
   };
+
+  String getTitle(BuildContext context) => switch (this) {
+    ActivityLevel.rookie => AppLocalizations.of(context)!.rookie,
+    ActivityLevel.beginner => AppLocalizations.of(context)!.beginner,
+    ActivityLevel.intermediate => AppLocalizations.of(context)!.intermediate,
+    ActivityLevel.advanced => AppLocalizations.of(context)!.advanced,
+    ActivityLevel.trueBeast => AppLocalizations.of(context)!.trueBeast,
+  };
 }
 
 extension GoalExtension on String {
   Goal toGoal() => Goal.values.firstWhere((g) => g.name == this);
+}
+
+extension GoalLocalized on Goal {
+  String getTitle(BuildContext context) => switch (this) {
+    Goal.loseWeight => AppLocalizations.of(context)!.loseWeight,
+    Goal.gainWeight => AppLocalizations.of(context)!.gainWeight,
+    Goal.getFitter => AppLocalizations.of(context)!.getFitter,
+    Goal.getMoreFlexible => AppLocalizations.of(context)!.getMoreFlexible,
+    Goal.learnTheBasic => AppLocalizations.of(context)!.learnTheBasic,
+  };
 }
 
 extension GenderExtension on String {

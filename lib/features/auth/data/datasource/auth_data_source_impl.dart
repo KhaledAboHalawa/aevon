@@ -1,5 +1,5 @@
-import 'package:aevon/core/shared/data/datasource/api_executer.dart';
-import 'package:aevon/core/shared/data/datasource/local_storage/auth_session.dart';
+import 'package:aevon/core/network/api_executer.dart';
+import 'package:aevon/core/shared/auth_session/datasource/local_storage/auth_session.dart';
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/core/utils/app_constants.dart';
 import 'package:aevon/features/auth/data/datasource/auth_data_source.dart';

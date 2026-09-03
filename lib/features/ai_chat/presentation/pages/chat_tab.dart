@@ -1,7 +1,7 @@
 import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/features/ai_chat/presentation/bloc/ai_chat_bloc.dart';
-import 'package:aevon/features/ai_chat/presentation/widgets/chat_header.dart';
+import 'package:aevon/core/shared/presentation/widgets/app_header.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/chat_input.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/messages_list.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +80,7 @@ class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).padding.top + 8),
-            const ChatHeader(isInboarding: false, userName: "Aevon"),
+            const AppHeader(type: .chat, userName: "Aevon"),
             Expanded(child: MessagesList(scrollController: _scrollController)),
             ChatInput(controller: _messageController, focusNode: _focusNode),
           ],

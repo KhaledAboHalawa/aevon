@@ -1,6 +1,7 @@
 import 'package:aevon/core/shared/presentation/widgets/custom_text_field.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/features/ai_chat/presentation/bloc/ai_chat_bloc.dart';
+import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,7 +31,7 @@ class ChatInput extends StatelessWidget {
                   controller: controller,
                   focusNode: focusNode,
                   onSubmitted: (_) => _sendMessage(context),
-                  hint: 'Ask anything',
+                  hint: AppLocalizations.of(context)!.askAnything,
                   showLableOnTop: false,
                   isEnabled: !state,
                 ),

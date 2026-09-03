@@ -3,6 +3,7 @@ import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:aevon/core/utils/app_icons.dart';
 import 'package:aevon/features/auth/data/models/user_model.dart';
+import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -41,7 +42,9 @@ class GenderButton extends StatelessWidget {
               gender == Gender.male ? AppIcons.male : AppIcons.female,
             ),
             Text(
-              gender.name,
+              gender == Gender.male
+                  ? AppLocalizations.of(context)!.male
+                  : AppLocalizations.of(context)!.female,
               style: AppFont.balooThambi2SemiBold(
                 color: AppColors.white,
                 fontSize: 12,

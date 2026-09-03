@@ -49,31 +49,31 @@ class _ActivityLevelSelectionState extends State<ActivityLevelSelection> {
         spacing: 16,
         children: [
           CheckCard(
-            title: ActivityLevel.rookie.name,
+            title: ActivityLevel.rookie.getTitle(context),
             isSelected: ActivityLevel.rookie == selectedActivity,
             onTap: () =>
                 setState(() => selectedActivity = ActivityLevel.rookie),
           ),
           CheckCard(
-            title: ActivityLevel.beginner.name,
+            title: ActivityLevel.beginner.getTitle(context),
             isSelected: ActivityLevel.beginner == selectedActivity,
             onTap: () =>
                 setState(() => selectedActivity = ActivityLevel.beginner),
           ),
           CheckCard(
-            title: ActivityLevel.intermediate.name,
+            title: ActivityLevel.intermediate.getTitle(context),
             isSelected: ActivityLevel.intermediate == selectedActivity,
             onTap: () =>
                 setState(() => selectedActivity = ActivityLevel.intermediate),
           ),
           CheckCard(
-            title: ActivityLevel.advanced.name,
+            title: ActivityLevel.advanced.getTitle(context),
             isSelected: ActivityLevel.advanced == selectedActivity,
             onTap: () =>
                 setState(() => selectedActivity = ActivityLevel.advanced),
           ),
           CheckCard(
-            title: ActivityLevel.trueBeast.name,
+            title: ActivityLevel.trueBeast.getTitle(context),
             isSelected: ActivityLevel.trueBeast == selectedActivity,
             onTap: () =>
                 setState(() => selectedActivity = ActivityLevel.trueBeast),

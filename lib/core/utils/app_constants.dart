@@ -26,6 +26,9 @@ class ApiConstants {
   static const String resetPassword = '${authBaseUrl}resetPassword';
   static const String deleteAcount = '${authBaseUrl}deleteMe';
   static const String editProfile = '${authBaseUrl}editProfile';
+  static const String tokenAuth = 'Authorization';
+  
+  
 
   // Chat Endpoints
   static const String aiChatEndpoint = 'https://api.openai.com/v1/chat/completions';

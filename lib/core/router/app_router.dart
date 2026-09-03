@@ -9,6 +9,7 @@ import 'package:aevon/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:aevon/features/forget_password/presentation/pages/forget_password_page.dart';
 import 'package:aevon/features/home/presentation/pages/home_page.dart';
 import 'package:aevon/features/onboarding/presentation/pages/onboarding.dart';
+import 'package:aevon/features/profile/presentation/pages/edit_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -54,6 +55,11 @@ GoRouter router = GoRouter(
     appRoute(
       name: AppRoutes.chatOnboarding,
       page: (state, context) => const ChatOnboarding(),
+    ),
+
+    appRoute(
+      name: AppRoutes.editProfile,
+      page: (state, context) => const EditProfile(),
     ),
   ],
 );

@@ -9,10 +9,12 @@ class ProfileAvatar extends StatelessWidget {
     this.imageUrl,
     this.initials,
     this.isUser = true,
+    this.width = 29,
   });
   final String? imageUrl;
   final String? initials;
   final bool isUser;
+  final double? width;
   @override
   Widget build(BuildContext context) {
     return ClipOval(
@@ -21,9 +23,9 @@ class ProfileAvatar extends StatelessWidget {
         child: imageUrl != null
             ? isUser
                   ? CachedNetworkImage(
-                      fit: BoxFit.contain,
-                      width: 35,
-                      height: 35,
+                      fit: BoxFit.cover,
+                      width: width ?? 29,
+                      height: width ?? 29,
                       imageUrl: imageUrl!,
                       placeholder: (context, url) => Center(
                         child: Text(
@@ -47,10 +49,14 @@ class ProfileAvatar extends StatelessWidget {
                         ),
                       ),
                     )
-                  : Image.asset(imageUrl!, width: 35, height: 35)
+                  : Image.asset(
+                      imageUrl!,
+                      width: width ?? 29,
+                      height: width ?? 29,
+                    )
             : SizedBox(
-                width: 35,
-                height: 35,
+                width: width ?? 29,
+                height: width ?? 29,
                 child: Center(
                   child: Text(
                     initials ?? '',

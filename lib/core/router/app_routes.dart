@@ -10,6 +10,6 @@ class AppRoutes {
   static const String food = '/food';
   static const String foodDetails = '/foodDetails/:id';
   static const String chatOnboarding = '/chatOnboarding';
-
-
+  static const String editProfile = '/editProfile';
+  static const String editProfileField = '/editProfile/:field';
 }
