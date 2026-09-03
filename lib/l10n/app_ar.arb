@@ -148,5 +148,7 @@
   "passwordRequired": "كلمة المرور مطلوبة",
   "invalidPassword": "كلمة المرور غير صالحة",
   "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب",
-  "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين"
+  "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين",
+  "arabic": "العربية",
+  "english": "الانجليزية"
 }

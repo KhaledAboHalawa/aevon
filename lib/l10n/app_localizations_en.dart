@@ -374,4 +374,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get passwordsDoNotMatch => 'Passwords do not match';
+
+  @override
+  String get arabic => 'Arabic';
+
+  @override
+  String get english => 'English';
 }

@@ -47,6 +47,8 @@ class CustmoNavBarItem extends StatelessWidget {
           AnimatedCrossFade(
             firstChild: Text(
               title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: AppFont.balooThambi2Regular(
                 color: AppColors.mainOrange,
                 fontSize: 12,

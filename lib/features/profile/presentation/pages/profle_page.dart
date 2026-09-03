@@ -1,11 +1,12 @@
 import 'package:aevon/core/router/app_routes.dart';
 import 'package:aevon/core/shared/auth_session/presentation/cubit/auth_session_cubit.dart';
 import 'package:aevon/core/shared/auth_session/presentation/cubit/auth_session_state.dart';
+import 'package:aevon/core/shared/presentation/widgets/app_header.dart';
 import 'package:aevon/core/shared/presentation/widgets/profile_avatar.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:aevon/core/utils/app_icons.dart';
-import 'package:aevon/core/shared/presentation/widgets/app_header.dart';
+import 'package:aevon/features/profile/presentation/widgets/change_lang_dialog.dart';
 import 'package:aevon/features/profile/presentation/widgets/profile_glass_card.dart';
 import 'package:aevon/features/profile/presentation/widgets/profile_menu_tile.dart';
 import 'package:aevon/l10n/app_localizations.dart';
@@ -22,7 +23,10 @@ class ProfleTab extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top,bottom: 40),
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top,
+            bottom: 40,
+          ),
           child: const AppHeader(type: HeaderType.profile),
         ),
         BlocBuilder<AuthSessionCubit, AuthSessionState>(
@@ -33,14 +37,18 @@ class ProfleTab extends StatelessWidget {
                 ProfileAvatar(
                   width: 100,
                   imageUrl: user?.photo,
-                  initials: (user?.firstName != null && user!.firstName!.isNotEmpty)
+                  initials:
+                      (user?.firstName != null && user!.firstName!.isNotEmpty)
                       ? user.firstName![0]
                       : "T",
                 ),
                 const SizedBox(height: 8),
                 Text(
                   "${user?.firstName ?? ''} ${user?.lastName ?? ''}".trim(),
-                  style: AppFont.balooThambi2Bold(fontSize: 20, color: AppColors.white),
+                  style: AppFont.balooThambi2Bold(
+                    fontSize: 20,
+                    color: AppColors.white,
+                  ),
                 ),
               ],
             );
@@ -67,6 +75,8 @@ class ProfleTab extends StatelessWidget {
               ProfileMenuTile(
                 iconPath: AppIcons.language,
                 title: locale.selectLanguage,
+
+                onTap: () => showChangeLanguageDialog(context),
               ),
               ProfileMenuTile(
                 iconPath: AppIcons.security,

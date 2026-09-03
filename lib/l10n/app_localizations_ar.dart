@@ -373,4 +373,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get passwordsDoNotMatch => 'كلمتا المرور غير متطابقتين';
+
+  @override
+  String get arabic => 'العربية';
+
+  @override
+  String get english => 'الانجليزية';
 }

@@ -141,5 +141,7 @@
   "passwordRequired": "Password is required",
   "invalidPassword": "Invalid password",
   "confirmPasswordRequired": "Confirm Password is required",
-  "passwordsDoNotMatch": "Passwords do not match"
+  "passwordsDoNotMatch": "Passwords do not match",
+  "arabic": "Arabic",
+  "english": "English"
 }
