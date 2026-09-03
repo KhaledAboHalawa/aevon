@@ -8,7 +8,8 @@ class ProfileAvatar extends StatelessWidget {
     super.key,
     this.imageUrl,
     this.initials,
-    this.isUser = true, this.width = 29,
+    this.isUser = true,
+    this.width = 29,
   });
   final String? imageUrl;
   final String? initials;
@@ -22,8 +23,9 @@ class ProfileAvatar extends StatelessWidget {
         child: imageUrl != null
             ? isUser
                   ? CachedNetworkImage(
-                      fit: BoxFit.contain,
-                      width: width,
+                      fit: BoxFit.cover,
+                      width: width ?? 29,
+                      height: width ?? 29,
                       imageUrl: imageUrl!,
                       placeholder: (context, url) => Center(
                         child: Text(
@@ -47,10 +49,14 @@ class ProfileAvatar extends StatelessWidget {
                         ),
                       ),
                     )
-                  : Image.asset(imageUrl!, width: width, height: width)
+                  : Image.asset(
+                      imageUrl!,
+                      width: width ?? 29,
+                      height: width ?? 29,
+                    )
             : SizedBox(
-                width: width,
-                height: width,
+                width: width ?? 29,
+                height: width ?? 29,
                 child: Center(
                   child: Text(
                     initials ?? '',

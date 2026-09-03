@@ -1,5 +1,6 @@
 import 'package:aevon/app/app.dart';
 import 'package:aevon/core/di/dependency_injection.dart';
+import 'package:aevon/core/shared/auth_session/presentation/cubit/auth_session_cubit.dart';
 import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,9 +24,13 @@ void main() async {
   );
   
   runApp(
-    BlocProvider(
-      create: (context) => getIt<AuthCubit>(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => getIt<AuthSessionCubit>()..fetchSession()),
+        BlocProvider(create: (context) => getIt<AuthCubit>()),
+      ],
       child: const MainApp(),
     ),
   );
 }
+

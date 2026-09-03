@@ -1,8 +1,6 @@
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/features/auth/data/models/user_model.dart';
 import 'package:aevon/features/profile/data/data_source/edit_profile_data_source.dart';
-import 'package:aevon/features/profile/data/data_source/local_edit_profile_data_source.dart';
-import 'package:aevon/features/profile/data/data_source/remote_edit_profile_data_source.dart';
 import 'package:aevon/features/profile/domain/reposetory/edit_profile_repo.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
@@ -12,14 +10,15 @@ class EditProfileRepoImpl implements EditProfileRepo {
   final EditProfileDataSource remoteEditProfileDataSource;
   final EditProfileDataSource localEditProfileDataSource;
   EditProfileRepoImpl(
-    @Named.from(RemoteEditProfileDataSource) this.remoteEditProfileDataSource,
-    @Named.from(LocalEditProfileDataSource) this.localEditProfileDataSource,
+    @Named("remoteEditProfileDataSource") this.remoteEditProfileDataSource,
+    @Named("localEditProfileDataSource") this.localEditProfileDataSource,
   );
   @override
   Future<Result<bool>> updateProfileImage(XFile file) async {
     final remoteResult = await remoteEditProfileDataSource.updateProfileImage(
       file,
     );
+
     if (remoteResult is Success) {
       return await localEditProfileDataSource.updateProfileImage(file);
     }

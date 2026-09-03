@@ -19,7 +19,7 @@ class _WeightSelectionState extends State<WeightSelection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        HorizontalYearPicker(
+        HorizontalNumberPicker(
           label: AppLocalizations.of(context)!.kg,
           minValue: 30,
           maxValue: 250,

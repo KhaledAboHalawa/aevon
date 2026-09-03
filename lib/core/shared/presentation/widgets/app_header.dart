@@ -1,11 +1,12 @@
-import 'package:aevon/core/di/dependency_injection.dart';
+import 'package:aevon/core/shared/auth_session/presentation/cubit/auth_session_cubit.dart';
+import 'package:aevon/core/shared/auth_session/presentation/cubit/auth_session_state.dart';
 import 'package:aevon/core/shared/presentation/widgets/profile_avatar.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:aevon/core/utils/app_icons.dart';
-import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AppHeader extends StatefulWidget {
@@ -20,14 +21,12 @@ class AppHeader extends StatefulWidget {
 class _AppHeaderState extends State<AppHeader> {
   bool isFirstLoad = true;
   late final AppLocalizations? locale;
-  late final AuthCubit authCubit;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (isFirstLoad) {
       locale = AppLocalizations.of(context);
-      authCubit = getIt<AuthCubit>();
       isFirstLoad = false;
     }
   }
@@ -39,11 +38,17 @@ class _AppHeaderState extends State<AppHeader> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ProfileAvatar(
-            imageUrl: widget.type != .profile
-                ? authCubit.state.authResonse?.user.photo
-                : null,
-            initials: authCubit.state.authResonse?.user.firstName?[0] ?? "T",
+          BlocBuilder<AuthSessionCubit, AuthSessionState>(
+            buildWhen: (previous, current) => previous.user?.photo != current.user?.photo,
+            builder: (context, state) {
+              final user = state.user;
+              return ProfileAvatar(
+                imageUrl: widget.type != HeaderType.profile ? user?.photo : null,
+                initials: (user?.firstName != null && user!.firstName!.isNotEmpty)
+                    ? user.firstName![0]
+                    : "T",
+              );
+            },
           ),
           RichText(
             textHeightBehavior: const TextHeightBehavior(

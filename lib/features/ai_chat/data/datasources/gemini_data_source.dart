@@ -1,4 +1,4 @@
-import 'package:aevon/core/shared/data/datasource/local_storage/auth_session.dart';
+import 'package:aevon/core/shared/auth_session/datasource/local_storage/auth_session.dart';
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/features/ai_chat/data/datasources/chat_remote_data_source.dart';
 import 'package:aevon/features/ai_chat/data/mapper/ai_context_mapper.dart';

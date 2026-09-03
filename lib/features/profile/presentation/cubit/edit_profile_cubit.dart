@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:aevon/core/shared/auth_session/presentation/cubit/auth_session_cubit.dart';
 import 'package:aevon/features/auth/data/models/user_model.dart';
 import 'package:aevon/features/profile/domain/use_cases/update_activity_level_use_case.dart';
 import 'package:aevon/features/profile/domain/use_cases/update_email_use_case.dart';
@@ -23,6 +26,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   final UpdateWeightUseCase updateWeightUseCase;
   final UpdateGoalUseCase updateGoalUseCase;
   final UpdateActivityLevelUseCase updateActivityLevelUseCase;
+  final AuthSessionCubit authSessionCubit;
 
   EditProfileCubit({
     required this.updateProfileImageUseCase,
@@ -32,6 +36,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     required this.updateWeightUseCase,
     required this.updateGoalUseCase,
     required this.updateActivityLevelUseCase,
+    required this.authSessionCubit,
   }) : super(const EditProfileState());
 
   void doIntent(EditProfileEvent event) {
@@ -47,17 +52,29 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   }
 
   void _updateProfileImage(XFile file) async {
+    log("started the process for updating the image");
     emit(state.copyWith(status: EditProfileStatus.loading));
     final result = await updateProfileImageUseCase(file);
     result.when(
-      success: (data) => emit(state.copyWith(
-        status: EditProfileStatus.success,
-        successMessage: "Profile photo updated successfully",
-      )),
-      error: (failure) => emit(state.copyWith(
-        status: EditProfileStatus.error,
-        errorMessage: failure.message,
-      )),
+      success: (data) {
+        log("the image is successfully uploaded");
+        authSessionCubit.syncUserData();
+        emit(
+          state.copyWith(
+            status: EditProfileStatus.success,
+            successMessage: "Profile photo updated successfully",
+          ),
+        );
+      },
+      error: (failure) {
+        log("the image upload has failed ${failure.message}");
+        emit(
+          state.copyWith(
+            status: EditProfileStatus.error,
+            errorMessage: failure.message,
+          ),
+        );
+      },
     );
   }
 
@@ -65,14 +82,21 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     emit(state.copyWith(status: EditProfileStatus.loading));
     final result = await updateFirstNameUseCase(firstName);
     result.when(
-      success: (data) => emit(state.copyWith(
-        status: EditProfileStatus.success,
-        successMessage: "First name updated successfully",
-      )),
-      error: (failure) => emit(state.copyWith(
-        status: EditProfileStatus.error,
-        errorMessage: failure.message,
-      )),
+      success: (data) {
+        authSessionCubit.fetchSession();
+        emit(
+          state.copyWith(
+            status: EditProfileStatus.success,
+            successMessage: "First name updated successfully",
+          ),
+        );
+      },
+      error: (failure) => emit(
+        state.copyWith(
+          status: EditProfileStatus.error,
+          errorMessage: failure.message,
+        ),
+      ),
     );
   }
 
@@ -80,14 +104,21 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     emit(state.copyWith(status: EditProfileStatus.loading));
     final result = await updateLastNameUseCase(lastName);
     result.when(
-      success: (data) => emit(state.copyWith(
-        status: EditProfileStatus.success,
-        successMessage: "Last name updated successfully",
-      )),
-      error: (failure) => emit(state.copyWith(
-        status: EditProfileStatus.error,
-        errorMessage: failure.message,
-      )),
+      success: (data) {
+        authSessionCubit.fetchSession();
+        emit(
+          state.copyWith(
+            status: EditProfileStatus.success,
+            successMessage: "Last name updated successfully",
+          ),
+        );
+      },
+      error: (failure) => emit(
+        state.copyWith(
+          status: EditProfileStatus.error,
+          errorMessage: failure.message,
+        ),
+      ),
     );
   }
 
@@ -95,14 +126,21 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     emit(state.copyWith(status: EditProfileStatus.loading));
     final result = await updateEmailUseCase(email);
     result.when(
-      success: (data) => emit(state.copyWith(
-        status: EditProfileStatus.success,
-        successMessage: "Email updated successfully",
-      )),
-      error: (failure) => emit(state.copyWith(
-        status: EditProfileStatus.error,
-        errorMessage: failure.message,
-      )),
+      success: (data) {
+        authSessionCubit.fetchSession();
+        emit(
+          state.copyWith(
+            status: EditProfileStatus.success,
+            successMessage: "Email updated successfully",
+          ),
+        );
+      },
+      error: (failure) => emit(
+        state.copyWith(
+          status: EditProfileStatus.error,
+          errorMessage: failure.message,
+        ),
+      ),
     );
   }
 
@@ -110,14 +148,21 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     emit(state.copyWith(status: EditProfileStatus.loading));
     final result = await updateWeightUseCase(weight);
     result.when(
-      success: (data) => emit(state.copyWith(
-        status: EditProfileStatus.success,
-        successMessage: "Weight updated successfully",
-      )),
-      error: (failure) => emit(state.copyWith(
-        status: EditProfileStatus.error,
-        errorMessage: failure.message,
-      )),
+      success: (data) {
+        authSessionCubit.fetchSession();
+        emit(
+          state.copyWith(
+            status: EditProfileStatus.success,
+            successMessage: "Weight updated successfully",
+          ),
+        );
+      },
+      error: (failure) => emit(
+        state.copyWith(
+          status: EditProfileStatus.error,
+          errorMessage: failure.message,
+        ),
+      ),
     );
   }
 
@@ -125,14 +170,21 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     emit(state.copyWith(status: EditProfileStatus.loading));
     final result = await updateGoalUseCase(goal);
     result.when(
-      success: (data) => emit(state.copyWith(
-        status: EditProfileStatus.success,
-        successMessage: "Goal updated successfully",
-      )),
-      error: (failure) => emit(state.copyWith(
-        status: EditProfileStatus.error,
-        errorMessage: failure.message,
-      )),
+      success: (data) {
+        authSessionCubit.fetchSession();
+        emit(
+          state.copyWith(
+            status: EditProfileStatus.success,
+            successMessage: "Goal updated successfully",
+          ),
+        );
+      },
+      error: (failure) => emit(
+        state.copyWith(
+          status: EditProfileStatus.error,
+          errorMessage: failure.message,
+        ),
+      ),
     );
   }
 
@@ -140,14 +192,21 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     emit(state.copyWith(status: EditProfileStatus.loading));
     final result = await updateActivityLevelUseCase(activityLevel);
     result.when(
-      success: (data) => emit(state.copyWith(
-        status: EditProfileStatus.success,
-        successMessage: "Activity level updated successfully",
-      )),
-      error: (failure) => emit(state.copyWith(
-        status: EditProfileStatus.error,
-        errorMessage: failure.message,
-      )),
+      success: (data) {
+        authSessionCubit.fetchSession();
+        emit(
+          state.copyWith(
+            status: EditProfileStatus.success,
+            successMessage: "Activity level updated successfully",
+          ),
+        );
+      },
+      error: (failure) => emit(
+        state.copyWith(
+          status: EditProfileStatus.error,
+          errorMessage: failure.message,
+        ),
+      ),
     );
   }
 }

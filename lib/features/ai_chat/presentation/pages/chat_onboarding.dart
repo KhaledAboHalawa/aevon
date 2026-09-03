@@ -1,5 +1,5 @@
 import 'package:aevon/core/utils/app_images.dart';
-import 'package:aevon/features/ai_chat/presentation/widgets/app_header.dart';
+import 'package:aevon/core/shared/presentation/widgets/app_header.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/chat_onboarding_bottom_shet.dart';
 import 'package:flutter/material.dart';
 

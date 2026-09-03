@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/core/utils/app_constants.dart';
 import 'package:aevon/features/auth/data/models/user_model.dart';
@@ -38,7 +40,8 @@ class LocalEditProfileDataSource implements EditProfileDataSource {
 
   @override
   Future<Result<bool>> updateProfileImage(XFile file) async {
-     _updateUserField((user) {
+    log("this is the pic path ${file.path}");
+    _updateUserField((user) {
       final oldPath = user.photo;
       if (oldPath != null && oldPath.isNotEmpty) {
         final sections = oldPath.split("/");

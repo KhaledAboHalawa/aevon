@@ -9,7 +9,8 @@ class CustomButton extends StatefulWidget {
     required this.backgroundColor,
     required this.title,
     this.width,
-    required this.isLoading, this.isExpanded = false,
+    required this.isLoading,
+    this.isExpanded = false,
   });
   final String title;
   final double? width;
@@ -58,20 +59,25 @@ class _CustomButtonState extends State<CustomButton> {
             ),
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 200),
-              child: Text(
-                widget.title,
-                key: ValueKey(
-                  widget.title,
-                ), // needed so AnimatedSwitcher detects the change
-                overflow: TextOverflow.ellipsis,
-                style: AppFont.balooThambi2ExtraBold(
-                  fontSize: 14,
-                  color: AppColors.buttonGrey,
-                ),
-              ),
-            ),
+            child: (widget.isLoading)
+                ? const CircularProgressIndicator.adaptive(
+                    backgroundColor: AppColors.white,
+                   
+                  )
+                : AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    child: Text(
+                      widget.title,
+                      key: ValueKey(
+                        widget.title,
+                      ), // needed so AnimatedSwitcher detects the change
+                      overflow: TextOverflow.ellipsis,
+                      style: AppFont.balooThambi2ExtraBold(
+                        fontSize: 14,
+                        color: AppColors.buttonGrey,
+                      ),
+                    ),
+                  ),
           ),
         );
       },

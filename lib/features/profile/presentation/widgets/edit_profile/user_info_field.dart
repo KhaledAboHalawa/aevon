@@ -1,10 +1,19 @@
+import 'package:aevon/core/shared/auth_session/presentation/cubit/auth_session_cubit.dart';
+import 'package:aevon/core/shared/auth_session/presentation/cubit/auth_session_state.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class UserInfoField extends StatelessWidget {
+class UserInfoField extends StatefulWidget {
   const UserInfoField({super.key, required this.field});
   final EditProfileField field;
+
+  @override
+  State<UserInfoField> createState() => _UserInfoFieldState();
+}
+
+class _UserInfoFieldState extends State<UserInfoField> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -14,7 +23,7 @@ class UserInfoField extends StatelessWidget {
           spacing: 1,
           children: [
             Text(
-              "${field.title} (",
+              "${widget.field.title} (",
               style: AppFont.balooThambi2SemiBold(
                 fontSize: 14,
                 color: AppColors.white,
@@ -48,16 +57,42 @@ class UserInfoField extends StatelessWidget {
             borderRadius: .circular(20),
             border: Border.all(color: AppColors.buttonGrey),
           ),
-          child: Row(
-            children: [
-              Text(
-                "73 ${field == EditProfileField.weight ? "Kg" : ""}",
-                style: AppFont.balooThambi2Bold(
-                  fontSize: 12,
-                  color: AppColors.textGrey,
-                ),
+          child: BlocBuilder<AuthSessionCubit, AuthSessionState>(
+            builder: (context, state) => switch (widget.field) {
+              EditProfileField.weight => Row(
+                children: [
+                  Text(
+                    "${state.user?.weight ?? ""} ${widget.field == EditProfileField.weight ? "Kg" : ""}",
+                    style: AppFont.balooThambi2Bold(
+                      fontSize: 12,
+                      color: AppColors.textGrey,
+                    ),
+                  ),
+                ],
               ),
-            ],
+              EditProfileField.goal => Row(
+                children: [
+                  Text(
+                    state.user?.goal?.name ?? "",
+                    style: AppFont.balooThambi2Bold(
+                      fontSize: 12,
+                      color: AppColors.textGrey,
+                    ),
+                  ),
+                ],
+              ),
+              EditProfileField.activityLevel => Row(
+                children: [
+                  Text(
+                    state.user?.activityLevel?.name ?? "",
+                    style: AppFont.balooThambi2Bold(
+                      fontSize: 12,
+                      color: AppColors.textGrey,
+                    ),
+                  ),
+                ],
+              ),
+            },
           ),
         ),
       ],

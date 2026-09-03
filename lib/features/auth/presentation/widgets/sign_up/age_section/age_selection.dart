@@ -19,7 +19,7 @@ class _AgeSelectionState extends State<AgeSelection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        HorizontalYearPicker(
+        HorizontalNumberPicker(
           label: AppLocalizations.of(context)!.year,
           minValue: 12,
           maxValue: 100,

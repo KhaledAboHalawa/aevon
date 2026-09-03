@@ -9,15 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class EditActivitySection extends StatefulWidget {
-  const EditActivitySection({super.key});
+class EditGoalSection extends StatefulWidget {
+  const EditGoalSection({super.key});
   @override
-  State<EditActivitySection> createState() => _EditActivitySectionState();
+  State<EditGoalSection> createState() => _EditGoalSectionState();
 }
 
-class _EditActivitySectionState extends State<EditActivitySection> {
+class _EditGoalSectionState extends State<EditGoalSection> {
   late EditProfileCubit _cubit;
-  ActivityLevel? selectedActivity;
+  Goal? selectedGoal;
   @override
   void initState() {
     super.initState();
@@ -27,37 +27,33 @@ class _EditActivitySectionState extends State<EditActivitySection> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       spacing: 16,
+      mainAxisSize: MainAxisSize.min,
       children: [
         CheckCard(
-          title: ActivityLevel.rookie.name,
-          isSelected: ActivityLevel.rookie == selectedActivity,
-          onTap: () => setState(() => selectedActivity = ActivityLevel.rookie),
+          title: Goal.loseWeight.name,
+          isSelected: Goal.loseWeight == selectedGoal,
+          onTap: () => setState(() => selectedGoal = Goal.loseWeight),
         ),
         CheckCard(
-          title: ActivityLevel.beginner.name,
-          isSelected: ActivityLevel.beginner == selectedActivity,
-          onTap: () =>
-              setState(() => selectedActivity = ActivityLevel.beginner),
+          title: Goal.gainWeight.name,
+          isSelected: Goal.gainWeight == selectedGoal,
+          onTap: () => setState(() => selectedGoal = Goal.gainWeight),
         ),
         CheckCard(
-          title: ActivityLevel.intermediate.name,
-          isSelected: ActivityLevel.intermediate == selectedActivity,
-          onTap: () =>
-              setState(() => selectedActivity = ActivityLevel.intermediate),
+          title: Goal.getFitter.name,
+          isSelected: Goal.getFitter == selectedGoal,
+          onTap: () => setState(() => selectedGoal = Goal.getFitter),
         ),
         CheckCard(
-          title: ActivityLevel.advanced.name,
-          isSelected: ActivityLevel.advanced == selectedActivity,
-          onTap: () =>
-              setState(() => selectedActivity = ActivityLevel.advanced),
+          title: Goal.getMoreFlexible.name,
+          isSelected: Goal.getMoreFlexible == selectedGoal,
+          onTap: () => setState(() => selectedGoal = Goal.getMoreFlexible),
         ),
         CheckCard(
-          title: ActivityLevel.trueBeast.name,
-          isSelected: ActivityLevel.trueBeast == selectedActivity,
-          onTap: () =>
-              setState(() => selectedActivity = ActivityLevel.trueBeast),
+          title: Goal.learnTheBasic.name,
+          isSelected: Goal.learnTheBasic == selectedGoal,
+          onTap: () => setState(() => selectedGoal = Goal.learnTheBasic),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
@@ -80,11 +76,11 @@ class _EditActivitySectionState extends State<EditActivitySection> {
               backgroundColor: AppColors.mainOrange,
               title: AppLocalizations.of(context)!.finish,
               isLoading: state.status == .loading,
-              onPressed: (selectedActivity == null)
+              onPressed: (selectedGoal == null)
                   ? null
                   : () {
                       _cubit.doIntent(
-                        EditProfileUpdateActivityLevelEvent(selectedActivity!),
+                        EditProfileUpdateGoalEvent(selectedGoal!),
                       );
                     },
             ),

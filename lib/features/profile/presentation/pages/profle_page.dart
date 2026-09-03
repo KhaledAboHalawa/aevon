@@ -1,10 +1,11 @@
 import 'package:aevon/core/router/app_routes.dart';
+import 'package:aevon/core/shared/auth_session/presentation/cubit/auth_session_cubit.dart';
+import 'package:aevon/core/shared/auth_session/presentation/cubit/auth_session_state.dart';
 import 'package:aevon/core/shared/presentation/widgets/profile_avatar.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:aevon/core/utils/app_icons.dart';
-import 'package:aevon/features/ai_chat/presentation/widgets/app_header.dart';
-import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:aevon/core/shared/presentation/widgets/app_header.dart';
 import 'package:aevon/features/profile/presentation/widgets/profile_glass_card.dart';
 import 'package:aevon/features/profile/presentation/widgets/profile_menu_tile.dart';
 import 'package:flutter/material.dart';
@@ -22,17 +23,26 @@ class ProfleTab extends StatelessWidget {
           padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top,bottom: 40),
           child: const AppHeader(type: HeaderType.profile),
         ),
-        ProfileAvatar(
-          width: 100,
-          imageUrl: context.read<AuthCubit>().state.authResonse?.user.photo,
-          initials:
-              context.read<AuthCubit>().state.authResonse?.user.firstName?[0] ??
-              "T",
-        ),
-        const SizedBox(height: 8),
-        Text(
-          "${context.read<AuthCubit>().state.authResonse?.user.firstName} ${context.read<AuthCubit>().state.authResonse?.user.lastName}",
-          style: AppFont.balooThambi2Bold(fontSize: 20, color: AppColors.white),
+        BlocBuilder<AuthSessionCubit, AuthSessionState>(
+          builder: (context, state) {
+            final user = state.user;
+            return Column(
+              children: [
+                ProfileAvatar(
+                  width: 100,
+                  imageUrl: user?.photo,
+                  initials: (user?.firstName != null && user!.firstName!.isNotEmpty)
+                      ? user.firstName![0]
+                      : "T",
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  "${user?.firstName ?? ''} ${user?.lastName ?? ''}".trim(),
+                  style: AppFont.balooThambi2Bold(fontSize: 20, color: AppColors.white),
+                ),
+              ],
+            );
+          },
         ),
         const SizedBox(height: 40),
 

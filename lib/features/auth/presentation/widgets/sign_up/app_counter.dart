@@ -1,16 +1,17 @@
+import 'dart:math' as math;
+
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
-class HorizontalYearPicker extends StatefulWidget {
+class HorizontalNumberPicker extends StatefulWidget {
   final int minValue;
   final int maxValue;
   final int initialValue;
   final ValueChanged<int> onChanged;
   final String label;
 
-  const HorizontalYearPicker({
+  const HorizontalNumberPicker({
     super.key,
     required this.minValue,
     required this.maxValue,
@@ -20,10 +21,10 @@ class HorizontalYearPicker extends StatefulWidget {
   });
 
   @override
-  State<HorizontalYearPicker> createState() => _HorizontalYearPickerState();
+  State<HorizontalNumberPicker> createState() => _HorizontalNumberPickerState();
 }
 
-class _HorizontalYearPickerState extends State<HorizontalYearPicker> {
+class _HorizontalNumberPickerState extends State<HorizontalNumberPicker> {
   double get _itemExtent => (widget.maxValue > 99) ? 75 : 64;
 
   late final FixedExtentScrollController _controller;

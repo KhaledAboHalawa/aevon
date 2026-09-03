@@ -1,7 +1,9 @@
+import 'package:aevon/core/shared/auth_session/presentation/cubit/auth_session_cubit.dart';
+import 'package:aevon/core/shared/auth_session/presentation/cubit/auth_session_state.dart';
 import 'package:aevon/core/shared/presentation/widgets/profile_avatar.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/utils/app_icons.dart';
-import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:aevon/features/profile/presentation/cubit/edit_profile_cubit.dart';
 import 'package:aevon/features/profile/presentation/widgets/edit_profile/image_picker_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,17 +29,20 @@ class EditPicSection extends StatelessWidget {
               ),
             ],
           ),
-          child: ProfileAvatar(
-            width: 100,
-            imageUrl: context.read<AuthCubit>().state.authResonse?.user.photo,
-            initials:
-                context
-                    .read<AuthCubit>()
-                    .state
-                    .authResonse
-                    ?.user
-                    .firstName?[0] ??
-                "T",
+          child: BlocBuilder<AuthSessionCubit, AuthSessionState>(
+            buildWhen: (previous, current) =>
+                previous.user?.photo != current.user?.photo,
+            builder: (context, state) {
+              final user = state.user;
+              return ProfileAvatar(
+                width: 100,
+                imageUrl: user?.photo,
+                initials:
+                    (user?.firstName != null && user!.firstName!.isNotEmpty)
+                    ? user.firstName![0]
+                    : "T",
+              );
+            },
           ),
         ),
         const Positioned.fill(
@@ -53,8 +58,10 @@ class EditPicSection extends StatelessWidget {
             child: SvgPicture.asset(AppIcons.edit),
             onTap: () async {
               final image = await showImagePickerDialog(context);
-              if (image != null) {
-                // Handle the selected image
+              if (image != null && context.mounted) {
+                context.read<EditProfileCubit>().doIntent(
+                  EditProfileUpdateProfileImageEvent(image),
+                );
               }
             },
           ),

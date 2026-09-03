@@ -1,3 +1,4 @@
+import 'package:aevon/core/network/token_interceptor.dart';
 import 'package:aevon/core/utils/app_constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
@@ -7,8 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 @module
 abstract class RegisterModule {
   @lazySingleton
-  Dio dio() {
-    return Dio(BaseOptions(baseUrl: ApiConstants.baseUrl));
+  Dio dio(TokenInterceptor tokenInterceptor) {
+    final dio = Dio(BaseOptions(baseUrl: ApiConstants.baseUrl));
+    dio.interceptors.add(tokenInterceptor);
+    return dio;
   }
 
   // same thing works for instances that's gotten asynchronous.

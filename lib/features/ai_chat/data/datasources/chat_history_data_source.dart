@@ -1,5 +1,5 @@
 import 'package:aevon/core/errors/errors_handler.dart';
-import 'package:aevon/core/shared/data/datasource/local_storage/auth_session.dart';
+import 'package:aevon/core/shared/auth_session/datasource/local_storage/auth_session.dart';
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/core/utils/app_constants.dart';
 import 'package:aevon/features/ai_chat/data/model/chat_message_model.dart';

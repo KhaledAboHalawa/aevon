@@ -1,6 +1,4 @@
-import 'dart:developer';
-
-import 'package:aevon/core/shared/data/datasource/api_executer.dart';
+import 'package:aevon/core/network/api_executer.dart';
 import 'package:aevon/core/shared/data/model/result.dart';
 import 'package:aevon/core/utils/app_constants.dart';
 import 'package:aevon/features/auth/data/models/user_model.dart';
@@ -16,18 +14,15 @@ class RemoteEditProfileDataSource implements EditProfileDataSource {
 
   RemoteEditProfileDataSource(this._dio);
 
-  @override 
+  @override
   Future<Result<bool>> updateProfileImage(XFile file) async {
     final data = FormData.fromMap({
       "photo": await MultipartFile.fromFile(file.path, filename: file.name),
     });
     return await executeApiCall(
       apiCall: () async =>
-          await _dio.post(ApiConstants.uploadProfilePhoto, data: data),
-      parser: (response) {
-        log(response.toString());
-        return response["message"].toString() == "success";
-      },
+          await _dio.put(ApiConstants.uploadProfilePhoto, data: data),
+      parser: (response) => response["message"].toString() == "success",
     );
   }
 
@@ -56,10 +51,8 @@ class RemoteEditProfileDataSource implements EditProfileDataSource {
   @override
   Future<Result<bool>> updateEmail(String email) async {
     return await executeApiCall(
-      apiCall: () async => await _dio.put(
-        ApiConstants.editProfile,
-        data: {"email": email},
-      ),
+      apiCall: () async =>
+          await _dio.put(ApiConstants.editProfile, data: {"email": email}),
       parser: (data) => data["message"].toString() == "success",
     );
   }
@@ -67,10 +60,8 @@ class RemoteEditProfileDataSource implements EditProfileDataSource {
   @override
   Future<Result<bool>> updateWeight(double weight) async {
     return await executeApiCall(
-      apiCall: () async => await _dio.put(
-        ApiConstants.editProfile,
-        data: {"weight": weight},
-      ),
+      apiCall: () async =>
+          await _dio.put(ApiConstants.editProfile, data: {"weight": weight}),
       parser: (data) => data["message"].toString() == "success",
     );
   }
@@ -78,10 +69,8 @@ class RemoteEditProfileDataSource implements EditProfileDataSource {
   @override
   Future<Result<bool>> updateGoal(Goal goal) async {
     return await executeApiCall(
-      apiCall: () async => await _dio.put(
-        ApiConstants.editProfile,
-        data: {"goal": goal.name},
-      ),
+      apiCall: () async =>
+          await _dio.put(ApiConstants.editProfile, data: {"goal": goal.name}),
       parser: (data) => data["message"].toString() == "success",
     );
   }

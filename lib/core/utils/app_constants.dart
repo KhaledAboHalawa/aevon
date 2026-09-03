@@ -26,6 +26,8 @@ class ApiConstants {
   static const String resetPassword = '${authBaseUrl}resetPassword';
   static const String deleteAcount = '${authBaseUrl}deleteMe';
   static const String editProfile = '${authBaseUrl}editProfile';
+  static const String tokenAuth = 'Authorization';
+  
   
 
   // Chat Endpoints
