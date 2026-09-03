@@ -18,7 +18,7 @@ void showEditFieldDialog(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            field.title,
+            field.getTitle(context),
             style: AppFont.balooThambi2Bold(
               fontSize: 18,
               color: AppColors.white,

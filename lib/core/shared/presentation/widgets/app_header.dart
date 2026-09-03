@@ -39,12 +39,16 @@ class _AppHeaderState extends State<AppHeader> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           BlocBuilder<AuthSessionCubit, AuthSessionState>(
-            buildWhen: (previous, current) => previous.user?.photo != current.user?.photo,
+            buildWhen: (previous, current) =>
+                previous.user?.photo != current.user?.photo,
             builder: (context, state) {
               final user = state.user;
               return ProfileAvatar(
-                imageUrl: widget.type != HeaderType.profile ? user?.photo : null,
-                initials: (user?.firstName != null && user!.firstName!.isNotEmpty)
+                imageUrl: widget.type != HeaderType.profile
+                    ? user?.photo
+                    : null,
+                initials:
+                    (user?.firstName != null && user!.firstName!.isNotEmpty)
                     ? user.firstName![0]
                     : "T",
               );
@@ -69,9 +73,9 @@ class _AppHeaderState extends State<AppHeader> {
                 TextSpan(
                   text: switch (widget.type) {
                     HeaderType.chatOnboarding =>
-                      locale!.chatOnboardingBottomSheetTitle,
+                      locale!.chatOnboardingHeaderTitle,
                     HeaderType.chat => locale!.chatHeaderTitle,
-                    HeaderType.profile => "Profile",
+                    HeaderType.profile => locale!.profile,
                   },
                   style: AppFont.balooThambi2Bold(
                     fontSize: switch (widget.type) {

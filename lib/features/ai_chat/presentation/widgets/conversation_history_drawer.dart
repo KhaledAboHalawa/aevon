@@ -5,6 +5,7 @@ import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:aevon/features/ai_chat/presentation/bloc/ai_chat_bloc.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/chat_history_card.dart';
+import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -45,13 +46,14 @@ class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
       child: BlocBuilder<AiChatCubit, AiChatState>(
         bloc: _aiChatCubit,
         builder: (BuildContext context, AiChatState state) {
+          final locale = AppLocalizations.of(context)!;
           if (state.conversatoinsHistoryisLoading &&
               state.conversationsHistory.isEmpty) {
             return const Center(child: CircularProgressIndicator.adaptive());
           } else if (state.conversationsHistory.isEmpty) {
             return Center(
               child: Text(
-                'No Previous Conversations',
+                locale.noPreviousConversations,
                 style: AppFont.balooThambi2SemiBold(
                   color: AppColors.white,
                   fontSize: 20,
@@ -81,7 +83,7 @@ class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: Text(
-                    'Previous Conversations',
+                    locale.previousConversations,
                     style: AppFont.balooThambi2SemiBold(
                       color: AppColors.white,
                       fontSize: 20,
@@ -104,7 +106,7 @@ class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
                   child: CustomButton(
                     isExpanded: true,
                     backgroundColor: AppColors.mainOrange,
-                    title: "New Chat",
+                    title: locale.newChat,
                     isLoading: false,
                     onPressed: () {
                       _aiChatCubit.doIntent(const StartNewChatEvent());

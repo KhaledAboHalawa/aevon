@@ -88,7 +88,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get female => 'انثى';
 
   @override
-  String get year => 'Year';
+  String get year => 'سنوات';
 
   @override
   String get kg => 'كغ';
@@ -100,7 +100,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get heyThere => 'مرحبا';
 
   @override
-  String get welecomeBack => 'WELCOME BACK';
+  String get welecomeBack => 'مرحبا بكم مرة اخرى';
 
   @override
   String get email => 'البريد الالكتروني';
@@ -203,4 +203,174 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get chatHeaderTitle => 'المدرب الذكي';
+
+  @override
+  String get explore => 'استكشاف';
+
+  @override
+  String get chat => 'المحادثة';
+
+  @override
+  String get workouts => 'التمارين';
+
+  @override
+  String get profile => 'الملف الشخصي';
+
+  @override
+  String get editProfile => 'تعديل الملف الشخصي';
+
+  @override
+  String get changePassword => 'تغيير كلمة المرور';
+
+  @override
+  String get selectLanguage => 'اختر اللغة';
+
+  @override
+  String get security => 'الأمان';
+
+  @override
+  String get privacyPolicy => 'سياسة الخصوصية';
+
+  @override
+  String get help => 'المساعدة';
+
+  @override
+  String get logout => 'تسجيل الخروج';
+
+  @override
+  String get tapToEdit => 'اضغط للتعديل';
+
+  @override
+  String get yourWeight => 'وزنك';
+
+  @override
+  String get yourGoal => 'هدفك';
+
+  @override
+  String get yourActivityLevel => 'مستوى نشاطك';
+
+  @override
+  String get selectImage => 'اختر صورة';
+
+  @override
+  String get camera => 'الكاميرا';
+
+  @override
+  String get gallery => 'معرض الصور';
+
+  @override
+  String get profileUpdatedSuccessfully => 'تم تحديث الملف الشخصي بنجاح';
+
+  @override
+  String get profilePhotoUpdatedSuccessfully => 'تم تحديث الصورة الشخصية بنجاح';
+
+  @override
+  String get firstNameUpdatedSuccessfully => 'تم تحديث الاسم الأول بنجاح';
+
+  @override
+  String get lastNameUpdatedSuccessfully => 'تم تحديث الاسم الأخير بنجاح';
+
+  @override
+  String get emailUpdatedSuccessfully => 'تم تحديث البريد الإلكتروني بنجاح';
+
+  @override
+  String get weightUpdatedSuccessfully => 'تم تحديث الوزن بنجاح';
+
+  @override
+  String get goalUpdatedSuccessfully => 'تم تحديث الهدف بنجاح';
+
+  @override
+  String get activityLevelUpdatedSuccessfully => 'تم تحديث مستوى النشاط بنجاح';
+
+  @override
+  String get askAnything => 'اسأل عن أي شيء';
+
+  @override
+  String get noPreviousConversations => 'لا توجد محادثات سابقة';
+
+  @override
+  String get previousConversations => 'المحادثات السابقة';
+
+  @override
+  String get newChat => 'محادثة جديدة';
+
+  @override
+  String get or => 'أو';
+
+  @override
+  String get loseWeight => 'إنقاص الوزن';
+
+  @override
+  String get gainWeight => 'زيادة الوزن';
+
+  @override
+  String get getFitter => 'زيادة اللياقة';
+
+  @override
+  String get getMoreFlexible => 'زيادة المرونة';
+
+  @override
+  String get learnTheBasic => 'تعلم الأساسيات';
+
+  @override
+  String get rookie => 'مبتدئ جداً';
+
+  @override
+  String get beginner => 'مبتدئ';
+
+  @override
+  String get intermediate => 'متوسط';
+
+  @override
+  String get advanced => 'متقدم';
+
+  @override
+  String get trueBeast => 'محترف';
+
+  @override
+  String get noContentError => 'لا يوجد محتوى متاح.';
+
+  @override
+  String get badRequestError => 'طلب غير صالح. يرجى التحقق من المدخلات.';
+
+  @override
+  String get unAuthenticationError =>
+      'فشل المصادقة. يرجى تسجيل الدخول مرة أخرى.';
+
+  @override
+  String get forbiddenError => 'الوصول محظور.';
+
+  @override
+  String get internalServerError =>
+      'خطأ داخلي في الخادم. يرجى المحاولة مرة أخرى لاحقًا.';
+
+  @override
+  String get nameRequired => 'الاسم مطلوب';
+
+  @override
+  String get nameMinLength => 'يجب أن يتكون الاسم من 3 أحرف على الأقل';
+
+  @override
+  String get nameMaxLength => 'يجب أن يكون الاسم أقل من 20 حرفًا';
+
+  @override
+  String get nameNoNumbers => 'يجب ألا يحتوي الاسم على أرقام';
+
+  @override
+  String get emailRequired => 'البريد الإلكتروني مطلوب';
+
+  @override
+  String get invalidEmail => 'عنوان البريد الإلكتروني غير صالح';
+
+  @override
+  String get passwordRequired => 'كلمة المرور مطلوبة';
+
+  @override
+  String get invalidPassword => 'كلمة المرور غير صالحة';
+
+  @override
+  String get confirmPasswordRequired => 'تأكيد كلمة المرور مطلوب';
+
+  @override
+  String get passwordsDoNotMatch => 'كلمتا المرور غير متطابقتين';
 }

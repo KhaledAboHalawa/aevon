@@ -1,7 +1,7 @@
 import 'package:aevon/app/app.dart';
 import 'package:aevon/core/di/dependency_injection.dart';
+import 'package:aevon/core/localization/localization_cubit.dart';
 import 'package:aevon/core/shared/auth_session/presentation/cubit/auth_session_cubit.dart';
-import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -22,12 +22,16 @@ void main() async {
   await FirebaseAppCheck.instance.activate(
     androidProvider: AndroidProvider.debug,
   );
-  
+
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => getIt<AuthSessionCubit>()..fetchSession()),
-        BlocProvider(create: (context) => getIt<AuthCubit>()),
+        BlocProvider(
+          create: (context) => getIt<AuthSessionCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<LocalizationCubit>(),
+        ),
       ],
       child: const MainApp(),
     ),

@@ -15,6 +15,7 @@ import 'package:aevon/features/profile/presentation/widgets/edit_profile/edit_go
 import 'package:aevon/features/profile/presentation/widgets/edit_profile/edit_pic_section.dart';
 import 'package:aevon/features/profile/presentation/widgets/edit_profile/edit_weight_section.dart';
 import 'package:aevon/features/profile/presentation/widgets/edit_profile/user_info_field.dart';
+import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,6 +60,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -103,7 +105,7 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                     const SizedBox(height: 40),
                     CustomTextField(
-                      hint: "First Name",
+                      hint: locale.firstName,
                       controller: firstNameController,
                       focusNode: firstNameFocusNode,
                       showLableOnTop: false,
@@ -114,7 +116,7 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                     ),
                     CustomTextField(
-                      hint: "Last Name",
+                      hint: locale.lastName,
                       controller: lastNameController,
                       focusNode: lastNameFocusNode,
                       showLableOnTop: false,
@@ -125,7 +127,7 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                     ),
                     CustomTextField(
-                      hint: "Email",
+                      hint: locale.email,
                       controller: emailController,
                       focusNode: emailFocusNode,
                       showLableOnTop: false,

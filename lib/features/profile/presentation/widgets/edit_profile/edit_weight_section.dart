@@ -50,7 +50,11 @@ class _EditWeightSectionState extends State<EditWeightSection> {
               ).showSnackBar(SnackBar(content: Text(state.errorMessage!)));
             } else if (state.status == .success) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Profile updated successfully")),
+                SnackBar(
+                  content: Text(
+                    AppLocalizations.of(context)!.profileUpdatedSuccessfully,
+                  ),
+                ),
               );
               context.pop();
             }

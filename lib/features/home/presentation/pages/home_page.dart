@@ -3,6 +3,7 @@ import 'package:aevon/features/ai_chat/presentation/pages/chat_tab.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/conversation_history_drawer.dart';
 import 'package:aevon/features/home/presentation/widgets/custom_nav_bar/custom_nav_bar.dart';
 import 'package:aevon/features/profile/presentation/pages/profle_page.dart';
+import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,12 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final PageController _pageController;
-  final List<Widget> _tabs = [
-    const Center(child: Text('Explore')),
-    const ChatTab(),
-    const Center(child: Text('exercises')),
-    const ProfleTab(),
-  ];
+
   @override
   void initState() {
     super.initState();
@@ -34,6 +30,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+    final tabs = [
+      Center(child: Text(locale.explore)),
+      const ChatTab(),
+      Center(child: Text(locale.workouts)),
+      const ProfleTab(),
+    ];
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -48,7 +51,7 @@ class _HomePageState extends State<HomePage> {
         body: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
-          children: _tabs,
+          children: tabs,
         ),
         bottomNavigationBar: CustomNavBar(
           onTap: (index) {

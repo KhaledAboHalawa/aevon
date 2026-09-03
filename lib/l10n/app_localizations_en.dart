@@ -202,4 +202,176 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chatHeaderTitle => 'Smart Coach';
+
+  @override
+  String get explore => 'Explore';
+
+  @override
+  String get chat => 'Chat';
+
+  @override
+  String get workouts => 'Workouts';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get editProfile => 'Edit Profile';
+
+  @override
+  String get changePassword => 'Change Password';
+
+  @override
+  String get selectLanguage => 'Select Language';
+
+  @override
+  String get security => 'Security';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get help => 'Help';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get tapToEdit => 'Tap To Edit';
+
+  @override
+  String get yourWeight => 'Your Weight';
+
+  @override
+  String get yourGoal => 'Your Goal';
+
+  @override
+  String get yourActivityLevel => 'Your Activity Level';
+
+  @override
+  String get selectImage => 'Select Image';
+
+  @override
+  String get camera => 'Camera';
+
+  @override
+  String get gallery => 'Gallery';
+
+  @override
+  String get profileUpdatedSuccessfully => 'Profile updated successfully';
+
+  @override
+  String get profilePhotoUpdatedSuccessfully =>
+      'Profile photo updated successfully';
+
+  @override
+  String get firstNameUpdatedSuccessfully => 'First name updated successfully';
+
+  @override
+  String get lastNameUpdatedSuccessfully => 'Last name updated successfully';
+
+  @override
+  String get emailUpdatedSuccessfully => 'Email updated successfully';
+
+  @override
+  String get weightUpdatedSuccessfully => 'Weight updated successfully';
+
+  @override
+  String get goalUpdatedSuccessfully => 'Goal updated successfully';
+
+  @override
+  String get activityLevelUpdatedSuccessfully =>
+      'Activity level updated successfully';
+
+  @override
+  String get askAnything => 'Ask anything';
+
+  @override
+  String get noPreviousConversations => 'No Previous Conversations';
+
+  @override
+  String get previousConversations => 'Previous Conversations';
+
+  @override
+  String get newChat => 'New Chat';
+
+  @override
+  String get or => 'or';
+
+  @override
+  String get loseWeight => 'Lose Weight';
+
+  @override
+  String get gainWeight => 'Gain Weight';
+
+  @override
+  String get getFitter => 'Get Fitter';
+
+  @override
+  String get getMoreFlexible => 'Get More Flexible';
+
+  @override
+  String get learnTheBasic => 'Learn The Basics';
+
+  @override
+  String get rookie => 'Rookie';
+
+  @override
+  String get beginner => 'Beginner';
+
+  @override
+  String get intermediate => 'Intermediate';
+
+  @override
+  String get advanced => 'Advanced';
+
+  @override
+  String get trueBeast => 'True Beast';
+
+  @override
+  String get noContentError => 'No content available.';
+
+  @override
+  String get badRequestError => 'Bad request. Please check your input.';
+
+  @override
+  String get unAuthenticationError =>
+      'Authentication failed. Please login again.';
+
+  @override
+  String get forbiddenError => 'Access forbidden.';
+
+  @override
+  String get internalServerError =>
+      'Internal server error. Please try again later.';
+
+  @override
+  String get nameRequired => 'Name is required';
+
+  @override
+  String get nameMinLength => 'Name must be at least 3 characters';
+
+  @override
+  String get nameMaxLength => 'Name must be less than 20 characters';
+
+  @override
+  String get nameNoNumbers => 'Name must not contain numbers';
+
+  @override
+  String get emailRequired => 'Email is required';
+
+  @override
+  String get invalidEmail => 'Invalid email address';
+
+  @override
+  String get passwordRequired => 'Password is required';
+
+  @override
+  String get invalidPassword => 'Invalid password';
+
+  @override
+  String get confirmPasswordRequired => 'Confirm Password is required';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
 }

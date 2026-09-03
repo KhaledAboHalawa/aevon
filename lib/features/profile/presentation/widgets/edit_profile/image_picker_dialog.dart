@@ -1,9 +1,11 @@
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
+import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 Future<XFile?> showImagePickerDialog(BuildContext context) async {
+  final locale = AppLocalizations.of(context)!;
   XFile? image;
   await showDialog<XFile>(
     context: context,
@@ -11,7 +13,7 @@ Future<XFile?> showImagePickerDialog(BuildContext context) async {
       return AlertDialog(
         backgroundColor: AppColors.cardDark,
         title: Text(
-          "Select Image",
+          locale.selectImage,
           style: AppFont.balooThambi2SemiBold(
             fontSize: 14,
             color: AppColors.white,
@@ -31,7 +33,7 @@ Future<XFile?> showImagePickerDialog(BuildContext context) async {
                 child: const Icon(Icons.camera_alt, color: AppColors.white),
               ),
               title: Text(
-                "Camera",
+                locale.camera,
                 style: AppFont.balooThambi2SemiBold(
                   fontSize: 14,
                   color: AppColors.white,
@@ -53,7 +55,7 @@ Future<XFile?> showImagePickerDialog(BuildContext context) async {
                 child: const Icon(Icons.photo, color: AppColors.white),
               ),
               title: Text(
-                "Gallery",
+                locale.gallery,
                 style: AppFont.balooThambi2SemiBold(
                   fontSize: 14,
                   color: AppColors.white,

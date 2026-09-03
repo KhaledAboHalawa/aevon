@@ -8,6 +8,7 @@ import 'package:aevon/core/utils/app_icons.dart';
 import 'package:aevon/core/shared/presentation/widgets/app_header.dart';
 import 'package:aevon/features/profile/presentation/widgets/profile_glass_card.dart';
 import 'package:aevon/features/profile/presentation/widgets/profile_menu_tile.dart';
+import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +18,7 @@ class ProfleTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return Column(
       children: [
         Padding(
@@ -52,29 +54,30 @@ class ProfleTab extends StatelessWidget {
             children: [
               ProfileMenuTile(
                 iconPath: AppIcons.profile,
-                title: "Edit Profile",
+                title: locale.editProfile,
                 onTap: () {
                   context.push(AppRoutes.editProfile);
                 },
               ),
-              const ProfileMenuTile(
+              ProfileMenuTile(
                 iconPath: AppIcons.change,
-                title: "Change Password",
+                title: locale.changePassword,
+                onTap: () => context.push(AppRoutes.forgetPassword),
               ),
-              const ProfileMenuTile(
+              ProfileMenuTile(
                 iconPath: AppIcons.language,
-                title: "Select Language",
+                title: locale.selectLanguage,
               ),
-              const ProfileMenuTile(
+              ProfileMenuTile(
                 iconPath: AppIcons.security,
-                title: "Security",
+                title: locale.security,
               ),
-              const ProfileMenuTile(
+              ProfileMenuTile(
                 iconPath: AppIcons.pricacyPolicy,
-                title: "Privacy Policy",
+                title: locale.privacyPolicy,
               ),
-              const ProfileMenuTile(iconPath: AppIcons.help, title: "Help"),
-              const ProfileMenuTile(iconPath: AppIcons.logout, title: "Logout"),
+              ProfileMenuTile(iconPath: AppIcons.help, title: locale.help),
+              ProfileMenuTile(iconPath: AppIcons.logout, title: locale.logout),
             ],
           ),
         ),

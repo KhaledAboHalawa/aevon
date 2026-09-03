@@ -4,6 +4,7 @@ import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/utils/app_icons.dart';
 import 'package:aevon/features/ai_chat/presentation/bloc/ai_chat_bloc.dart';
 import 'package:aevon/features/home/presentation/widgets/custom_nav_bar/custmo_nav_bar_item.dart';
+import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,6 +49,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsetsGeometry.only(bottom: 32, left: 32, right: 32),
       child: ClipRRect(
@@ -61,7 +63,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
             children: [
               CustmoNavBarItem(
                 iconPath: AppIcons.home,
-                title: 'Explore',
+                title: locale.explore,
                 selected: _currentIndex == 0,
                 onTap: (index) {
                   _onItemTapped(index);
@@ -72,7 +74,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
                 create: (context) => _aiChatCubit,
                 child: CustmoNavBarItem(
                   iconPath: AppIcons.aiChat,
-                  title: 'Chat',
+                  title: locale.chat,
                   selected: _currentIndex == 1,
                   onTap: (index) async {
                     selectNavIcon(index);
@@ -91,7 +93,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
               ),
               CustmoNavBarItem(
                 iconPath: AppIcons.workOuts,
-                title: 'Workouts',
+                title: locale.workouts,
                 selected: _currentIndex == 2,
                 onTap: (index) {
                   _onItemTapped(index);
@@ -100,7 +102,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
               ),
               CustmoNavBarItem(
                 iconPath: AppIcons.profile,
-                title: 'Profile',
+                title: locale.profile,
                 selected: _currentIndex == 3,
                 onTap: (index) async {
                   _onItemTapped(index);

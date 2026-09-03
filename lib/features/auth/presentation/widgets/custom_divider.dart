@@ -1,5 +1,6 @@
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
+import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CustomDivider extends StatelessWidget {
@@ -15,7 +16,7 @@ class CustomDivider extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Text(
-            'or',
+            AppLocalizations.of(context)!.or,
             style: AppFont.balooThambi2Regular(
               fontSize: 12,
               color: AppColors.textGrey,

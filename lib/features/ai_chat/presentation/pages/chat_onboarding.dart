@@ -1,7 +1,11 @@
+import 'package:aevon/core/shared/auth_session/presentation/cubit/auth_session_cubit.dart';
 import 'package:aevon/core/utils/app_images.dart';
 import 'package:aevon/core/shared/presentation/widgets/app_header.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/chat_onboarding_bottom_shet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/shared/auth_session/presentation/cubit/auth_session_state.dart';
 
 class ChatOnboarding extends StatefulWidget {
   const ChatOnboarding({super.key});
@@ -26,7 +30,16 @@ class _ChatOnboardingState extends State<ChatOnboarding> {
         body: Column(
           spacing: 8,
           children: [
-            const AppHeader(type: .chatOnboarding, userName: "Aevon"),
+            BlocBuilder<AuthSessionCubit, AuthSessionState>(
+              buildWhen: (previous, current) =>
+                  previous.user?.firstName != current.user?.firstName,
+              builder: (context, state) {
+                return AppHeader(
+                  type: .chatOnboarding,
+                  userName: state.user?.firstName ?? "",
+                );
+              },
+            ),
             Image.asset(AppImages.robot),
             const ChatOnboardingBottomShet(),
           ],
