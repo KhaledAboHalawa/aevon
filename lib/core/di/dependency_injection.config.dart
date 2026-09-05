@@ -99,6 +99,8 @@ import 'package:aevon/features/profile/domain/use_cases/update_goal_use_case.dar
     as _i93;
 import 'package:aevon/features/profile/domain/use_cases/update_last_name_use_case.dart'
     as _i284;
+import 'package:aevon/features/profile/domain/use_cases/update_password_use_case.dart'
+    as _i697;
 import 'package:aevon/features/profile/domain/use_cases/update_profile_image_use_case.dart'
     as _i1032;
 import 'package:aevon/features/profile/domain/use_cases/update_weight_use_case.dart'
@@ -247,16 +249,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i612.SendMessageUseCase>(
       () => _i612.SendMessageUseCase(repository: gh<_i416.ChatRepo>()),
     );
-    gh.lazySingleton<_i336.EditProfileCubit>(
-      () => _i336.EditProfileCubit(
-        updateProfileImageUseCase: gh<_i1032.UpdateProfileImageUseCase>(),
-        updateFirstNameUseCase: gh<_i519.UpdateFirstNameUseCase>(),
-        updateLastNameUseCase: gh<_i284.UpdateLastNameUseCase>(),
-        updateEmailUseCase: gh<_i333.UpdateEmailUseCase>(),
-        updateWeightUseCase: gh<_i14.UpdateWeightUseCase>(),
-        updateGoalUseCase: gh<_i93.UpdateGoalUseCase>(),
-        updateActivityLevelUseCase: gh<_i923.UpdateActivityLevelUseCase>(),
-        authSessionCubit: gh<_i838.AuthSessionCubit>(),
+    gh.lazySingleton<_i697.UpdatePasswordUseCase>(
+      () => _i697.UpdatePasswordUseCase(
+        editProfileRepo: gh<_i375.EditProfileRepo>(),
       ),
     );
     gh.lazySingleton<_i197.ForgetPasswordRepo>(
@@ -274,6 +269,19 @@ extension GetItInjectableX on _i174.GetIt {
         saveMessageInHistoryUseCase: gh<_i418.SaveMessageInHistoryUseCase>(),
         initConversationHistoryUseCase:
             gh<_i196.InitConversationHistoryUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i336.EditProfileCubit>(
+      () => _i336.EditProfileCubit(
+        updateProfileImageUseCase: gh<_i1032.UpdateProfileImageUseCase>(),
+        updateFirstNameUseCase: gh<_i519.UpdateFirstNameUseCase>(),
+        updateLastNameUseCase: gh<_i284.UpdateLastNameUseCase>(),
+        updateEmailUseCase: gh<_i333.UpdateEmailUseCase>(),
+        updateWeightUseCase: gh<_i14.UpdateWeightUseCase>(),
+        updateGoalUseCase: gh<_i93.UpdateGoalUseCase>(),
+        updateActivityLevelUseCase: gh<_i923.UpdateActivityLevelUseCase>(),
+        authSessionCubit: gh<_i838.AuthSessionCubit>(),
+        updatePasswordUseCase: gh<_i697.UpdatePasswordUseCase>(),
       ),
     );
     gh.lazySingleton<_i729.SignInUseCase>(
