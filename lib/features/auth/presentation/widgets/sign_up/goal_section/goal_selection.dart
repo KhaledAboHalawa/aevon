@@ -5,7 +5,8 @@ import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:aevon/features/auth/presentation/widgets/sign_up/check_card.dart';
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../core/di/dependency_injection.dart';
 
 class GoalSelection extends StatefulWidget {
   const GoalSelection({super.key, required this.onNext});
@@ -56,8 +57,7 @@ class _GoalSelectionState extends State<GoalSelection> {
                 ? null
                 : () {
                     widget.onNext();
-                    BlocProvider.of<AuthCubit>(context).signUpRequest.goal =
-                        selectedGoal!;
+                    getIt<AuthCubit>().signUpRequest.goal = selectedGoal!;
                   },
           ),
         ),

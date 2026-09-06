@@ -12,6 +12,7 @@
 
 import 'package:aevon/core/di/dependency_injection_module.dart' as _i685;
 import 'package:aevon/core/localization/localization_cubit.dart' as _i653;
+import 'package:aevon/core/network/localizaton_interceptor.dart' as _i158;
 import 'package:aevon/core/network/token_interceptor.dart' as _i75;
 import 'package:aevon/core/shared/auth_session/datasource/local_storage/auth_session.dart'
     as _i340;
@@ -99,6 +100,8 @@ import 'package:aevon/features/profile/domain/use_cases/update_goal_use_case.dar
     as _i93;
 import 'package:aevon/features/profile/domain/use_cases/update_last_name_use_case.dart'
     as _i284;
+import 'package:aevon/features/profile/domain/use_cases/update_password_use_case.dart'
+    as _i697;
 import 'package:aevon/features/profile/domain/use_cases/update_profile_image_use_case.dart'
     as _i1032;
 import 'package:aevon/features/profile/domain/use_cases/update_weight_use_case.dart'
@@ -154,28 +157,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i23.ChatRemoteDataSource>(
       () => _i246.GeminiDataSource(authSession: gh<_i340.AuthSession>()),
     );
-    gh.lazySingleton<_i361.Dio>(
-      () => registerModule.dio(gh<_i75.TokenInterceptor>()),
-    );
-    gh.lazySingleton<_i55.EditProfileDataSource>(
-      () => _i758.RemoteEditProfileDataSource(gh<_i361.Dio>()),
-      instanceName: 'remoteEditProfileDataSource',
-    );
-    gh.lazySingleton<_i815.AuthSessionRemoteDataSource>(
-      () => _i815.AuthSessionRemoteDataSource(gh<_i361.Dio>()),
-    );
-    gh.lazySingleton<_i412.AuthDataSource>(
-      () => _i125.AuthDataSourceImpl(gh<_i361.Dio>(), gh<_i340.AuthSession>()),
-    );
-    gh.lazySingleton<_i375.EditProfileRepo>(
-      () => _i710.EditProfileRepoImpl(
-        gh<_i55.EditProfileDataSource>(
-          instanceName: 'remoteEditProfileDataSource',
-        ),
-        gh<_i55.EditProfileDataSource>(
-          instanceName: 'localEditProfileDataSource',
-        ),
-      ),
+    gh.lazySingleton<_i158.LocalizatonInterceptor>(
+      () => _i158.LocalizatonInterceptor(gh<_i653.LocalizationCubit>()),
     );
     gh.singleton<_i416.ChatRepo>(
       () => _i117.ChatRepoImpl(
@@ -192,6 +175,50 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i68.StartNewChatUseCase>(
       () => _i68.StartNewChatUseCase(gh<_i416.ChatRepo>()),
+    );
+    gh.lazySingleton<_i361.Dio>(
+      () => registerModule.dio(
+        gh<_i75.TokenInterceptor>(),
+        gh<_i158.LocalizatonInterceptor>(),
+      ),
+    );
+    gh.lazySingleton<_i1041.ForgetPasswordDataSource>(
+      () => _i1041.ForgetPasswordDataSource(dio: gh<_i361.Dio>()),
+    );
+    gh.lazySingleton<_i55.EditProfileDataSource>(
+      () => _i758.RemoteEditProfileDataSource(gh<_i361.Dio>()),
+      instanceName: 'remoteEditProfileDataSource',
+    );
+    gh.lazySingleton<_i196.InitConversationHistoryUseCase>(
+      () => _i196.InitConversationHistoryUseCase(gh<_i416.ChatRepo>()),
+    );
+    gh.lazySingleton<_i815.AuthSessionRemoteDataSource>(
+      () => _i815.AuthSessionRemoteDataSource(gh<_i361.Dio>()),
+    );
+    gh.singleton<_i453.GetChatOnboardingStateUseCase>(
+      () => _i453.GetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
+    );
+    gh.singleton<_i466.SetChatOnboardingStateUseCase>(
+      () => _i466.SetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
+    );
+    gh.lazySingleton<_i412.AuthDataSource>(
+      () => _i125.AuthDataSourceImpl(gh<_i361.Dio>(), gh<_i340.AuthSession>()),
+    );
+    gh.lazySingleton<_i612.SendMessageUseCase>(
+      () => _i612.SendMessageUseCase(repository: gh<_i416.ChatRepo>()),
+    );
+    gh.lazySingleton<_i375.EditProfileRepo>(
+      () => _i710.EditProfileRepoImpl(
+        gh<_i55.EditProfileDataSource>(
+          instanceName: 'remoteEditProfileDataSource',
+        ),
+        gh<_i55.EditProfileDataSource>(
+          instanceName: 'localEditProfileDataSource',
+        ),
+      ),
+    );
+    gh.lazySingleton<_i197.ForgetPasswordRepo>(
+      () => _i628.ForgetPasswordRepoImpl(gh<_i1041.ForgetPasswordDataSource>()),
     );
     gh.lazySingleton<_i923.UpdateActivityLevelUseCase>(
       () => _i923.UpdateActivityLevelUseCase(gh<_i375.EditProfileRepo>()),
@@ -214,54 +241,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i14.UpdateWeightUseCase>(
       () => _i14.UpdateWeightUseCase(gh<_i375.EditProfileRepo>()),
     );
-    gh.lazySingleton<_i838.AuthSessionCubit>(
-      () => _i838.AuthSessionCubit(
-        gh<_i340.AuthSession>(),
-        gh<_i815.AuthSessionRemoteDataSource>(),
-      ),
-    );
-    gh.lazySingleton<_i1041.ForgetPasswordDataSource>(
-      () => _i1041.ForgetPasswordDataSource(dio: gh<_i361.Dio>()),
-    );
-    gh.lazySingleton<_i196.InitConversationHistoryUseCase>(
-      () => _i196.InitConversationHistoryUseCase(gh<_i416.ChatRepo>()),
-    );
-    gh.lazySingleton<_i973.AuthRepo>(
-      () => _i242.AuthRepoImpl(
-        gh<_i412.AuthDataSource>(),
-        gh<_i340.AuthSession>(),
-      ),
-    );
-    gh.singleton<_i453.GetChatOnboardingStateUseCase>(
-      () => _i453.GetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
-    );
-    gh.singleton<_i466.SetChatOnboardingStateUseCase>(
-      () => _i466.SetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
-    );
-    gh.lazySingleton<_i386.FetchUserInfoUseCase>(
-      () => _i386.FetchUserInfoUseCase(authRepo: gh<_i973.AuthRepo>()),
-    );
-    gh.lazySingleton<_i372.SignUpUseCase>(
-      () => _i372.SignUpUseCase(authRepo: gh<_i973.AuthRepo>()),
-    );
-    gh.lazySingleton<_i612.SendMessageUseCase>(
-      () => _i612.SendMessageUseCase(repository: gh<_i416.ChatRepo>()),
-    );
-    gh.lazySingleton<_i336.EditProfileCubit>(
-      () => _i336.EditProfileCubit(
-        updateProfileImageUseCase: gh<_i1032.UpdateProfileImageUseCase>(),
-        updateFirstNameUseCase: gh<_i519.UpdateFirstNameUseCase>(),
-        updateLastNameUseCase: gh<_i284.UpdateLastNameUseCase>(),
-        updateEmailUseCase: gh<_i333.UpdateEmailUseCase>(),
-        updateWeightUseCase: gh<_i14.UpdateWeightUseCase>(),
-        updateGoalUseCase: gh<_i93.UpdateGoalUseCase>(),
-        updateActivityLevelUseCase: gh<_i923.UpdateActivityLevelUseCase>(),
-        authSessionCubit: gh<_i838.AuthSessionCubit>(),
-      ),
-    );
-    gh.lazySingleton<_i197.ForgetPasswordRepo>(
-      () => _i628.ForgetPasswordRepoImpl(gh<_i1041.ForgetPasswordDataSource>()),
-    );
     gh.singleton<_i623.AiChatCubit>(
       () => _i623.AiChatCubit(
         getChatOnboardingStateUseCase:
@@ -276,8 +255,17 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i196.InitConversationHistoryUseCase>(),
       ),
     );
-    gh.lazySingleton<_i729.SignInUseCase>(
-      () => _i729.SignInUseCase(repo: gh<_i973.AuthRepo>()),
+    gh.lazySingleton<_i838.AuthSessionCubit>(
+      () => _i838.AuthSessionCubit(
+        gh<_i340.AuthSession>(),
+        gh<_i815.AuthSessionRemoteDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i973.AuthRepo>(
+      () => _i242.AuthRepoImpl(
+        gh<_i412.AuthDataSource>(),
+        gh<_i340.AuthSession>(),
+      ),
     );
     gh.lazySingleton<_i389.ForgetPasswordUseCase>(
       () => _i389.ForgetPasswordUseCase(
@@ -294,12 +282,39 @@ extension GetItInjectableX on _i174.GetIt {
         forgetPasswordRepo: gh<_i197.ForgetPasswordRepo>(),
       ),
     );
+    gh.lazySingleton<_i386.FetchUserInfoUseCase>(
+      () => _i386.FetchUserInfoUseCase(authRepo: gh<_i973.AuthRepo>()),
+    );
+    gh.lazySingleton<_i372.SignUpUseCase>(
+      () => _i372.SignUpUseCase(authRepo: gh<_i973.AuthRepo>()),
+    );
+    gh.lazySingleton<_i697.UpdatePasswordUseCase>(
+      () => _i697.UpdatePasswordUseCase(
+        editProfileRepo: gh<_i375.EditProfileRepo>(),
+      ),
+    );
     gh.lazySingleton<_i103.ForgetPasswordCubit>(
       () => _i103.ForgetPasswordCubit(
         forgetPasswordUseCase: gh<_i389.ForgetPasswordUseCase>(),
         resetPasswordUseCase: gh<_i555.ResetPasswordUseCase>(),
         verifyCodeUseCase: gh<_i605.VerifyCodeUseCase>(),
       ),
+    );
+    gh.lazySingleton<_i336.EditProfileCubit>(
+      () => _i336.EditProfileCubit(
+        updateProfileImageUseCase: gh<_i1032.UpdateProfileImageUseCase>(),
+        updateFirstNameUseCase: gh<_i519.UpdateFirstNameUseCase>(),
+        updateLastNameUseCase: gh<_i284.UpdateLastNameUseCase>(),
+        updateEmailUseCase: gh<_i333.UpdateEmailUseCase>(),
+        updateWeightUseCase: gh<_i14.UpdateWeightUseCase>(),
+        updateGoalUseCase: gh<_i93.UpdateGoalUseCase>(),
+        updateActivityLevelUseCase: gh<_i923.UpdateActivityLevelUseCase>(),
+        authSessionCubit: gh<_i838.AuthSessionCubit>(),
+        updatePasswordUseCase: gh<_i697.UpdatePasswordUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i729.SignInUseCase>(
+      () => _i729.SignInUseCase(repo: gh<_i973.AuthRepo>()),
     );
     gh.lazySingleton<_i262.AuthCubit>(
       () => _i262.AuthCubit(

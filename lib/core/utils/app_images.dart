@@ -1,10 +1,10 @@
 class AppImages {
   AppImages._();
 
-  static const String authBG = 'assets/images/auth_bg.png';
+  static const String authBG = 'assets/images/auth_bg.webp';
   static const String logo = 'assets/images/logo.png';
-  static const String onBoardingBG = 'assets/images/onboarding_bg.png';
-  static const String homeBG = 'assets/images/home_bg.png';
+  static const String onBoardingBG = 'assets/images/onboarding_bg.webp';
+  static const String homeBG = 'assets/images/home_bg.webp';
   static const String robot = 'assets/images/robot.png';
   static const String ai = 'assets/images/ai_pic.png';
   static const List<String> onBoardingSlides = [

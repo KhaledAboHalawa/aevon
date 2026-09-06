@@ -7,8 +7,8 @@ extension AiContextMapper on User {
       age: age.toString(),
       weight: weight.toString(),
       height: height.toString(),
-      activityLevel: activityLevel?.toStringActivityLevel()??'',
-      goal: goal?.name??'',
+      activityLevel: activityLevel?.toIdActivityLevel() ?? '',
+      goal: goal?.name ?? '',
     );
   }
 }

@@ -7,6 +7,9 @@ import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:aevon/core/utils/app_icons.dart';
 import 'package:aevon/features/profile/presentation/widgets/change_lang_dialog.dart';
+import 'package:aevon/features/profile/presentation/widgets/edit_profile/edit_field_dialog.dart';
+import 'package:aevon/features/profile/presentation/widgets/edit_profile/edit_password_section.dart';
+import 'package:aevon/features/profile/presentation/widgets/logout_dialog.dart';
 import 'package:aevon/features/profile/presentation/widgets/profile_glass_card.dart';
 import 'package:aevon/features/profile/presentation/widgets/profile_menu_tile.dart';
 import 'package:aevon/l10n/app_localizations.dart';
@@ -70,7 +73,10 @@ class ProfleTab extends StatelessWidget {
               ProfileMenuTile(
                 iconPath: AppIcons.change,
                 title: locale.changePassword,
-                onTap: () => context.push(AppRoutes.forgetPassword),
+                onTap: () => showEditFieldDialog(
+                  context,
+                  fieldWidget: const EditPasswordSection(),
+                ),
               ),
               ProfileMenuTile(
                 iconPath: AppIcons.language,
@@ -87,7 +93,11 @@ class ProfleTab extends StatelessWidget {
                 title: locale.privacyPolicy,
               ),
               ProfileMenuTile(iconPath: AppIcons.help, title: locale.help),
-              ProfileMenuTile(iconPath: AppIcons.logout, title: locale.logout),
+              ProfileMenuTile(
+                iconPath: AppIcons.logout,
+                title: locale.logout,
+                onTap: () => showLogoutDialog(context),
+              ),
             ],
           ),
         ),

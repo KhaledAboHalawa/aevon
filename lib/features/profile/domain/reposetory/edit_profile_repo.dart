@@ -10,4 +10,8 @@ abstract class EditProfileRepo {
   Future<Result<bool>> updateWeight(double weight);
   Future<Result<bool>> updateGoal(Goal goal);
   Future<Result<bool>> updateActivityLevel(ActivityLevel activityLevel);
+  Future<Result<bool>> updatePassword(
+    String currentPassword,
+    String newPassword,
+  );
 }

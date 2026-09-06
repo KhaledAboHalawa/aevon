@@ -27,11 +27,11 @@ class ApiConstants {
   static const String deleteAcount = '${authBaseUrl}deleteMe';
   static const String editProfile = '${authBaseUrl}editProfile';
   static const String tokenAuth = 'Authorization';
-  
-  
+  static const String responseLang = "accept-language";
 
   // Chat Endpoints
-  static const String aiChatEndpoint = 'https://api.openai.com/v1/chat/completions';
+  static const String aiChatEndpoint =
+      'https://api.openai.com/v1/chat/completions';
 
   //Firestore Endpoints
   static const String usersCollection = 'users';
