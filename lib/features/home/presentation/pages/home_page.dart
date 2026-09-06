@@ -6,6 +6,8 @@ import 'package:aevon/features/profile/presentation/pages/profle_page.dart';
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/shared/presentation/widgets/app_scafolled.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -44,23 +46,19 @@ class _HomePageState extends State<HomePage> {
           fit: BoxFit.cover,
         ),
       ),
-      child: Scaffold(
-        extendBody: true,
-        endDrawer: const ConversationHistoryDrawer(),
-        backgroundColor: Colors.transparent,
+      child: AppScaffold(
         body: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
           children: tabs,
         ),
-        bottomNavigationBar: CustomNavBar(
-          onTap: (index) {
-            _pageController.animateToPage(
-              index,
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeOut,
-            );
-          },
+        drawer: const ConversationHistoryDrawer(),
+        navBar: CustomNavBar(
+          onTap: (index) => _pageController.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+          ),
         ),
       ),
     );

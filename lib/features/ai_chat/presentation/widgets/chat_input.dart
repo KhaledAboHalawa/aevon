@@ -5,7 +5,7 @@ import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ChatInput extends StatelessWidget {
+class ChatInput extends StatefulWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
 
@@ -16,49 +16,57 @@ class ChatInput extends StatelessWidget {
   });
 
   @override
+  State<ChatInput> createState() => _ChatInputState();
+}
+
+class _ChatInputState extends State<ChatInput> {
+  @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      child: BlocSelector<AiChatCubit, AiChatState, bool>(
-        selector: (state) => state.isStreaming,
-        builder: (BuildContext context, state) => Padding(
-          padding: const EdgeInsets.only(left: 16, right: 4),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: CustomTextField(
-                  controller: controller,
-                  focusNode: focusNode,
-                  onSubmitted: (_) => _sendMessage(context),
-                  hint: AppLocalizations.of(context)!.askAnything,
-                  showLableOnTop: false,
-                  isEnabled: !state,
-                ),
+    return BlocSelector<AiChatCubit, AiChatState, bool>(
+      selector: (state) => state.isStreaming,
+      builder: (BuildContext context, state) => Padding(
+        padding: EdgeInsets.only(
+          left: 16,
+          right: 4,
+          bottom: MediaQuery.of(context).viewInsets.bottom > 200
+              ? MediaQuery.of(context).viewInsets.bottom - 100
+              : MediaQuery.of(context).padding.bottom,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: CustomTextField(
+                controller: widget.controller,
+                focusNode: widget.focusNode,
+                onSubmitted: (_) => _sendMessage(context),
+                hint: AppLocalizations.of(context)!.askAnything,
+                showLableOnTop: false,
+                isEnabled: !state,
               ),
-              IconButton(
-                onPressed: state ? null : () => _sendMessage(context),
-                style: IconButton.styleFrom(
-                  backgroundColor: AppColors.mainOrange,
-                  foregroundColor: AppColors.white,
-                  shape: const CircleBorder(),
-                  visualDensity: VisualDensity.comfortable,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  disabledForegroundColor: AppColors.lightBlack,
-                ),
-                icon: const Icon(Icons.send, size: 20),
+            ),
+            IconButton(
+              onPressed: state ? null : () => _sendMessage(context),
+              style: IconButton.styleFrom(
+                backgroundColor: AppColors.mainOrange,
+                foregroundColor: AppColors.white,
+                shape: const CircleBorder(),
+                visualDensity: VisualDensity.comfortable,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                disabledForegroundColor: AppColors.lightBlack,
               ),
-            ],
-          ),
+              icon: const Icon(Icons.send, size: 20),
+            ),
+          ],
         ),
       ),
     );
   }
 
   void _sendMessage(BuildContext context) {
-    final message = controller.text;
+    final message = widget.controller.text;
     if (message.trim().isEmpty) return;
     context.read<AiChatCubit>().doIntent(SendMessageEvent(message: message));
-    controller.clear();
+    widget.controller.clear();
   }
 }

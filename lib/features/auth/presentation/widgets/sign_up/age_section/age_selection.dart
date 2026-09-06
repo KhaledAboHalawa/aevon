@@ -4,7 +4,8 @@ import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:aevon/features/auth/presentation/widgets/sign_up/app_counter.dart';
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../core/di/dependency_injection.dart';
 
 class AgeSelection extends StatefulWidget {
   const AgeSelection({super.key, required this.onNext});
@@ -27,7 +28,7 @@ class _AgeSelectionState extends State<AgeSelection> {
           onChanged: (int value) {
             setState(() {
               age = value;
-              BlocProvider.of<AuthCubit>(context).signUpRequest.age = age;
+              getIt<AuthCubit>().signUpRequest.age = age;
             });
           },
         ),
