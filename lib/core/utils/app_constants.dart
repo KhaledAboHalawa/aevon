@@ -36,4 +36,7 @@ class ApiConstants {
   //Firestore Endpoints
   static const String usersCollection = 'users';
   static const String conversationsCollection = 'conversations';
+
+  //Muscle Endpoints
+  static const String allMuscleGroups = '${baseUrl}muscles';
 }
