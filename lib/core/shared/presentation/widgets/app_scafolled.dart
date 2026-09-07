@@ -12,11 +12,19 @@ class AppScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       endDrawer: drawer,
+      extendBody: true,
       bottomNavigationBar: navBar,
       resizeToAvoidBottomInset: false,
+      extendBodyBehindAppBar: true,
       body: Stack(
         children: [
-          Image.asset(AppImages.homeBG, fit: BoxFit.cover, cacheWidth: 720),
+          Positioned.fill(
+            child: Image.asset(
+              AppImages.homeBG,
+              fit: BoxFit.cover,
+              cacheWidth: 720,
+            ),
+          ),
           body,
         ],
       ),

@@ -29,7 +29,7 @@ class _ChatInputState extends State<ChatInput> {
           left: 16,
           right: 4,
           bottom: MediaQuery.of(context).viewInsets.bottom > 200
-              ? MediaQuery.of(context).viewInsets.bottom - 100
+              ? MediaQuery.of(context).viewInsets.bottom
               : MediaQuery.of(context).padding.bottom,
         ),
         child: Row(

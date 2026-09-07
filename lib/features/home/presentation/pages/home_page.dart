@@ -1,9 +1,8 @@
-import 'package:aevon/core/utils/app_images.dart';
 import 'package:aevon/features/ai_chat/presentation/pages/chat_tab.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/conversation_history_drawer.dart';
 import 'package:aevon/features/home/presentation/widgets/custom_nav_bar/custom_nav_bar.dart';
 import 'package:aevon/features/profile/presentation/pages/profle_page.dart';
-import 'package:aevon/l10n/app_localizations.dart';
+import 'package:aevon/features/workouts/presentation/pages/workout_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/shared/presentation/widgets/app_scafolled.dart';
@@ -17,7 +16,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final PageController _pageController;
-
+  final tabs = [
+    const Center(child: Text("test")),
+    const ChatTab(),
+    const WorkoutPage(),
+    const ProfleTab(),
+  ];
   @override
   void initState() {
     super.initState();
@@ -32,33 +36,18 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final locale = AppLocalizations.of(context)!;
-    final tabs = [
-      Center(child: Text(locale.explore)),
-      const ChatTab(),
-      Center(child: Text(locale.workouts)),
-      const ProfleTab(),
-    ];
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImages.homeBG),
-          fit: BoxFit.cover,
-        ),
+    return AppScaffold(
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: _pageController,
+        children: tabs,
       ),
-      child: AppScaffold(
-        body: PageView(
-          physics: const NeverScrollableScrollPhysics(),
-          controller: _pageController,
-          children: tabs,
-        ),
-        drawer: const ConversationHistoryDrawer(),
-        navBar: CustomNavBar(
-          onTap: (index) => _pageController.animateToPage(
-            index,
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeOut,
-          ),
+      drawer: const ConversationHistoryDrawer(),
+      navBar: CustomNavBar(
+        onTap: (index) => _pageController.animateToPage(
+          index,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOut,
         ),
       ),
     );
