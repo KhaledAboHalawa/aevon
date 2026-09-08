@@ -16,6 +16,7 @@ class AppScaffold extends StatelessWidget {
       bottomNavigationBar: navBar,
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
+      endDrawerEnableOpenDragGesture: false,
       body: Stack(
         children: [
           Positioned.fill(

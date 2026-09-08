@@ -1,6 +1,6 @@
 part of 'edit_profile_cubit.dart';
 
-abstract class EditProfileEvent extends Equatable {
+sealed class EditProfileEvent extends Equatable {
   const EditProfileEvent();
 
   void when({

@@ -108,6 +108,16 @@ import 'package:aevon/features/profile/domain/use_cases/update_weight_use_case.d
     as _i14;
 import 'package:aevon/features/profile/presentation/cubit/edit_profile_cubit.dart'
     as _i336;
+import 'package:aevon/features/workouts/data/data_source/workouts_data_source.dart'
+    as _i220;
+import 'package:aevon/features/workouts/data/repo/workouts_repo_impl.dart'
+    as _i133;
+import 'package:aevon/features/workouts/domain/repo/workouts_repo.dart'
+    as _i676;
+import 'package:aevon/features/workouts/domain/usecases/get_muscles_groups_use_case.dart'
+    as _i654;
+import 'package:aevon/features/workouts/presentation/cubit/workouts_cubit.dart'
+    as _i639;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
@@ -195,6 +205,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i815.AuthSessionRemoteDataSource>(
       () => _i815.AuthSessionRemoteDataSource(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i220.WorkoutsDataSource>(
+      () => _i220.WorkoutsDataSource(gh<_i361.Dio>()),
+    );
+    gh.lazySingleton<_i676.WorkoutsRepo>(
+      () => _i133.WorkoutsRepoImpl(gh<_i220.WorkoutsDataSource>()),
+    );
     gh.singleton<_i453.GetChatOnboardingStateUseCase>(
       () => _i453.GetChatOnboardingStateUseCase(gh<_i416.ChatRepo>()),
     );
@@ -261,6 +277,10 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i815.AuthSessionRemoteDataSource>(),
       ),
     );
+    gh.lazySingleton<_i654.GetMusclesGroupsUseCase>(
+      () =>
+          _i654.GetMusclesGroupsUseCase(workoutsRepo: gh<_i676.WorkoutsRepo>()),
+    );
     gh.lazySingleton<_i973.AuthRepo>(
       () => _i242.AuthRepoImpl(
         gh<_i412.AuthDataSource>(),
@@ -291,6 +311,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i697.UpdatePasswordUseCase>(
       () => _i697.UpdatePasswordUseCase(
         editProfileRepo: gh<_i375.EditProfileRepo>(),
+      ),
+    );
+    gh.singleton<_i639.WorkoutsCubit>(
+      () => _i639.WorkoutsCubit(
+        getMusclesGroupsUseCase: gh<_i654.GetMusclesGroupsUseCase>(),
       ),
     );
     gh.lazySingleton<_i103.ForgetPasswordCubit>(

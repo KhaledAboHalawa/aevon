@@ -7,6 +7,7 @@ class AppImages {
   static const String homeBG = 'assets/images/home_bg.webp';
   static const String robot = 'assets/images/robot.png';
   static const String ai = 'assets/images/ai_pic.png';
+  static const String test = 'assets/images/test.png';
   static const List<String> onBoardingSlides = [
     'assets/images/onboarding_1.png',
     'assets/images/onboarding_2.png',
