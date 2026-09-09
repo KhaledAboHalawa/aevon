@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:aevon/core/di/dependency_injection.dart';
 import 'package:aevon/core/router/app_routes.dart';
+import 'package:aevon/core/shared/auth_session/datasource/local_storage/auth_session.dart';
 import 'package:aevon/core/utils/app_constants.dart';
 import 'package:aevon/features/ai_chat/presentation/pages/chat_onboarding.dart';
 import 'package:aevon/features/auth/presentation/pages/sign_in_page.dart';
@@ -34,8 +36,9 @@ GoRouter router = GoRouter(
       name: AppRoutes.signIn,
       page: (state, context) => const SignInPage(),
       redirect: (context, state) {
-        String? token = getIt<SharedPreferences>().getString(AppKeys.token);
+        String? token = getIt<AuthSession>().getToken();
         if (token != null) {
+          log("this inside the router $token");
           return AppRoutes.home;
         }
         return null;

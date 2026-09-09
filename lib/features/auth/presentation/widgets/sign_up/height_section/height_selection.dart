@@ -4,7 +4,8 @@ import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:aevon/features/auth/presentation/widgets/sign_up/app_counter.dart';
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../core/di/dependency_injection.dart';
 
 class HeightSelection extends StatefulWidget {
   const HeightSelection({super.key, required this.onNext});
@@ -27,7 +28,7 @@ class _HeightSelectionState extends State<HeightSelection> {
           onChanged: (int value) {
             setState(() {
               height = value;
-              BlocProvider.of<AuthCubit>(context).signUpRequest.height = value;
+              getIt<AuthCubit>().signUpRequest.height = value;
             });
           },
         ),

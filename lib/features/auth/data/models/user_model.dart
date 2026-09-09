@@ -28,6 +28,14 @@ extension ActivityLevelExtension2 on ActivityLevel {
     ActivityLevel.advanced => AppLocalizations.of(context)!.advanced,
     ActivityLevel.trueBeast => AppLocalizations.of(context)!.trueBeast,
   };
+
+  String toIdActivityLevel() => switch (this) {
+    ActivityLevel.rookie => '69d982ed85f6bfa972bf221e',
+    ActivityLevel.beginner => '69d982ed85f6bfa972bf2216',
+    ActivityLevel.intermediate => '69d982ed85f6bfa972bf221c',
+    ActivityLevel.advanced => '69d982ed85f6bfa972bf2222',
+    ActivityLevel.trueBeast => '69d982ef85f6bfa972bf2242',
+  };
 }
 
 extension GoalExtension on String {
@@ -76,21 +84,21 @@ class User {
   });
 
   List<String> toList() => [
-        id ?? '',
-        firstName ?? '',
-        lastName ?? '',
-        email ?? '',
-        gender?.name ?? '',
-        age?.toString() ?? '',
-        weight?.toString() ?? '',
-        height?.toString() ?? '',
-        activityLevel?.toStringActivityLevel() ?? '',
-        goal?.name ?? '',
-        photo ?? '',
+    id ?? '',
+    firstName ?? '',
+    lastName ?? '',
+    email ?? '',
+    gender?.name ?? '',
+    age?.toString() ?? '',
+    weight?.toString() ?? '',
+    height?.toString() ?? '',
+    activityLevel?.toStringActivityLevel() ?? '',
+    goal?.name ?? '',
+    photo ?? '',
   ];
 
   User.fromList(List<String> list) {
-    if(list.isEmpty) return;
+    if (list.isEmpty) return;
     id = list[0];
     firstName = list[1];
     lastName = list[2];

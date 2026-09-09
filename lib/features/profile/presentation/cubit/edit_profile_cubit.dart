@@ -7,6 +7,7 @@ import 'package:aevon/features/profile/domain/use_cases/update_email_use_case.da
 import 'package:aevon/features/profile/domain/use_cases/update_first_name_use_case.dart';
 import 'package:aevon/features/profile/domain/use_cases/update_goal_use_case.dart';
 import 'package:aevon/features/profile/domain/use_cases/update_last_name_use_case.dart';
+import 'package:aevon/features/profile/domain/use_cases/update_password_use_case.dart';
 import 'package:aevon/features/profile/domain/use_cases/update_profile_image_use_case.dart';
 import 'package:aevon/features/profile/domain/use_cases/update_weight_use_case.dart';
 import 'package:equatable/equatable.dart';
@@ -26,6 +27,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   final UpdateWeightUseCase updateWeightUseCase;
   final UpdateGoalUseCase updateGoalUseCase;
   final UpdateActivityLevelUseCase updateActivityLevelUseCase;
+  final UpdatePasswordUseCase updatePasswordUseCase;
   final AuthSessionCubit authSessionCubit;
 
   EditProfileCubit({
@@ -37,6 +39,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     required this.updateGoalUseCase,
     required this.updateActivityLevelUseCase,
     required this.authSessionCubit,
+    required this.updatePasswordUseCase,
   }) : super(const EditProfileState());
 
   void doIntent(EditProfileEvent event) {
@@ -48,6 +51,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       updateWeight: _updateWeight,
       updateGoal: _updateGoal,
       updateActivityLevel: _updateActivityLevel,
+      updatePassword: _updatePassword,
     );
   }
 
@@ -198,6 +202,30 @@ class EditProfileCubit extends Cubit<EditProfileState> {
           state.copyWith(
             status: EditProfileStatus.success,
             successMessage: "Activity level updated successfully",
+          ),
+        );
+      },
+      error: (failure) => emit(
+        state.copyWith(
+          status: EditProfileStatus.error,
+          errorMessage: failure.message,
+        ),
+      ),
+    );
+  }
+
+  void _updatePassword(String currentPassword, String newPassword) async {
+    emit(state.copyWith(status: EditProfileStatus.loading));
+    final result = await updatePasswordUseCase.call(
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+    );
+    result.when(
+      success: (data) {
+        emit(
+          state.copyWith(
+            status: EditProfileStatus.success,
+            successMessage: "Password updated successfully",
           ),
         );
       },

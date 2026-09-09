@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 void showEditFieldDialog(
   BuildContext context, {
-  required EditProfileField field,
+  EditProfileField? field,
   required Widget fieldWidget,
 }) {
   showDialog(
@@ -14,18 +14,15 @@ void showEditFieldDialog(
       buttonPadding: EdgeInsets.zero,
       insetPadding: const EdgeInsets.symmetric(horizontal: 16),
       backgroundColor: const Color.fromARGB(180, 26, 26, 26),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            field.getTitle(context),
-            style: AppFont.balooThambi2Bold(
-              fontSize: 18,
-              color: AppColors.white,
+      title: field == null
+          ? null
+          : Text(
+              field.getTitle(context),
+              style: AppFont.balooThambi2Bold(
+                fontSize: 18,
+                color: AppColors.white,
+              ),
             ),
-          ),
-        ],
-      ),
       content: SizedBox(
         width: MediaQuery.of(context).size.width * 0.9,
         child: fieldWidget,

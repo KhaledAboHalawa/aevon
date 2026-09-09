@@ -8,10 +8,9 @@ import '../../../../core/theme/app_font.dart';
 import '../../../../core/utils/app_constants.dart';
 import '../../../../l10n/app_localizations.dart';
 
-Future<XFile?> showChangeLanguageDialog(BuildContext context) async {
+void showChangeLanguageDialog(BuildContext context) async {
   final locale = AppLocalizations.of(context)!;
   LocalizationCubit localizationCubit = getIt<LocalizationCubit>();
-  XFile? image;
   await showDialog<XFile>(
     context: context,
     builder: (context) {
@@ -31,13 +30,13 @@ Future<XFile?> showChangeLanguageDialog(BuildContext context) async {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
                 side:
-                    localizationCubit.state.languageCode ==
+                    locale.localeName ==
                         AppKeys.englishLocale
                     ? const BorderSide(color: AppColors.mainOrange, width: 2)
                     : BorderSide.none,
               ),
               trailing:
-                  localizationCubit.state.languageCode == AppKeys.englishLocale
+                  locale.localeName == AppKeys.englishLocale
                   ? const Icon(Icons.check, color: AppColors.mainOrange)
                   : null,
               title: Text(
@@ -57,12 +56,12 @@ Future<XFile?> showChangeLanguageDialog(BuildContext context) async {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
                 side:
-                    localizationCubit.state.languageCode == AppKeys.arabicLocale
+                    locale.localeName == AppKeys.arabicLocale
                     ? const BorderSide(color: AppColors.mainOrange, width: 2)
                     : BorderSide.none,
               ),
               trailing:
-                  localizationCubit.state.languageCode == AppKeys.arabicLocale
+                  locale.localeName == AppKeys.arabicLocale
                   ? const Icon(Icons.check, color: AppColors.mainOrange)
                   : null,
               title: Text(
@@ -82,5 +81,4 @@ Future<XFile?> showChangeLanguageDialog(BuildContext context) async {
       );
     },
   );
-  return image;
 }

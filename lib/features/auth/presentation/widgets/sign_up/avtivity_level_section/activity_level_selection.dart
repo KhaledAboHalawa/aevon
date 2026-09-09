@@ -30,6 +30,7 @@ class _ActivityLevelSelectionState extends State<ActivityLevelSelection> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
+      bloc: authCubit,
       listener: (BuildContext context, state) {
         if (state.authResonse != null) {
           context.pushReplacement(AppRoutes.home);

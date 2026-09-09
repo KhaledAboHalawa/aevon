@@ -1,6 +1,6 @@
 part of 'edit_profile_cubit.dart';
 
-abstract class EditProfileEvent extends Equatable {
+sealed class EditProfileEvent extends Equatable {
   const EditProfileEvent();
 
   void when({
@@ -11,6 +11,8 @@ abstract class EditProfileEvent extends Equatable {
     required Function(double weight) updateWeight,
     required Function(Goal goal) updateGoal,
     required Function(ActivityLevel activityLevel) updateActivityLevel,
+    required Function(String currentPassword, String newPassword)
+    updatePassword,
   }) {
     switch (this) {
       case EditProfileUpdateProfileImageEvent event:
@@ -27,6 +29,8 @@ abstract class EditProfileEvent extends Equatable {
         updateGoal(event.goal);
       case EditProfileUpdateActivityLevelEvent event:
         updateActivityLevel(event.activityLevel);
+      case EditProfileUpdatePasswordEvent event:
+        updatePassword(event.currentPassword, event.newPassword);
     }
   }
 
@@ -81,4 +85,12 @@ class EditProfileUpdateActivityLevelEvent extends EditProfileEvent {
   const EditProfileUpdateActivityLevelEvent(this.activityLevel);
   @override
   List<Object?> get props => [activityLevel];
+}
+
+class EditProfileUpdatePasswordEvent extends EditProfileEvent {
+  final String currentPassword;
+  final String newPassword;
+  const EditProfileUpdatePasswordEvent(this.currentPassword, this.newPassword);
+  @override
+  List<Object?> get props => [currentPassword, newPassword];
 }

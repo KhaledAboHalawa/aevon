@@ -11,10 +11,10 @@ import 'package:aevon/core/utils/app_validators.dart';
 import 'package:aevon/features/auth/data/models/auth_request.dart';
 import 'package:aevon/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:aevon/features/auth/presentation/cubit/auth_events.dart';
-import 'package:aevon/features/auth/presentation/widgets/blured_card.dart';
-import 'package:aevon/features/auth/presentation/widgets/navigate_to_sing_up.dart';
-import 'package:aevon/features/auth/presentation/widgets/custom_divider.dart';
 import 'package:aevon/features/auth/presentation/widgets/auth_options.dart';
+import 'package:aevon/features/auth/presentation/widgets/blured_card.dart';
+import 'package:aevon/features/auth/presentation/widgets/custom_divider.dart';
+import 'package:aevon/features/auth/presentation/widgets/navigate_to_sing_up.dart';
 import 'package:aevon/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,8 +69,8 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => authCubit,
+    return BlocProvider.value(
+      value: authCubit,
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state.authResonse != null) {
@@ -118,7 +118,11 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       const SizedBox(height: 77.5),
                       Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 8),
+                        padding: const EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                          bottom: 8,
+                        ),
                         child: RichText(
                           text: TextSpan(
                             text: '${locale.heyThere}\n',

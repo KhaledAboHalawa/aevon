@@ -51,18 +51,25 @@ class _CustomButtonState extends State<CustomButton> {
             width:
                 (widget.width) ??
                 (widget.isExpanded
-                    ? constraints.maxWidth
+                    ? widget.isLoading
+                          ? constraints.maxWidth - 120
+                          : constraints.maxWidth
                     : _measureContentWidth(context)),
             decoration: BoxDecoration(
-              color: AppColors.mainOrange,
+              color: widget.backgroundColor,
               borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: AppColors.mainOrange),
             ),
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: (widget.isLoading)
-                ? const CircularProgressIndicator.adaptive(
-                    backgroundColor: AppColors.white,
-                   
+                ? const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator.adaptive(
+                      backgroundColor: AppColors.white,
+                      strokeWidth: 3,
+                    ),
                   )
                 : AnimatedSwitcher(
                     duration: const Duration(milliseconds: 200),

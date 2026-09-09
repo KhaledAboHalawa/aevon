@@ -85,4 +85,17 @@ class RemoteEditProfileDataSource implements EditProfileDataSource {
       parser: (data) => data["message"].toString() == "success",
     );
   }
+
+  Future<Result<bool>> updatePassword(
+    String currentPassword,
+    String newPassword,
+  ) async {
+    return await executeApiCall(
+      apiCall: () async => await _dio.patch(
+        ApiConstants.changePassword,
+        data: {"password": currentPassword, "newPassword": newPassword},
+      ),
+      parser: (data) => data["message"].toString() == "success",
+    );
+  }
 }

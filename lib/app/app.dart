@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:aevon/core/localization/localization_cubit.dart';
 import 'package:aevon/core/router/app_router.dart';
 import 'package:aevon/core/theme/app_theme.dart';
@@ -18,7 +16,6 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LocalizationCubit, Locale>(
       builder: (BuildContext context, Locale state) {
-        log("state.languageCode.toString() ${state.languageCode}");
         return AnnotatedRegion<SystemUiOverlayStyle>(
           value: const SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,

@@ -20,21 +20,16 @@ void main() async {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge),
   ]);
   await FirebaseAppCheck.instance.activate(
-    androidProvider: AndroidProvider.debug,
+    providerAndroid: const AndroidDebugProvider(),
   );
 
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => getIt<AuthSessionCubit>(),
-        ),
-        BlocProvider(
-          create: (context) => getIt<LocalizationCubit>(),
-        ),
+        BlocProvider(create: (context) => getIt<AuthSessionCubit>()),
+        BlocProvider(create: (context) => getIt<LocalizationCubit>()),
       ],
       child: const MainApp(),
     ),
   );
 }
-

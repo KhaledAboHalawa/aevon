@@ -5,6 +5,8 @@ import 'package:aevon/features/profile/domain/reposetory/edit_profile_repo.dart'
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 
+import '../data_source/remote_edit_profile_data_source.dart';
+
 @LazySingleton(as: EditProfileRepo)
 class EditProfileRepoImpl implements EditProfileRepo {
   final EditProfileDataSource remoteEditProfileDataSource;
@@ -85,5 +87,14 @@ class EditProfileRepoImpl implements EditProfileRepo {
       );
     }
     return remoteResult;
+  }
+
+  @override
+  Future<Result<bool>> updatePassword(
+    String currentPassword,
+    String newPassword,
+  ) async {
+    return await (remoteEditProfileDataSource as RemoteEditProfileDataSource)
+        .updatePassword(currentPassword, newPassword);
   }
 }

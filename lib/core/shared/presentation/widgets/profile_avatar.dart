@@ -27,6 +27,7 @@ class ProfileAvatar extends StatelessWidget {
                       width: width ?? 29,
                       height: width ?? 29,
                       imageUrl: imageUrl!,
+                      memCacheWidth: (width ?? 29).toInt(),
                       placeholder: (context, url) => Center(
                         child: Text(
                           initials ?? '',
