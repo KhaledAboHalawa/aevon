@@ -15,15 +15,21 @@ class _MessagesListState extends State<MessagesList> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AiChatCubit, AiChatState>(
-      builder: (context, state) => ListView.builder(
-        padding: const EdgeInsets.only(top: 16, bottom: 16),
-        dragStartBehavior: .down,
-        controller: widget.scrollController,
-        itemCount: state.conversation.messages.length,
-        itemBuilder: (context, index) {
-          final message = state.conversation.messages[index];
-          return MessageBubble(message: message);
-        },
+      builder: (context, state) => Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+        ),
+        child: ListView.builder(
+          padding: const EdgeInsets.only(top: 16, bottom: 16),
+          dragStartBehavior: .start,
+          keyboardDismissBehavior: .manual,
+          controller: widget.scrollController,
+          itemCount: state.conversation.messages.length,
+          itemBuilder: (context, index) {
+            final message = state.conversation.messages[index];
+            return MessageBubble(message: message);
+          },
+        ),
       ),
     );
   }

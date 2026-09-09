@@ -32,6 +32,8 @@ import 'package:aevon/features/ai_chat/data/repositories/chat_repo_impl.dart'
     as _i117;
 import 'package:aevon/features/ai_chat/domain/repositories/chat_repo.dart'
     as _i416;
+import 'package:aevon/features/ai_chat/domain/usecases/delete_conversation_use_case.dart'
+    as _i629;
 import 'package:aevon/features/ai_chat/domain/usecases/get_chat_onboarding_state_use_case.dart'
     as _i453;
 import 'package:aevon/features/ai_chat/domain/usecases/get_conversations_history_use_case.dart'
@@ -116,6 +118,8 @@ import 'package:aevon/features/workouts/domain/repo/workouts_repo.dart'
     as _i676;
 import 'package:aevon/features/workouts/domain/usecases/get_muscles_groups_use_case.dart'
     as _i654;
+import 'package:aevon/features/workouts/domain/usecases/get_prime_mover_use_case.dart'
+    as _i252;
 import 'package:aevon/features/workouts/presentation/cubit/workouts_cubit.dart'
     as _i639;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
@@ -199,6 +203,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i758.RemoteEditProfileDataSource(gh<_i361.Dio>()),
       instanceName: 'remoteEditProfileDataSource',
     );
+    gh.lazySingleton<_i629.DeleteConversationUseCase>(
+      () => _i629.DeleteConversationUseCase(gh<_i416.ChatRepo>()),
+    );
     gh.lazySingleton<_i196.InitConversationHistoryUseCase>(
       () => _i196.InitConversationHistoryUseCase(gh<_i416.ChatRepo>()),
     );
@@ -223,6 +230,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i612.SendMessageUseCase>(
       () => _i612.SendMessageUseCase(repository: gh<_i416.ChatRepo>()),
     );
+    gh.lazySingleton<_i252.GetPrimeMoverUseCase>(
+      () => _i252.GetPrimeMoverUseCase(gh<_i676.WorkoutsRepo>()),
+    );
     gh.lazySingleton<_i375.EditProfileRepo>(
       () => _i710.EditProfileRepoImpl(
         gh<_i55.EditProfileDataSource>(
@@ -231,6 +241,21 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i55.EditProfileDataSource>(
           instanceName: 'localEditProfileDataSource',
         ),
+      ),
+    );
+    gh.singleton<_i623.AiChatCubit>(
+      () => _i623.AiChatCubit(
+        getChatOnboardingStateUseCase:
+            gh<_i453.GetChatOnboardingStateUseCase>(),
+        setChatOnboardingStateUseCase:
+            gh<_i466.SetChatOnboardingStateUseCase>(),
+        sendMessageUseCase: gh<_i612.SendMessageUseCase>(),
+        startNewChatUseCase: gh<_i68.StartNewChatUseCase>(),
+        getChatHistoryUseCase: gh<_i39.GetConversationsHistoryUseCase>(),
+        saveMessageInHistoryUseCase: gh<_i418.SaveMessageInHistoryUseCase>(),
+        initConversationHistoryUseCase:
+            gh<_i196.InitConversationHistoryUseCase>(),
+        deleteConversationUseCase: gh<_i629.DeleteConversationUseCase>(),
       ),
     );
     gh.lazySingleton<_i197.ForgetPasswordRepo>(
@@ -256,20 +281,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i14.UpdateWeightUseCase>(
       () => _i14.UpdateWeightUseCase(gh<_i375.EditProfileRepo>()),
-    );
-    gh.singleton<_i623.AiChatCubit>(
-      () => _i623.AiChatCubit(
-        getChatOnboardingStateUseCase:
-            gh<_i453.GetChatOnboardingStateUseCase>(),
-        setChatOnboardingStateUseCase:
-            gh<_i466.SetChatOnboardingStateUseCase>(),
-        sendMessageUseCase: gh<_i612.SendMessageUseCase>(),
-        startNewChatUseCase: gh<_i68.StartNewChatUseCase>(),
-        getChatHistoryUseCase: gh<_i39.GetConversationsHistoryUseCase>(),
-        saveMessageInHistoryUseCase: gh<_i418.SaveMessageInHistoryUseCase>(),
-        initConversationHistoryUseCase:
-            gh<_i196.InitConversationHistoryUseCase>(),
-      ),
     );
     gh.lazySingleton<_i838.AuthSessionCubit>(
       () => _i838.AuthSessionCubit(
@@ -313,16 +324,17 @@ extension GetItInjectableX on _i174.GetIt {
         editProfileRepo: gh<_i375.EditProfileRepo>(),
       ),
     );
-    gh.singleton<_i639.WorkoutsCubit>(
-      () => _i639.WorkoutsCubit(
-        getMusclesGroupsUseCase: gh<_i654.GetMusclesGroupsUseCase>(),
-      ),
-    );
     gh.lazySingleton<_i103.ForgetPasswordCubit>(
       () => _i103.ForgetPasswordCubit(
         forgetPasswordUseCase: gh<_i389.ForgetPasswordUseCase>(),
         resetPasswordUseCase: gh<_i555.ResetPasswordUseCase>(),
         verifyCodeUseCase: gh<_i605.VerifyCodeUseCase>(),
+      ),
+    );
+    gh.singleton<_i639.WorkoutsCubit>(
+      () => _i639.WorkoutsCubit(
+        getMusclesGroupsUseCase: gh<_i654.GetMusclesGroupsUseCase>(),
+        getPrimeMoverUseCase: gh<_i252.GetPrimeMoverUseCase>(),
       ),
     );
     gh.lazySingleton<_i336.EditProfileCubit>(

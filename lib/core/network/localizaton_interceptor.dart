@@ -11,7 +11,7 @@ class LocalizatonInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    final languageCode = _localizationCubit.state.languageCode; 
+    final languageCode = _localizationCubit.loadSavedLocale().languageCode;
     if (languageCode.isNotEmpty) {
       options.headers[ApiConstants.responseLang] = languageCode;
     }

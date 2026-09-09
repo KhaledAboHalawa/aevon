@@ -14,4 +14,5 @@ abstract class ChatRepo {
     required String conversationId,
   });
   Future<Result<bool>> initConversation({required Conversation conversation});
+  Future<Result<bool>> deleteChatHistory({required Conversation conversation});
 }

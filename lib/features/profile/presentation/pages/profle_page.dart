@@ -17,11 +17,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class ProfleTab extends StatelessWidget {
+class ProfleTab extends StatefulWidget {
   const ProfleTab({super.key});
 
   @override
+  State<ProfleTab> createState() => _ProfleTabState();
+}
+
+class _ProfleTabState extends State<ProfleTab>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     final locale = AppLocalizations.of(context)!;
     return Column(
       children: [
@@ -104,4 +111,7 @@ class ProfleTab extends StatelessWidget {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

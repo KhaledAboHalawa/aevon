@@ -9,7 +9,13 @@ class Conversation extends Equatable {
   final List<ChatMessage> messages;
 
   Conversation.empty()
-    : this(id: 'in empty 03', title: 'conversation3 in empty', createdAt: null, updatedAt: null, messages: []);
+    : this(
+        id: 'in empty 03',
+        title: 'conversation3 in empty',
+        createdAt: null,
+        updatedAt: null,
+        messages: [],
+      );
 
   const Conversation({
     required this.id,
@@ -37,4 +43,19 @@ class Conversation extends Equatable {
 
   @override
   List<Object?> get props => [id, title, createdAt, updatedAt, messages];
+}
+
+class HistoryConversation extends Conversation {
+  final int index;
+  HistoryConversation.empty({this.index = 0}) : super.empty();
+  HistoryConversation.fromConversation({
+    required this.index,
+    required Conversation conversation,
+  }) : super(
+         id: conversation.id,
+         title: conversation.title,
+         createdAt: conversation.createdAt,
+         updatedAt: conversation.updatedAt,
+         messages: conversation.messages,
+       );
 }

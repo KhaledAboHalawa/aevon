@@ -1,8 +1,9 @@
-
 import 'package:aevon/core/di/dependency_injection.dart';
+import 'package:aevon/core/shared/presentation/cubit/base_state.dart';
 import 'package:aevon/core/shared/presentation/widgets/custom_button.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
+import 'package:aevon/features/ai_chat/domain/entity/conversation.dart';
 import 'package:aevon/features/ai_chat/presentation/bloc/ai_chat_bloc.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/chat_history_card.dart';
 import 'package:aevon/l10n/app_localizations.dart';
@@ -20,16 +21,14 @@ class ConversationHistoryDrawer extends StatefulWidget {
 
 class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
   late final AiChatCubit _aiChatCubit;
+  late final _animatedListKey = GlobalKey<AnimatedListState>(
+    debugLabel: "conversationsListKey",
+  );
   @override
   void initState() {
     super.initState();
     _aiChatCubit = getIt<AiChatCubit>()
       ..doIntent(const GetConversationsHistoryEvent());
-  }
-
-  @override
-  didChangeDependencies() {
-    super.didChangeDependencies();
   }
 
   @override
@@ -43,14 +42,17 @@ class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
         ),
       ),
       width: MediaQuery.sizeOf(context).width * .7,
-      child: BlocBuilder<AiChatCubit, AiChatState>(
+      child: BlocConsumer<AiChatCubit, AiChatState>(
         bloc: _aiChatCubit,
+        buildWhen: (previous, current) =>
+            current.getConversationsHistoryState !=
+            previous.getConversationsHistoryState,
         builder: (BuildContext context, AiChatState state) {
           final locale = AppLocalizations.of(context)!;
-          if (state.conversatoinsHistoryisLoading &&
-              state.conversationsHistory.isEmpty) {
+          if (state.getConversationsHistoryState.isLoading &&
+              (state.getConversationsHistoryState.data?.isEmpty ?? true)) {
             return const Center(child: CircularProgressIndicator.adaptive());
-          } else if (state.conversationsHistory.isEmpty) {
+          } else if (state.getConversationsHistoryState.data?.isEmpty ?? true) {
             return Center(
               child: Text(
                 locale.noPreviousConversations,
@@ -60,10 +62,10 @@ class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
                 ),
               ),
             );
-          } else if (state.errorMessage != null) {
+          } else if (state.getConversationsHistoryState.isError) {
             return Center(
               child: Text(
-                state.errorMessage!,
+                state.getConversationsHistoryState.error!,
                 style: AppFont.balooThambi2SemiBold(
                   color: AppColors.white,
                   fontSize: 20,
@@ -80,25 +82,36 @@ class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
             child: Column(
               crossAxisAlignment: .end,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
-                  child: Text(
-                    locale.previousConversations,
-                    style: AppFont.balooThambi2SemiBold(
-                      color: AppColors.white,
-                      fontSize: 20,
-                    ),
+                Text(
+                  locale.previousConversations,
+                  style: AppFont.balooThambi2SemiBold(
+                    color: AppColors.white,
+                    fontSize: 20,
                   ),
                 ),
+                const SizedBox(height: 16),
                 Expanded(
-                  child: ListView.separated(
+                  child: AnimatedList.separated(
+                    key: _animatedListKey,
                     padding: EdgeInsets.zero,
-                    itemCount: state.conversationsHistory.length,
-                    itemBuilder: (context, index) => ChatHistoryCard(
-                      conversation: state.conversationsHistory[index],
+                    initialItemCount:
+                        state.getConversationsHistoryState.data!.length,
+                    itemBuilder: (context, index, animation) => ChatHistoryCard(
+                      conversation:
+                          state.getConversationsHistoryState.data![index],
+                      index: index,
                     ),
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(height: 8),
+                    separatorBuilder: (context, index, animation) =>
+                        SizeTransition(
+                          sizeFactor: animation,
+                          child: const SizedBox(height: 8),
+                        ),
+                    removedSeparatorBuilder:
+                        (BuildContext context, int index, animation) =>
+                            SizeTransition(
+                              sizeFactor: animation,
+                              child: const SizedBox(height: 8),
+                            ),
                   ),
                 ),
                 Padding(
@@ -118,7 +131,37 @@ class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
             ),
           );
         },
+        listenWhen: (previous, current) =>
+            current.deleteConversationState !=
+                previous.deleteConversationState ||
+            current.getConversationsHistoryState.data?.length !=
+                previous.getConversationsHistoryState.data?.length,
+        listener: (BuildContext context, AiChatState state) {
+          if (state.deleteConversationState.isLoaded) {
+            _deleteConversation(state.deleteConversationState.data!);
+          } else if (state.deleteConversationState.isInitial &&
+              state.getConversationsHistoryState.data != null) {
+            _animatedListKey.currentState?.insertItem(
+              state.getConversationsHistoryState.data!.length - 1,
+            );
+          }
+        },
       ),
     );
+  }
+
+  void _deleteConversation(HistoryConversation conversation) {
+    _animatedListKey.currentState!.removeItem(conversation.index, (
+      context,
+      animation,
+    ) {
+      return SizeTransition(
+        sizeFactor: animation,
+        child: ChatHistoryCard(
+          conversation: conversation,
+          index: conversation.index,
+        ),
+      );
+    });
   }
 }

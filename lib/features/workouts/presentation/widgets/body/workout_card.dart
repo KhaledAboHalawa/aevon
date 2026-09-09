@@ -1,12 +1,13 @@
-import 'package:aevon/core/utils/app_images.dart';
+import 'package:aevon/features/workouts/domain/entity/prime_mover_entity.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_font.dart';
 
 class WorkoutCard extends StatelessWidget {
-  const WorkoutCard({super.key});
-
+  const WorkoutCard({super.key, required this.entity});
+  final PrimeMoverEntity entity;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -16,23 +17,28 @@ class WorkoutCard extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Container(
-            alignment: .bottomCenter,
             foregroundDecoration: const BoxDecoration(
-              color: Color.fromARGB(130, 36, 36, 36),
+              color: AppColors.darkOverlay,
             ),
-            child: Image.asset(
-              AppImages.test,
-              fit: BoxFit.cover,
-              cacheWidth: 180,
-              cacheHeight: 180,
+            child: CachedNetworkImage(
+              imageUrl: entity.image,
+              fit: BoxFit.fill,
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: AppColors.white,
+                  strokeWidth: 2,
+                ),
+              ),
+              errorWidget: (context, url, error) =>
+                  const Center(child: Text('Error')),
             ),
           ),
         ),
         Positioned(
           bottom: 16,
-          width: 138,
+          width: 125,
           child: Text(
-            'Workout Card Item',
+            entity.name,
             maxLines: 2,
             textAlign: .center,
             style: AppFont.balooThambi2Bold(

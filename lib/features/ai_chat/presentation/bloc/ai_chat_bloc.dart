@@ -1,6 +1,8 @@
 import 'dart:async';
+
 import 'package:aevon/core/errors/errors_handler.dart';
 import 'package:aevon/core/shared/data/model/result.dart';
+import 'package:aevon/core/shared/presentation/cubit/base_state.dart';
 import 'package:aevon/features/ai_chat/data/mapper/conversation_mapper.dart';
 import 'package:aevon/features/ai_chat/domain/entity/chat_message.dart';
 import 'package:aevon/features/ai_chat/domain/entity/conversation.dart';
@@ -17,6 +19,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../domain/usecases/delete_conversation_use_case.dart';
+
 part 'ai_chat_event.dart';
 part 'ai_chat_state.dart';
 
@@ -27,6 +31,7 @@ class AiChatCubit extends Cubit<AiChatState> {
   final SendMessageUseCase sendMessageUseCase;
   final StartNewChatUseCase startNewChatUseCase;
   final GetConversationsHistoryUseCase getChatHistoryUseCase;
+  final DeleteConversationUseCase deleteConversationUseCase;
   final SaveMessageInHistoryUseCase saveMessageInHistoryUseCase;
   final InitConversationHistoryUseCase initConversationHistoryUseCase;
   StreamSubscription<Result<String>>? _messageSubscription;
@@ -38,6 +43,7 @@ class AiChatCubit extends Cubit<AiChatState> {
     required this.getChatHistoryUseCase,
     required this.saveMessageInHistoryUseCase,
     required this.initConversationHistoryUseCase,
+    required this.deleteConversationUseCase,
   }) : super(AiChatState.initial()) {
     _checkOnBoardingSeen();
   }
@@ -46,35 +52,35 @@ class AiChatCubit extends Cubit<AiChatState> {
     event.when(
       onBoardingSeen: _setOnBoardingSeen,
       checkOnBoardingSeen: _checkOnBoardingSeen,
-      sendMessage: (String message) => _sendMessage(message: message),
+      sendMessage: _sendMessage,
       startNewChat: _startNewChat,
       getConversationsHistory: _getConversationHistory,
-      changeCurrentConversation: (Conversation conversation) =>
-          _changeCurrentConversation(conversation: conversation),
+      changeCurrentConversation: _changeCurrentConversation,
+      deleteConversation: _deleteConversation,
     );
   }
 
-  Future<void> _changeCurrentConversation({
-    required Conversation conversation,
-  }) async {
+  Future<void> _changeCurrentConversation(Conversation conversation) async {
     _startNewChat(history: conversation.messages.toModelMessages());
     emit(state.copyWith(conversation: conversation));
   }
 
   Future<void> _getConversationHistory() async {
-    emit(state.copyWith(conversatoinsHistoryisLoading: true));
+    emit(
+      state.copyWith(
+        getConversationsHistoryState: BaseState.loading(
+          data: state.getConversationsHistoryState.data,
+        ),
+      ),
+    );
     final result = await getChatHistoryUseCase();
     result.when(
       success: (value) => emit(
-        state.copyWith(
-          conversationsHistory: value,
-          conversatoinsHistoryisLoading: false,
-        ),
+        state.copyWith(getConversationsHistoryState: BaseState.loaded(value)),
       ),
       error: (error) => emit(
         state.copyWith(
-          errorMessage: error.message,
-          conversatoinsHistoryisLoading: false,
+          getConversationsHistoryState: BaseState.error(error.message),
         ),
       ),
     );
@@ -84,25 +90,24 @@ class AiChatCubit extends Cubit<AiChatState> {
     final result = startNewChatUseCase(history: history);
     result.when(
       success: (value) => emit(
-          state.copyWith(
-            conversation: Conversation(
-              id: UniqueKey().toString(),
-              title: '',
-              createdAt: DateTime.now(),
-              updatedAt: DateTime.now(),
-              messages: [],
-            ),
-            isStreaming: false,
-            errorMessage: null,
+        state.copyWith(
+          conversation: Conversation(
+            id: UniqueKey().toString(),
+            title: '',
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+            messages: [],
           ),
+          isStreaming: false,
+          errorMessage: null,
         ),
+      ),
       error: (error) => emit(state.copyWith(errorMessage: error.message)),
     );
   }
 
-  Future<void> _sendMessage({required String message}) async {
+  Future<void> _sendMessage(String message) async {
     if (message.trim().isEmpty) return;
-    if (state.isStreaming) return;
 
     await _messageSubscription?.cancel();
 
@@ -110,6 +115,7 @@ class AiChatCubit extends Cubit<AiChatState> {
     final userMessage = ChatMessage(
       content: message,
       role: MessageRole.user,
+      isActive: false,
       id: state.conversation.messages.length.toString(),
     );
 
@@ -156,6 +162,7 @@ class AiChatCubit extends Cubit<AiChatState> {
       messages[messages.length - 1] = ChatMessage(
         content: lastMessage.content + chunk,
         role: MessageRole.assistant,
+        isActive: true,
         id: state.conversation.messages.length.toString(),
       );
     } else {
@@ -163,6 +170,7 @@ class AiChatCubit extends Cubit<AiChatState> {
         ChatMessage(
           content: chunk,
           role: MessageRole.assistant,
+          isActive: false,
           id: state.conversation.messages.length.toString(),
         ),
       );
@@ -180,13 +188,59 @@ class AiChatCubit extends Cubit<AiChatState> {
   }
 
   void _handleStreamDone() {
-    if (state.conversation.messages.last.role == MessageRole.assistant) {
+    if (state.conversation.messages.last.role == MessageRole.assistant) {}
+
+    final messages = [...state.conversation.messages];
+
+    final lastMessage = messages.last;
+
+    if (lastMessage.role == MessageRole.assistant) {
       saveMessageInHistoryUseCase(
         message: state.conversation.messages.last,
         conversationId: state.conversation.id,
       );
+      messages[messages.length - 1] = ChatMessage(
+        content: lastMessage.content,
+        role: MessageRole.assistant,
+        isActive: false,
+        id: state.conversation.messages.length.toString(),
+      );
     }
-    emit(state.copyWith(isStreaming: false));
+    emit(
+      state.copyWith(
+        isStreaming: false,
+        conversation: state.conversation.copyWith(messages: messages),
+      ),
+    );
+  }
+
+  Future<void> _deleteConversation(Conversation conversation, int index) async {
+    final result = await deleteConversationUseCase(conversation: conversation);
+    if (state.conversation.id == conversation.id) {
+      _startNewChat();
+    }
+    final List<Conversation> conversations = List.from(
+      state.getConversationsHistoryState.data ?? [],
+    );
+    conversations.removeWhere((element) => element.id == conversation.id);
+    result.when(
+      success: (value) => emit(
+        state.copyWith(
+          getConversationsHistoryState: BaseState.loaded(conversations),
+          deleteConversationState: BaseState.loaded(
+            HistoryConversation.fromConversation(
+              index: index,
+              conversation: conversation,
+            ),
+          ),
+        ),
+      ),
+      error: (error) => emit(
+        state.copyWith(
+          getConversationsHistoryState: BaseState.error(error.message),
+        ),
+      ),
+    );
   }
 
   void _setOnBoardingSeen() async {

@@ -22,48 +22,49 @@ class ChatRepoImpl implements ChatRepo {
   );
 
   @override
-  Future<Result<bool>> saveChatOnboardingSeen() {
-    return _localDataSource.chatOnboardingSeen();
-  }
+  Future<Result<bool>> saveChatOnboardingSeen() async =>
+      await _localDataSource.chatOnboardingSeen();
 
   @override
-  Result<bool> isChatOnboardingSeen() {
-    return _localDataSource.checkChatOnboardingSeen();
-  }
+  Result<bool> isChatOnboardingSeen() =>
+      _localDataSource.checkChatOnboardingSeen();
 
   @override
-  Stream<Result<String>> sendMessage({required String message}) {
-    return _remoteDataSource.sendMessage(message: message);
-  }
+  Stream<Result<String>> sendMessage({required String message}) =>
+      _remoteDataSource.sendMessage(message: message);
 
   @override
-  Result<bool> startNewChat({List<Content>? history}) {
-    return _remoteDataSource.startNewChat(history: history);
-  }
+  Result<bool> startNewChat({List<Content>? history}) =>
+      _remoteDataSource.startNewChat(history: history);
 
   @override
-  Future<Result<List<Conversation>>> getChatHistory() {
-    return _chatHistoryDataSource.getChatHistory();
-  }
+  Future<Result<List<Conversation>>> getChatHistory() async =>
+      await _chatHistoryDataSource.getChatHistory();
 
   @override
   Future<Result<bool>> saveMessageInHistory({
     required ChatMessage message,
     required String conversationId,
-  }) {
-    return _chatHistoryDataSource.saveChatHistory(
-      message: ChatMessageModel(
-        content: message.content,
-        role: message.role,
-        id: message.id,
-      ),
-      conversationId: conversationId,
-    );
-  }
+  }) async => await _chatHistoryDataSource.saveChatHistory(
+    message: ChatMessageModel(
+      content: message.content,
+      role: message.role,
+      id: message.id,
+    ),
+    conversationId: conversationId,
+  );
 
   @override
-  Future<Result<bool>> initConversation({required Conversation conversation}) =>
-      _chatHistoryDataSource.initConversationCollection(
-        conversation: ConversationModel.fromEntity(conversation),
-      );
+  Future<Result<bool>> initConversation({
+    required Conversation conversation,
+  }) async => await _chatHistoryDataSource.initConversationCollection(
+    conversation: ConversationModel.fromEntity(conversation),
+  );
+
+  @override
+  Future<Result<bool>> deleteChatHistory({
+    required Conversation conversation,
+  }) async => await _chatHistoryDataSource.deleteChatHistory(
+    conversationId: conversation.id,
+  );
 }

@@ -39,4 +39,6 @@ class ApiConstants {
 
   //Muscle Endpoints
   static const String allMuscleGroups = '${baseUrl}muscles';
+  static const String getRandomPrimeMover = "$allMuscleGroups/random";
+  static const String primeMover = "musclesGroup/by-muscle-group";
 }
