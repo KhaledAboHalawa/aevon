@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
+    this.closeOnTapOut = true,
     super.key,
     required this.hint,
     this.onChange,
@@ -31,6 +32,7 @@ class CustomTextField extends StatefulWidget {
   final String? prefixIconPath;
   final bool? isError;
   final bool isEnabled;
+  final bool closeOnTapOut;
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -48,7 +50,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
         validator: widget.validator,
         focusNode: widget.focusNode,
         onFieldSubmitted: widget.onSubmitted,
-        onTapOutside: (event) => widget.focusNode.unfocus(),
+        keyboardAppearance: Brightness.dark,
+        onTapOutside: widget.closeOnTapOut
+            ? (event) => widget.focusNode.unfocus()
+            : null,
         onChanged: widget.onChange,
         controller: widget.controller,
         obscureText: widget.isPassword && _obscureText,
@@ -107,7 +112,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           fillColor: Colors.transparent,
           labelText: widget.hint,
           labelStyle: AppFont.balooThambi2Regular(
-            color: widget.isEnabled ? AppColors.textGrey : AppColors.lightBlack,
+            color: AppColors.textGrey,
             fontSize: 14,
           ),
           contentPadding: const EdgeInsets.symmetric(
@@ -130,7 +135,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           disabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(
-              color: AppColors.lightBlack,
+              color: AppColors.borderDark,
               width: 1.0,
             ),
             borderRadius: BorderRadius.circular(20.0),
@@ -147,7 +152,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         cursorColor: AppColors.buttonGrey,
         cursorHeight: 20,
         style: AppFont.balooThambi2Regular(
-          color: widget.isEnabled ? AppColors.textGrey : AppColors.lightBlack,
+          color: AppColors.textGrey,
           fontSize: 14,
         ),
       ),

@@ -1,5 +1,5 @@
-
 import 'package:aevon/core/di/dependency_injection.dart';
+import 'package:aevon/core/shared/presentation/cubit/base_state.dart';
 import 'package:aevon/core/shared/presentation/widgets/custom_button.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
@@ -28,11 +28,6 @@ class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
   }
 
   @override
-  didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: AppColors.lightBlack,
@@ -45,12 +40,15 @@ class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
       width: MediaQuery.sizeOf(context).width * .7,
       child: BlocBuilder<AiChatCubit, AiChatState>(
         bloc: _aiChatCubit,
+        buildWhen: (previous, current) =>
+            current.getConversationsHistoryState !=
+            previous.getConversationsHistoryState,
         builder: (BuildContext context, AiChatState state) {
           final locale = AppLocalizations.of(context)!;
-          if (state.conversatoinsHistoryisLoading &&
-              state.conversationsHistory.isEmpty) {
+          if (state.getConversationsHistoryState.isLoading &&
+              (state.getConversationsHistoryState.data?.isEmpty ?? true)) {
             return const Center(child: CircularProgressIndicator.adaptive());
-          } else if (state.conversationsHistory.isEmpty) {
+          } else if (state.getConversationsHistoryState.data?.isEmpty ?? true) {
             return Center(
               child: Text(
                 locale.noPreviousConversations,
@@ -60,10 +58,10 @@ class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
                 ),
               ),
             );
-          } else if (state.errorMessage != null) {
+          } else if (state.getConversationsHistoryState.isError) {
             return Center(
               child: Text(
-                state.errorMessage!,
+                state.getConversationsHistoryState.error!,
                 style: AppFont.balooThambi2SemiBold(
                   color: AppColors.white,
                   fontSize: 20,
@@ -80,25 +78,36 @@ class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
             child: Column(
               crossAxisAlignment: .end,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
-                  child: Text(
-                    locale.previousConversations,
-                    style: AppFont.balooThambi2SemiBold(
-                      color: AppColors.white,
-                      fontSize: 20,
-                    ),
+                Text(
+                  locale.previousConversations,
+                  style: AppFont.balooThambi2SemiBold(
+                    color: AppColors.white,
+                    fontSize: 20,
                   ),
                 ),
+                const SizedBox(height: 16),
                 Expanded(
-                  child: ListView.separated(
+                  child: AnimatedList.separated(
+                    key: _aiChatCubit.animatedListKey,
                     padding: EdgeInsets.zero,
-                    itemCount: state.conversationsHistory.length,
-                    itemBuilder: (context, index) => ChatHistoryCard(
-                      conversation: state.conversationsHistory[index],
+                    initialItemCount:
+                        state.getConversationsHistoryState.data!.length,
+                    itemBuilder: (context, index, animation) => ChatHistoryCard(
+                      conversation:
+                          state.getConversationsHistoryState.data![index],
+                      index: index,
                     ),
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(height: 8),
+                    separatorBuilder: (context, index, animation) =>
+                        SizeTransition(
+                          sizeFactor: animation,
+                          child: const SizedBox(height: 8),
+                        ),
+                    removedSeparatorBuilder:
+                        (BuildContext context, int index, animation) =>
+                            SizeTransition(
+                              sizeFactor: animation,
+                              child: const SizedBox(height: 8),
+                            ),
                   ),
                 ),
                 Padding(

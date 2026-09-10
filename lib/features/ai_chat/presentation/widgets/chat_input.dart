@@ -26,38 +26,44 @@ class _ChatInputState extends State<ChatInput> {
       selector: (state) => state.isStreaming,
       builder: (BuildContext context, state) => Padding(
         padding: EdgeInsets.only(
-          left: 16,
-          right: 4,
+          left: 8,
+          right: 8,
           bottom: MediaQuery.of(context).viewInsets.bottom > 200
               ? MediaQuery.of(context).viewInsets.bottom
               : MediaQuery.of(context).padding.bottom,
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: CustomTextField(
-                controller: widget.controller,
-                focusNode: widget.focusNode,
-                onSubmitted: (_) => _sendMessage(context),
-                hint: AppLocalizations.of(context)!.askAnything,
-                showLableOnTop: false,
-                isEnabled: !state,
+        child: GestureDetector(
+          onVerticalDragStart: (details) {
+            widget.focusNode.unfocus();
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: CustomTextField(
+                  controller: widget.controller,
+                  focusNode: widget.focusNode,
+                  onSubmitted: (_) => _sendMessage(context),
+                  hint: AppLocalizations.of(context)!.askAnything,
+                  showLableOnTop: false,
+                  closeOnTapOut: false,
+                  isEnabled: !state,
+                ),
               ),
-            ),
-            IconButton(
-              onPressed: state ? null : () => _sendMessage(context),
-              style: IconButton.styleFrom(
-                backgroundColor: AppColors.mainOrange,
-                foregroundColor: AppColors.white,
-                shape: const CircleBorder(),
-                visualDensity: VisualDensity.comfortable,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                disabledForegroundColor: AppColors.lightBlack,
+              IconButton(
+                onPressed: state ? null : () => _sendMessage(context),
+                style: IconButton.styleFrom(
+                  backgroundColor: AppColors.mainOrange,
+                  foregroundColor: AppColors.white,
+                  shape: const CircleBorder(),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  disabledForegroundColor: AppColors.lightOrange,
+                  disabledBackgroundColor: AppColors.borderDark,
+                ),
+                icon: const Icon(Icons.send, size: 20),
               ),
-              icon: const Icon(Icons.send, size: 20),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

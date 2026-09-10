@@ -8,7 +8,8 @@ class BaseState<T> extends Equatable {
   final String? error;
   const BaseState({required this.status, this.data, this.error});
   const BaseState.initial() : this(status: StateStatus.initial);
-  const BaseState.loading() : this(status: StateStatus.loading);
+  const BaseState.loading({T? data})
+    : this(status: StateStatus.loading, data: data);
   const BaseState.loaded(T data) : this(status: StateStatus.loaded, data: data);
   const BaseState.error(String error)
     : this(status: StateStatus.error, error: error);

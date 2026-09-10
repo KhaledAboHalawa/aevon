@@ -4,48 +4,73 @@ import 'package:aevon/core/theme/app_font.dart';
 import 'package:aevon/features/ai_chat/domain/entity/conversation.dart';
 import 'package:aevon/features/ai_chat/presentation/bloc/ai_chat_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 
 class ChatHistoryCard extends StatelessWidget {
-  const ChatHistoryCard({super.key, required this.conversation, this.onTap});
+  const ChatHistoryCard({super.key, required this.conversation, this.onTap, required this.index});
   final Conversation conversation;
+  final int index;
   final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior: .translucent,
-      onTap: () {
-        getIt<AiChatCubit>().doIntent(
-          ChangeCurrentConversation(conversation: conversation),
-        );
-        context.pop();
-      },
-      child: SizedBox(
-        height: 35,
-        child: Column(
-          mainAxisAlignment: .spaceBetween,
-          children: [
-            Row(
-              crossAxisAlignment: .start,
-              mainAxisAlignment: .spaceBetween,
-              children: [
-                const Icon(
-                  Icons.arrow_back_ios,
-                  color: AppColors.mainOrange,
-                  size: 16,
-                ),
-                Text(
-                  conversation.title,
-                  style: AppFont.balooThambi2Medium(
-                    fontSize: 12,
-                    color: AppColors.textGrey,
+    return Slidable(
+      key: ValueKey(index),
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        dragDismissible: true,
+        extentRatio: 1 / 6,
+        children: [
+          SlidableAction(
+            spacing: 8,
+            borderRadius: BorderRadius.circular(8),
+            onPressed: (context) {
+              getIt<AiChatCubit>().doIntent(
+                DeleteConversationEvent(conversation: conversation,index:index),
+              );
+            },
+            backgroundColor: AppColors.mainOrange,
+            icon: Icons.delete,
+          ),
+        ],
+      ),
+      child: GestureDetector(
+        behavior: .translucent,
+        onTap: () {
+          getIt<AiChatCubit>().doIntent(
+            ChangeCurrentConversationEvent(conversation: conversation),
+          );
+          context.pop();
+        },
+        child: SizedBox(
+          height: 35,
+          child: Column(
+            mainAxisSize: .min,
+            mainAxisAlignment: .spaceBetween,
+            spacing: 8,
+            children: [
+              Row(
+                crossAxisAlignment: .start,
+                mainAxisAlignment: .spaceBetween,
+                children: [
+                  const Icon(
+                    Icons.arrow_back_ios,
+                    color: AppColors.mainOrange,
+                    size: 16,
                   ),
-                ),
-              ],
-            ),
-            const Divider(color: AppColors.textGrey, thickness: 1),
-          ],
+                  Text(
+                    conversation.title,
+                    style: AppFont.balooThambi2Medium(
+                      fontSize: 12,
+                      color: AppColors.textGrey,
+                    ),
+                  ),
+                ],
+              ),
+              const Divider(height: 1, color: AppColors.textGrey, thickness: 1),
+            ],
+          ),
         ),
       ),
     );

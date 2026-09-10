@@ -19,6 +19,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   flutter_localizations:
     sdk: flutter
+  flutter_slidable: ^4.0.3
   flutter_svg: ^2.3.0
   fluttertoast: ^10.0.0
   get_it: ^9.2.1

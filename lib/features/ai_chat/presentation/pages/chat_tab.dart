@@ -80,7 +80,7 @@ class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).padding.top + 8),
-            const AppHeader(type: .chat, userName: "Aevon"),
+            const AppHeader(type: .chat),
             Expanded(child: MessagesList(scrollController: _scrollController)),
             ChatInput(controller: _messageController, focusNode: _focusNode),
           ],

@@ -46,18 +46,8 @@ class _WorkoutCategoryListAndHeaderSectionState
   void _scrollToSelectedCategory(int index) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (index < 0) return;
-      double itemWidth = 100; // Approximate width of one category item
-      double totalWidth = _scrollController.position.maxScrollExtent;
+      double itemWidth = 112; //width of one card + 16px spacing
       double scrollPosition = index * itemWidth;
-      double viewPortWidth = MediaQuery.of(context).size.width;
-      double maxScroll = totalWidth - viewPortWidth;
-
-      if (scrollPosition < 0) {
-        scrollPosition = 0;
-      } else if (scrollPosition > maxScroll) {
-        scrollPosition = maxScroll;
-      }
-
       _scrollController.animateTo(
         scrollPosition,
         duration: const Duration(milliseconds: 300),
@@ -70,7 +60,6 @@ class _WorkoutCategoryListAndHeaderSectionState
   Widget build(BuildContext context) {
     return SliverAppBar(
       backgroundColor: Colors.transparent,
-      expandedHeight: 85,
       automaticallyImplyActions: false,
       pinned: true,
       snap: true,
@@ -91,23 +80,24 @@ class _WorkoutCategoryListAndHeaderSectionState
           height: 40,
           child: BlocConsumer<WorkoutsCubit, WorkoutsState>(
             listenWhen: (previous, current) {
-              return previous.muscleGroupsState != current.muscleGroupsState;
+              return previous.muscleGroupsState != current.muscleGroupsState ||
+                  previous.selectedMuscleGroupIndex !=
+                      current.selectedMuscleGroupIndex;
             },
             listener: (BuildContext context, WorkoutsState state) {
               if (state.muscleGroupsState.isError) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.muscleGroupsState.error ?? "error"),
-                  ),
+                  SnackBar(content: Text(state.muscleGroupsState.error!)),
                 );
               }
+              _scrollToSelectedCategory(state.selectedMuscleGroupIndex ?? 0);
             },
             builder: (context, state) {
               late List<MuscleGroupIntity> muscleGroups;
               if (state.muscleGroupsState.isLoading) {
                 return const Center(
-                  child: CircularProgressIndicator.adaptive(
-                    backgroundColor: AppColors.mainOrange,
+                  child: CircularProgressIndicator(
+                    backgroundColor: AppColors.white,
                     strokeWidth: 2,
                   ),
                 );

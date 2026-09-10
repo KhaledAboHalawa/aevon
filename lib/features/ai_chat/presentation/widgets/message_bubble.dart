@@ -28,6 +28,7 @@ class _MessageBubbleState extends State<MessageBubble> {
   @override
   Widget build(BuildContext context) {
     return Padding(
+      key: ValueKey(widget.message.id),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         textDirection: isUser ? TextDirection.rtl : TextDirection.ltr,
@@ -35,7 +36,8 @@ class _MessageBubbleState extends State<MessageBubble> {
         spacing: 16,
         children: [
           BlocBuilder<AuthSessionCubit, AuthSessionState>(
-            buildWhen: (previous, current) => previous.user?.photo != current.user?.photo,
+            buildWhen: (previous, current) =>
+                previous.user?.photo != current.user?.photo,
             builder: (context, state) {
               final user = state.user;
               return ProfileAvatar(
@@ -43,8 +45,8 @@ class _MessageBubbleState extends State<MessageBubble> {
                 imageUrl: isUser ? user?.photo : AppImages.ai,
                 initials: isUser
                     ? ((user?.firstName != null && user!.firstName!.isNotEmpty)
-                        ? user.firstName![0]
-                        : "T")
+                          ? user.firstName![0]
+                          : "T")
                     : "AI",
               );
             },
@@ -68,13 +70,27 @@ class _MessageBubbleState extends State<MessageBubble> {
             constraints: BoxConstraints(
               maxWidth: MediaQuery.sizeOf(context).width - 90,
             ),
-            child: Text(
-              widget.message.content,
-
-              style: AppFont.balooThambi2Regular(
-                fontSize: 16,
-                color: AppColors.white,
-              ),
+            child: Column(
+              crossAxisAlignment: .start,
+              children: [
+                Text(
+                  widget.message.content,
+                  style: AppFont.balooThambi2Regular(
+                    fontSize: 16,
+                    color: AppColors.white,
+                  ),
+                ),
+                if (widget.message.isActive)
+                  Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    width: 100,
+                    child: const LinearProgressIndicator(
+                      minHeight: 1,
+                      color: AppColors.mainOrange,
+                      backgroundColor: AppColors.borderDark,
+                    ),
+                  ),
+              ],
             ),
           ),
         ],

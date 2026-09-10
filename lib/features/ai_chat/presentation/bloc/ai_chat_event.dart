@@ -1,6 +1,6 @@
 part of 'ai_chat_bloc.dart';
 
-abstract class AiChatEvent extends Equatable {
+sealed class AiChatEvent extends Equatable {
   const AiChatEvent();
 
   @override
@@ -12,8 +12,8 @@ abstract class AiChatEvent extends Equatable {
     required Function(String message) sendMessage,
     required Function() startNewChat,
     required Function() getConversationsHistory,
-    required void Function(Conversation conversation)
-    changeCurrentConversation,
+    required void Function(Conversation conversation) changeCurrentConversation,
+    required void Function(Conversation conversation,int index) deleteConversation,
   }) {
     switch (this) {
       case OnBoardingSeenEvent _:
@@ -26,10 +26,10 @@ abstract class AiChatEvent extends Equatable {
         startNewChat();
       case GetConversationsHistoryEvent _:
         getConversationsHistory();
-      case ChangeCurrentConversation changeCurrentConversationEvent:
-        changeCurrentConversation(
-          changeCurrentConversationEvent.conversation,
-        );
+      case ChangeCurrentConversationEvent changeCurrentConversationEvent:
+        changeCurrentConversation(changeCurrentConversationEvent.conversation);
+      case DeleteConversationEvent event:
+        deleteConversation(event.conversation,event.index);
     }
   }
 }
@@ -55,9 +55,13 @@ class GetConversationsHistoryEvent extends AiChatEvent {
   const GetConversationsHistoryEvent();
 }
 
-class ChangeCurrentConversation extends AiChatEvent {
+class ChangeCurrentConversationEvent extends AiChatEvent {
   final Conversation conversation;
-  const ChangeCurrentConversation({
-    required this.conversation,
-  });
+  const ChangeCurrentConversationEvent({required this.conversation});
+}
+
+class DeleteConversationEvent extends AiChatEvent {
+  final Conversation conversation;
+  final int index;
+  const DeleteConversationEvent({required this.conversation, required this.index});
 }

@@ -59,12 +59,15 @@ class _WorkoutCategoryListItemState extends State<WorkoutCategoryListItem> {
               color: isSelected ? AppColors.mainOrange : Colors.transparent,
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Text(
-              widget.muscleGroupIntity.name,
-              textAlign: .center,
-              style: AppFont.balooThambi2Bold(
-                fontSize: 14,
-                color: isSelected ? AppColors.white : AppColors.textGrey,
+            child: SizedBox(
+              width: 80,
+              child: Text(
+                widget.muscleGroupIntity.name,
+                textAlign: .center,
+                style: AppFont.balooThambi2Bold(
+                  fontSize: 14,
+                  color: isSelected ? AppColors.white : AppColors.textGrey,
+                ),
               ),
             ),
           ),
