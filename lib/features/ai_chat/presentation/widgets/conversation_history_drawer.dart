@@ -3,7 +3,6 @@ import 'package:aevon/core/shared/presentation/cubit/base_state.dart';
 import 'package:aevon/core/shared/presentation/widgets/custom_button.dart';
 import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
-import 'package:aevon/features/ai_chat/domain/entity/conversation.dart';
 import 'package:aevon/features/ai_chat/presentation/bloc/ai_chat_bloc.dart';
 import 'package:aevon/features/ai_chat/presentation/widgets/chat_history_card.dart';
 import 'package:aevon/l10n/app_localizations.dart';
@@ -21,9 +20,6 @@ class ConversationHistoryDrawer extends StatefulWidget {
 
 class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
   late final AiChatCubit _aiChatCubit;
-  late final _animatedListKey = GlobalKey<AnimatedListState>(
-    debugLabel: "conversationsListKey",
-  );
   @override
   void initState() {
     super.initState();
@@ -42,7 +38,7 @@ class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
         ),
       ),
       width: MediaQuery.sizeOf(context).width * .7,
-      child: BlocConsumer<AiChatCubit, AiChatState>(
+      child: BlocBuilder<AiChatCubit, AiChatState>(
         bloc: _aiChatCubit,
         buildWhen: (previous, current) =>
             current.getConversationsHistoryState !=
@@ -92,7 +88,7 @@ class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
                 const SizedBox(height: 16),
                 Expanded(
                   child: AnimatedList.separated(
-                    key: _animatedListKey,
+                    key: _aiChatCubit.animatedListKey,
                     padding: EdgeInsets.zero,
                     initialItemCount:
                         state.getConversationsHistoryState.data!.length,
@@ -131,37 +127,7 @@ class _ConversationHistoryDrawerState extends State<ConversationHistoryDrawer> {
             ),
           );
         },
-        listenWhen: (previous, current) =>
-            current.deleteConversationState !=
-                previous.deleteConversationState ||
-            current.getConversationsHistoryState.data?.length !=
-                previous.getConversationsHistoryState.data?.length,
-        listener: (BuildContext context, AiChatState state) {
-          if (state.deleteConversationState.isLoaded) {
-            _deleteConversation(state.deleteConversationState.data!);
-          } else if (state.deleteConversationState.isInitial &&
-              state.getConversationsHistoryState.data != null) {
-            _animatedListKey.currentState?.insertItem(
-              state.getConversationsHistoryState.data!.length - 1,
-            );
-          }
-        },
       ),
     );
-  }
-
-  void _deleteConversation(HistoryConversation conversation) {
-    _animatedListKey.currentState!.removeItem(conversation.index, (
-      context,
-      animation,
-    ) {
-      return SizeTransition(
-        sizeFactor: animation,
-        child: ChatHistoryCard(
-          conversation: conversation,
-          index: conversation.index,
-        ),
-      );
-    });
   }
 }

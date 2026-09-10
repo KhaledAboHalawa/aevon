@@ -20,6 +20,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/usecases/delete_conversation_use_case.dart';
+import '../widgets/chat_history_card.dart';
 
 part 'ai_chat_event.dart';
 part 'ai_chat_state.dart';
@@ -34,6 +35,9 @@ class AiChatCubit extends Cubit<AiChatState> {
   final DeleteConversationUseCase deleteConversationUseCase;
   final SaveMessageInHistoryUseCase saveMessageInHistoryUseCase;
   final InitConversationHistoryUseCase initConversationHistoryUseCase;
+  final animatedListKey = GlobalKey<AnimatedListState>(
+    debugLabel: "conversationsListKey",
+  );
   StreamSubscription<Result<String>>? _messageSubscription;
   AiChatCubit({
     required this.getChatOnboardingStateUseCase,
@@ -75,9 +79,14 @@ class AiChatCubit extends Cubit<AiChatState> {
     );
     final result = await getChatHistoryUseCase();
     result.when(
-      success: (value) => emit(
-        state.copyWith(getConversationsHistoryState: BaseState.loaded(value)),
-      ),
+      success: (value) {
+        if (state.getConversationsHistoryState.data!.length < value.length) {
+          animatedListKey.currentState?.insertItem(0);
+        }
+        emit(
+          state.copyWith(getConversationsHistoryState: BaseState.loaded(value)),
+        );
+      },
       error: (error) => emit(
         state.copyWith(
           getConversationsHistoryState: BaseState.error(error.message),
@@ -216,25 +225,34 @@ class AiChatCubit extends Cubit<AiChatState> {
 
   Future<void> _deleteConversation(Conversation conversation, int index) async {
     final result = await deleteConversationUseCase(conversation: conversation);
-    if (state.conversation.id == conversation.id) {
-      _startNewChat();
-    }
+
     final List<Conversation> conversations = List.from(
       state.getConversationsHistoryState.data ?? [],
     );
     conversations.removeWhere((element) => element.id == conversation.id);
     result.when(
-      success: (value) => emit(
-        state.copyWith(
-          getConversationsHistoryState: BaseState.loaded(conversations),
-          deleteConversationState: BaseState.loaded(
-            HistoryConversation.fromConversation(
-              index: index,
-              conversation: conversation,
+      success: (value) {
+        if (state.conversation.id == conversation.id) {
+          _startNewChat();
+        }
+        _deleteConversationFromUI(
+          HistoryConversation.fromConversation(
+            index: index,
+            conversation: conversation,
+          ),
+        );
+        emit(
+          state.copyWith(
+            getConversationsHistoryState: BaseState.loaded(conversations),
+            deleteConversationState: BaseState.loaded(
+              HistoryConversation.fromConversation(
+                index: index,
+                conversation: conversation,
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
       error: (error) => emit(
         state.copyWith(
           getConversationsHistoryState: BaseState.error(error.message),
@@ -263,5 +281,20 @@ class AiChatCubit extends Cubit<AiChatState> {
   Future<void> close() async {
     await _messageSubscription?.cancel();
     return super.close();
+  }
+
+  void _deleteConversationFromUI(HistoryConversation conversation) {
+    animatedListKey.currentState!.removeItem(conversation.index, (
+      context,
+      animation,
+    ) {
+      return SizeTransition(
+        sizeFactor: animation,
+        child: ChatHistoryCard(
+          conversation: conversation,
+          index: conversation.index,
+        ),
+      );
+    });
   }
 }
