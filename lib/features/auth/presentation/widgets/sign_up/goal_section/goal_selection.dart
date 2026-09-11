@@ -53,6 +53,7 @@ class _GoalSelectionState extends State<GoalSelection> {
             backgroundColor: AppColors.mainOrange,
             title: AppLocalizations.of(context)!.next,
             isLoading: false,
+          isExpanded: true,
             onPressed: (selectedGoal == null)
                 ? null
                 : () {

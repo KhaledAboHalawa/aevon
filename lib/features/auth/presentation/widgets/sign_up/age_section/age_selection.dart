@@ -37,6 +37,7 @@ class _AgeSelectionState extends State<AgeSelection> {
           backgroundColor: AppColors.mainOrange,
           title: AppLocalizations.of(context)!.next,
           isLoading: false,
+          isExpanded: true,
           onPressed: (age == 0) ? null : () => widget.onNext.call(),
         ),
       ],

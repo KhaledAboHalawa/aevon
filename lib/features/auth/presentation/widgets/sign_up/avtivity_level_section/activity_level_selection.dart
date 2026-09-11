@@ -85,6 +85,7 @@ class _ActivityLevelSelectionState extends State<ActivityLevelSelection> {
               backgroundColor: AppColors.mainOrange,
               title: AppLocalizations.of(context)!.finish,
               isLoading: state.isLoading,
+          isExpanded: true,
               onPressed: (selectedActivity == null)
                   ? null
                   : () {
