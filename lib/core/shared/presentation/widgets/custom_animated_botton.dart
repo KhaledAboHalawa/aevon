@@ -41,7 +41,7 @@ class _AnimatedSizeButtonState extends State<AnimatedSizeButton> {
         return GestureDetector(
           onTap: widget.onPressed,
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 400),
+            duration: const Duration(milliseconds: 300),
             curve: Curves.easeOut,
             width:
                 (widget.width) ??

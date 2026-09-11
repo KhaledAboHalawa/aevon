@@ -25,10 +25,8 @@ class CustmoNavBarItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          InkWell(
-            hoverColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
+          GestureDetector(
+            behavior: .translucent,
             onTap: () {
               HapticFeedback.selectionClick();
               onTap(index);

@@ -1,30 +1,20 @@
-import 'package:aevon/core/utils/app_images.dart';
 import 'package:aevon/features/auth/presentation/widgets/sign_up/sign_up_body.dart';
 import 'package:flutter/material.dart';
 
-class SignUpPage extends StatefulWidget {
+import '../../../../core/shared/presentation/widgets/app_scafolled.dart';
+
+class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImages.authBG),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.transparent,
-        body: Padding(
+    return AppScaffold(
+      body: SingleChildScrollView(
+        keyboardDismissBehavior: .manual,
+        child: Padding(
           padding: EdgeInsets.only(
             top: MediaQuery.of(context).padding.top + 16,
+            bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
           child: const SignUpBody(),
         ),

@@ -41,7 +41,7 @@ class _OnboardingCardState extends State<OnboardingCard> {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaY: 36, sigmaX: 36),
         child: Container(
-          height: 275,
+          height: MediaQuery.of(context).size.height * .38,
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 31.5),
           decoration: const BoxDecoration(
@@ -73,9 +73,9 @@ class _OnboardingCardState extends State<OnboardingCard> {
                 ),
               ),
 
-              const SizedBox(height: 24),
-              CustomIndicator(currentPage: widget.index),
               const Spacer(),
+              CustomIndicator(currentPage: widget.index),
+              const Spacer(flex: 2),
               const NavSection(),
             ],
           ),

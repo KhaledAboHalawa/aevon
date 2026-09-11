@@ -21,6 +21,7 @@ class AppScaffold extends StatelessWidget {
       extendBodyBehindAppBar: true,
       endDrawerEnableOpenDragGesture: false,
       body: Stack(
+        fit: .expand,
         children: [
           Positioned.fill(
             child: Image.asset(
@@ -29,7 +30,7 @@ class AppScaffold extends StatelessWidget {
               cacheWidth: memCacheWidth,
             ),
           ),
-          body,
+          Positioned.fill(child: body),
         ],
       ),
     );
