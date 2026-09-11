@@ -37,6 +37,7 @@ class _WeightSelectionState extends State<WeightSelection> {
           backgroundColor: AppColors.mainOrange,
           title: AppLocalizations.of(context)!.next,
           isLoading: false,
+          isExpanded: true,
           onPressed: (weight == 0) ? null : () => widget.onNext.call(),
         ),
       ],

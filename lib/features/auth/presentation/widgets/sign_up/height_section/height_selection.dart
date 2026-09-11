@@ -37,6 +37,7 @@ class _HeightSelectionState extends State<HeightSelection> {
           backgroundColor: AppColors.mainOrange,
           title: AppLocalizations.of(context)!.next,
           isLoading: false,
+          isExpanded: true,
           onPressed: (height == 0) ? null : () => widget.onNext.call(),
         ),
       ],

@@ -45,6 +45,7 @@ class _GenderSelectionState extends State<GenderSelection> {
           backgroundColor: AppColors.mainOrange,
           title: AppLocalizations.of(context)!.next,
           isLoading: false,
+          isExpanded: true,
           onPressed: (selectedGender == null)
               ? null
               : () {
