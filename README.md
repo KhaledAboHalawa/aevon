@@ -1,19 +1,511 @@
+````markdown
 # Aevon
 
-<p align="center">
-  <img src="..." width="..." />
-</p>
+<div align="center">
 
-<p align="center">
-  AI-powered fitness assistant built with Flutter
-</p>
+### AI-Powered Fitness Companion
+
+A modern fitness application built with Flutter, combining personalized fitness experiences with an AI-powered assistant, workout discovery, and user-focused health tracking.
+
+</div>
 
 ---
 
-## ✨ Features
+## 📱 Overview
 
-- 🤖 Real-time AI chat with streaming responses
-- 💬 Persistent conversation history
-- 🏋️ Workout browsing
-- ⚡ Animated UI interactions
-...
+**Aevon** is a fitness application designed to help users build healthier habits through personalized fitness content, workout recommendations, and an AI-powered fitness assistant.
+
+The application provides a complete user journey — from onboarding and authentication to exploring workouts, managing a personal profile, and interacting with an AI assistant.
+
+> **Note:** Aevon is a team project. The sections below highlight the features and engineering work I personally contributed to.
+
+---
+
+## ✨ Key Features
+
+- 🤖 AI-powered fitness assistant
+- ⚡ Real-time streaming AI responses
+- 💬 Conversation history with Firebase Firestore
+- 🗑️ Delete previous conversations
+- 🎞️ Animated conversation history
+- 🏋️ Workout discovery and exercise details
+- 🖼️ Optimized image loading and caching
+- 🔐 Login & registration
+- 🧾 Multi-step registration flow
+- 👤 Profile management
+- ✏️ Edit profile information
+- 🔑 Forgot password
+- 🔒 Change password
+- 🌍 Localization
+- 📱 Responsive mobile UI
+
+---
+
+## 🤖 AI Fitness Assistant
+
+One of the main features I worked on is Aevon's AI-powered fitness assistant.
+
+Instead of waiting for the entire response before displaying it, the assistant processes the model output as a **stream** and progressively renders the response in the chat interface.
+
+### Streaming Flow
+
+```text
+User Message
+     │
+     ▼
+Firebase AI Logic
+     │
+     ▼
+AI Response Stream
+     │
+     ├── Chunk 1 ──► Update Message
+     ├── Chunk 2 ──► Update Message
+     ├── Chunk 3 ──► Update Message
+     └── ...
+              │
+              ▼
+        Complete Response
+````
+
+This provides a more responsive chat experience and allows users to start reading the response while the model is still generating it.
+
+The chat interface also handles:
+
+* Streaming response updates
+* Loading state before the first response
+* Progressive message rendering
+* Automatic scrolling to the latest content
+* Starting a new conversation
+* Conversation persistence
+
+---
+
+## 💬 Conversation History
+
+AI conversations are persisted using **Firebase Firestore**, allowing users to return to previous conversations.
+
+The history system supports:
+
+* Saving conversations
+* Loading previous conversations
+* Sorting conversations by their latest update
+* Opening an existing conversation
+* Deleting conversations
+* Starting a new conversation
+* Animated insertion and removal
+
+The conversation data is organized per authenticated user to keep each user's history isolated.
+
+### History Architecture
+
+```text
+Chat UI
+   │
+   ▼
+Chat Cubit
+   │
+   ▼
+Chat Repository
+   │
+   ▼
+Chat History Data Source
+   │
+   ▼
+Firebase Firestore
+```
+
+For operations that involve processing larger collections of conversation data, sorting work can be moved away from the main UI thread to keep the interface responsive.
+
+---
+
+## 🏋️ Workout Experience
+
+Aevon provides a dedicated workout experience where users can explore available workouts and exercises.
+
+The workout section includes:
+
+* Workout cards with imagery
+* Exercise details
+* Workout categories
+* Recommended workouts
+* Popular training content
+* Dedicated exercise screens
+
+The UI was designed around reusable components and horizontally scrollable content sections to keep the experience clean and easy to navigate.
+
+---
+
+## 🖼️ Image Performance Optimization
+
+Fitness applications can display a large number of images, especially in workout and recommendation sections.
+
+One performance consideration was controlling the **decoded image size** instead of unnecessarily decoding large source images at their original resolution.
+
+By controlling image cache dimensions, the application can avoid allocating more memory than the rendered widget actually requires.
+
+This is particularly useful for screens containing multiple workout cards and images.
+
+---
+
+## 🔐 Authentication & Account Management
+
+I also worked on the authentication and account-management flow.
+
+### Authentication
+
+* Login
+* Registration
+* OTP verification
+* Forgot password
+* Create password
+* Change password
+
+### Registration Flow
+
+Registration is divided into multiple steps to collect the user's fitness-related information.
+
+The onboarding flow includes information such as:
+
+* Gender
+* Age
+* Weight
+* Height
+* Fitness goal
+* Activity level
+
+This information can then be used to provide a more personalized fitness experience.
+
+---
+
+## 👤 Profile
+
+Users can manage their personal fitness information through their profile.
+
+Supported functionality includes:
+
+* Viewing profile information
+* Editing personal information
+* Updating weight
+* Updating fitness goals
+* Updating activity level
+
+---
+
+## 🌍 Localization
+
+The application supports localization to provide a more accessible experience for users across different languages.
+
+Localization was integrated into the application architecture rather than being handled as isolated UI strings.
+
+---
+
+## 🏗️ Architecture
+
+The project follows a **Clean Architecture** approach with a feature-oriented structure.
+
+The main goal is to keep responsibilities separated and make individual features easier to maintain, test, and evolve.
+
+### High-Level Structure
+
+```text
+lib/
+│
+├── core/
+│   ├── ...
+│
+└── features/
+    ├── auth/
+    ├── chat/
+    ├── workouts/
+    ├── profile/
+    └── ...
+```
+
+The application separates responsibilities across:
+
+```text
+Presentation
+     │
+     ▼
+Domain
+     │
+     ▼
+Data
+```
+
+This allows UI code to remain independent from infrastructure-specific implementations.
+
+---
+
+## 🧠 State Management
+
+The application uses **BLoC/Cubit** for state management.
+
+Cubits are responsible for coordinating UI state and feature logic while keeping widgets focused primarily on presentation.
+
+For example, the AI chat flow separates:
+
+```text
+UI
+ │
+ ▼
+Chat Cubit
+ │
+ ├── Loading State
+ ├── Streaming State
+ ├── Message Updates
+ └── Error State
+       │
+       ▼
+ Repository / Data Source
+       │
+       ▼
+ Firebase AI Logic
+```
+
+This makes the streaming behavior easier to control without coupling the UI directly to the AI service.
+
+---
+
+## 🧩 Dependency Injection
+
+Dependency injection is handled using:
+
+* `GetIt`
+* `Injectable`
+
+This keeps feature dependencies explicit and avoids tightly coupling high-level components to concrete implementations.
+
+It also makes infrastructure services such as Firebase-backed data sources easier to replace or manage independently.
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology             | Usage                             |
+| ---------------------- | --------------------------------- |
+| **Flutter**            | Cross-platform mobile application |
+| **Dart**               | Application development           |
+| **BLoC / Cubit**       | State management                  |
+| **Firebase AI Logic**  | AI fitness assistant              |
+| **Firebase Firestore** | Conversation persistence          |
+| **Firebase**           | Backend services                  |
+| **GetIt**              | Dependency injection              |
+| **Injectable**         | Dependency registration           |
+| **Clean Architecture** | Application architecture          |
+| **Git**                | Version control                   |
+| **Figma**              | UI/UX design                      |
+
+---
+
+## 👨‍💻 My Contribution
+
+As part of the development team, I was responsible for several major areas of the application.
+
+### AI & Chat
+
+* Integrated the AI-powered fitness assistant
+* Implemented streaming AI responses
+* Managed progressive response rendering
+* Implemented automatic chat scrolling
+* Implemented new conversation flow
+* Integrated conversation persistence
+* Implemented previous conversation loading
+* Implemented conversation deletion
+
+### Workout Experience
+
+* Implemented workout listing UI
+* Implemented workout cards
+* Implemented exercise-related screens
+* Worked on workout image rendering and optimization
+
+### Authentication
+
+* Login
+* Registration
+* Multi-step registration
+* OTP flow
+* Forgot password
+* Create password
+* Change password
+
+### Profile
+
+* Profile screen
+* Edit profile
+* Weight editing
+* Goal editing
+* Activity-level editing
+
+### Additional Work
+
+* Localization
+* Image caching optimization
+* Firestore integration
+* State management with Cubit
+* Dependency injection integration
+* UI behavior and performance improvements
+
+---
+
+## 🎯 Engineering Focus
+
+While building Aevon, I focused not only on implementing screens but also on keeping the application responsive and maintainable.
+
+Some of the engineering considerations included:
+
+* Streaming data instead of waiting for complete responses
+* Keeping UI state separate from data sources
+* Persisting user-specific conversations
+* Avoiding unnecessary image memory usage
+* Moving heavier data-processing work away from the UI thread when appropriate
+* Using dependency injection to reduce coupling
+* Structuring features around Clean Architecture principles
+
+---
+
+## 🎨 Design
+
+The application's UI/UX was designed in Figma and translated into Flutter components.
+
+The design includes dedicated flows for:
+
+* Onboarding
+* Authentication
+* Registration
+* Home
+* Workouts
+* Exercises
+* AI Chat
+* Conversation History
+* Profile
+* Personal information editing
+
+---
+
+## 📸 Screenshots
+
+> Screenshots can be added here from the project's final exported assets.
+
+### Authentication
+
+| Login            | Registration     |
+| ---------------- | ---------------- |
+| *Add screenshot* | *Add screenshot* |
+
+### Home & Workouts
+
+| Home             | Workouts         |
+| ---------------- | ---------------- |
+| *Add screenshot* | *Add screenshot* |
+
+### AI Assistant
+
+| Chat             | Conversation History |
+| ---------------- | -------------------- |
+| *Add screenshot* | *Add screenshot*     |
+
+### Profile
+
+| Profile          | Edit Profile     |
+| ---------------- | ---------------- |
+| *Add screenshot* | *Add screenshot* |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Make sure you have:
+
+* Flutter SDK
+* Dart SDK
+* Android Studio or Xcode
+* A configured Firebase project
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+```
+
+Navigate to the project:
+
+```bash
+cd aevon
+```
+
+Install dependencies:
+
+```bash
+flutter pub get
+```
+
+Run the application:
+
+```bash
+flutter run
+```
+
+> Firebase configuration files and project-specific secrets are intentionally not included in the repository.
+
+---
+
+## 📂 Project Structure
+
+A simplified view of the application structure:
+
+```text
+lib/
+│
+├── core/
+│   ├── constants/
+│   ├── di/
+│   ├── localization/
+│   ├── network/
+│   └── ...
+│
+├── features/
+│   │
+│   ├── auth/
+│   │   ├── data/
+│   │   ├── domain/
+│   │   └── presentation/
+│   │
+│   ├── chat/
+│   │   ├── data/
+│   │   ├── domain/
+│   │   └── presentation/
+│   │
+│   ├── workouts/
+│   │   ├── data/
+│   │   ├── domain/
+│   │   └── presentation/
+│   │
+│   ├── profile/
+│   │   ├── data/
+│   │   ├── domain/
+│   │   └── presentation/
+│   │
+│   └── ...
+│
+└── main.dart
+```
+
+---
+
+## 🤝 Team Project
+
+Aevon was developed collaboratively as a team project.
+
+Different parts of the application were implemented by different team members. This README intentionally separates my contributions from the overall application to accurately represent my role in the project.
+
+---
+
+## 📌 Project Status
+
+Aevon is a portf
