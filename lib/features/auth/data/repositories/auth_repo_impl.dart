@@ -1,0 +1,47 @@
+import 'package:aevon/core/errors/errors_handler.dart';
+import 'package:aevon/core/shared/auth_session/datasource/local_storage/auth_session.dart';
+import 'package:aevon/core/shared/data/model/result.dart';
+import 'package:aevon/features/auth/data/datasource/auth_data_source.dart';
+import 'package:aevon/features/auth/data/mapper/auth_response_mapper.dart';
+import 'package:aevon/features/auth/data/models/auth_request.dart';
+import 'package:aevon/features/auth/data/models/user_model.dart';
+import 'package:aevon/features/auth/domain/entities/sign_in_entity.dart';
+import 'package:aevon/features/auth/domain/repositories/sign_in_repo.dart';
+import 'package:injectable/injectable.dart';
+
+@LazySingleton(as: AuthRepo)
+class AuthRepoImpl implements AuthRepo {
+  final AuthDataSource _authDataSource;
+  final AuthSession _authSession;
+  AuthRepoImpl(this._authDataSource, this._authSession);
+  @override
+  Future<Result<AuthEntity>> singInWithREST(SignInRequest request) async {
+    final result = await _authDataSource.singInWithREST(request);
+    return result.when(
+      success: (data) async {
+        return Success<AuthEntity>(data.toSignInEntity());
+      },
+      error: (error) => Error<AuthEntity>(error),
+    );
+  }
+
+  @override
+  Future<Result<AuthEntity>> singUpWithREST(SignUpRequest request) async {
+    final result = await _authDataSource.singUpWithREST(request);
+    return result.when(
+      success: (data) async {
+        return Success<AuthEntity>(data.toSignInEntity());
+      },
+      error: (error) => Error<AuthEntity>(error),
+    );
+  }
+
+  @override
+  Result<User> fetchUserInfo() {
+    User? user = _authSession.fetchUserInfo();
+    if (user != null) return Success<User>(user);
+    return Error<User>(
+      Failure(statusCode: 0, message: '', success: false, status: 0),
+    );
+  }
+}

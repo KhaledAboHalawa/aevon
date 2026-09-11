@@ -1,0 +1,147 @@
+{
+  "@@locale": "en",
+  "appName": "Aevon",
+  "notFoundError" : "Resource not found.",
+  "conflictError" : "A conflict occurred. Please retry.",
+  "apiLogicalError" : "API returned a logical error",
+  "connectTimeoutEreror" : "Connection timeout occur",
+  "cancelError" : "Request was cancelled.",
+  "receiveTimeoutError" : "Receive timeout occurred",
+  "sendTimeoutError" : "Send timeout occurred.",
+  "cacheError" : "Cache error occurred.",
+  "noInternetConnectionError" : "No internet connec",
+  "defaultError" : "An unexpected error occurred.",
+   "onboardingdescription": "Lorem ipsum dolor sit amet consectetur. Eu urna ut gravida quis id pretium purus. Mauris massa ",
+  "onboardingMessage": "{count, plural, =0{the price of excellence\nis discipline} =1{Fitness has never been\nso much funny} other{NO MORE EXCUSES\nDo It Now}}",
+  "@onboardingMessage": {
+  "description": "onboardingMessage",
+  "placeholders": {
+    "count": {
+      "type": "num",
+      "format": "compact"
+    }
+  }},
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "next": "Next",
+  "back": "Back",
+  "doIt": "Do It",
+  "skip": "Skip",
+  "male": "Male",
+  "female": "Female",
+  "year": "Year",
+  "kg": "KG",
+  "cm": "CM",
+  "heyThere": "Hey There",
+  "welecomeBack": "WELCOME BACK",
+  "email": "Email",
+  "password": "Password",
+  "forgetPassword": "Forget Password ? ",
+  "confirmPassword": "Confirm Password",
+  "signIn": "Login",
+  "register": "Register",
+  "dontHaveAccount": "Don't Have An Account Yet ? ",
+  "alreadyHaveAccount": "Already Have An Account ? ",
+  "finish": "Finish",
+  "signUpTitle": "{step, select, 0{CREATE AN ACCOUNT} 1{TELL US ABOUT YOURSELF} 2{How Old Are You} 3{WHAT IS YOUR WEIGHT} 4{WHAT IS YOUR HEIGHT} 5{WHAT IS YOUR GOAL} 6{WHAT IS YOUR ACTIVITY LEVEL} other{CHOOSE THE ANSWER}}",
+  "@signUpTitle": {
+  "description": "signUpTitle",
+  "placeholders": {
+    "step": {
+      "type": "String"
+    }
+  }},
+  "signUpSubtitle": "{step, select, 0{Hey There} 1{We Need To Know Your Gender} other{this helps us create Your personalized plan}}",
+  "@signUpSubtitle": {
+  "description": "signUpSubtitle",
+  "placeholders": {
+    "step": {
+      "type": "String"
+    }
+  }},
+  "forgetPasswordTitles": "{page, select, 0{Forget password} 1{OTP CODE} other{Create New Password}}",
+  "@forgetPasswordTitles": {
+  "description": "forgetPasswordTitles",
+  "placeholders": {
+    "page": {
+      "type": "String"
+    }
+  }},
+  "forgetPasswordSubtitles": "{page, select, 0{Enter Your Email} 1{Enter Your OTP Check your email} other{Create New Password}}",
+  "@forgetPasswordSubtitles": {
+    "description": "forgetPasswordSubtitles",
+    "placeholders": {
+      "page": {
+        "type": "String"
+      }
+    }
+  },
+  "sendOtp": "Send OTP",
+  "verify": "Verify",
+  "rePassword": "Re-Password",
+  "didntReceiveCode": "Didn't Receive Verification Code?",
+  "resendCode": "Resend Code",
+  "chatOnboardingBottomSheetTitle":"How Can I Assist You\n Today?",
+  "getStarted" :"Get Started",
+  "hi":"Hi",
+  "chatOnboardingHeaderTitle" : "I am your smart coach",
+  "chatHeaderTitle" : "Smart Coach",
+  "explore": "Explore",
+  "chat": "Chat",
+  "workouts": "Workouts",
+  "profile": "Profile",
+  "editProfile": "Edit Profile",
+  "changePassword": "Change Password",
+  "selectLanguage": "Select Language",
+  "security": "Security",
+  "privacyPolicy": "Privacy Policy",
+  "help": "Help",
+  "logout": "Logout",
+  "tapToEdit": "Tap To Edit",
+  "yourWeight": "Your Weight",
+  "yourGoal": "Your Goal",
+  "yourActivityLevel": "Your Activity Level",
+  "selectImage": "Select Image",
+  "camera": "Camera",
+  "gallery": "Gallery",
+  "profileUpdatedSuccessfully": "Profile updated successfully",
+  "profilePhotoUpdatedSuccessfully": "Profile photo updated successfully",
+  "firstNameUpdatedSuccessfully": "First name updated successfully",
+  "lastNameUpdatedSuccessfully": "Last name updated successfully",
+  "emailUpdatedSuccessfully": "Email updated successfully",
+  "weightUpdatedSuccessfully": "Weight updated successfully",
+  "goalUpdatedSuccessfully": "Goal updated successfully",
+  "activityLevelUpdatedSuccessfully": "Activity level updated successfully",
+  "askAnything": "Ask anything",
+  "noPreviousConversations": "No Previous Conversations",
+  "previousConversations": "Previous Conversations",
+  "newChat": "New Chat",
+  "or": "or",
+  "loseWeight": "Lose Weight",
+  "gainWeight": "Gain Weight",
+  "getFitter": "Get Fitter",
+  "getMoreFlexible": "Get More Flexible",
+  "learnTheBasic": "Learn The Basics",
+  "rookie": "Rookie",
+  "beginner": "Beginner",
+  "intermediate": "Intermediate",
+  "advanced": "Advanced",
+  "trueBeast": "True Beast",
+  "noContentError": "No content available.",
+  "badRequestError": "Bad request. Please check your input.",
+  "unAuthenticationError": "Authentication failed. Please login again.",
+  "forbiddenError": "Access forbidden.",
+  "internalServerError": "Internal server error. Please try again later.",
+  "nameRequired": "Name is required",
+  "nameMinLength": "Name must be at least 3 characters",
+  "nameMaxLength": "Name must be less than 20 characters",
+  "nameNoNumbers": "Name must not contain numbers",
+  "emailRequired": "Email is required",
+  "invalidEmail": "Invalid email address",
+  "passwordRequired": "Password is required",
+  "invalidPassword": "Invalid password",
+  "confirmPasswordRequired": "Confirm Password is required",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "arabic": "Arabic",
+  "english": "English"
+}

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "892347767212",
+    "project_id": "aevon-30690",
+    "storage_bucket": "aevon-30690.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892347767212:android:b1fd27589688027ce20209",
+        "android_client_info": {
+          "package_name": "com.example.aevon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfX3Fcz9SHeKeczCiWlWpGXxwyOiw311k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

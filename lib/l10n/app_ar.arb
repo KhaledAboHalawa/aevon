@@ -1,0 +1,154 @@
+{
+  "@@locale": "ar",
+  "appName": "Aevon",
+  "notFoundError" : "المورد غير موجود.",
+  "conflictError" : "حدث تعارض. يرجى المحاولة مرة أخرى.",
+  "apiLogicalError" : "أعاد API خطأ منطقيًا",
+  "connectTimeoutEreror" : "انتهت مهلة الاتصال",
+  "cancelError" : "تم إلغاء الطلب.",
+  "receiveTimeoutError" : "حدثت مهلة استلام",
+  "sendTimeoutError" : "حدثت مهلة إرسال.",
+  "cacheError" : "حدث خطأ في التخزين المؤقت.",
+  "noInternetConnectionError" : "لا يوجد اتصال بالإنترنت",
+  "defaultError" : "حدث خطأ غير متوقع.",
+  "onboardingTitle1": "ثمن التميز\n هو الانضباط",
+  "onboardingTitle2": "لم تكن اللياقة البدنية\nأبدًا ممتعة بهذا القدر",
+  "onboardingTitle3": "لا مزيد من الأعذار\nافعلها الآن",
+  "onboardingdescription": "هذا نص تجريبي لملء المحتوى. يتم استخدامه لعرض شكل النص دون معنى حقيقي.",
+  "onboardingMessage": "{count, plural, =0{ثمن التميز\nهو الانضباط} =1{لم تكن اللياقة البدنية\nممتعة إلى هذا الحد من قبل} other{هذا نص تجريبي لملء المحتوى. يتم استخدامه لعرض شكل النص دون معنى حقيقي.}}",
+  "next": "التالي",
+  "back": "السابق",
+  "skip": "تخطي",
+  "doIt": "افعلها",
+  "@onboardingMessage": {
+    "description": "onboardingMessage",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "firstName": "الاسم الاول",
+  "lastName": "الاسم الاخير",
+  "male": "ذكر",
+  "female": "انثى",
+  "heyThere": "مرحبا",
+  "year": "سنوات",
+  "years": "سنوات",
+  "kg": "كغ",
+  "cm": "سم",
+  "welecomeBack": "مرحبا بكم مرة اخرى",
+  "welcomeBack": "مرحبا بكم مرة اخرى",
+  "signIn": "تسجيل الدخول",
+  "register": "تسجيل حساب جديد",
+  "email": "البريد الالكتروني",
+  "password": "كلمة المرور",
+  "confirmPassword": "تاكيد كلمة المرور",
+  "forgetPassword": "نسيت كلمة المرور",
+  "dontHaveAccount": " لا تملك حساب ؟",
+  "alreadyHaveAccount": " لديك حساب ؟ ",
+  "finish": "انهاء",
+ "signUpTitle": "{step, select, 0{إنشاء حساب} 1{أخبرنا عن نفسك} 2{كم عمرك} 3{ما وزنك} 4{ما طولك} 5{ما هو هدفك} 6{ما هو مستوى نشاطك} other{اختر الإجابة}}",
+"@signUpTitle": {
+  "placeholders": {
+    "step": {
+      "type": "String"
+    }
+  }
+},
+  "signUpSubtitle": "{step, select, 0{مرحبًا} 1{نحتاج إلى معرفة جنسك} other{هذا يساعدنا في إنشاء خطة شخصية لك}}",
+  "@signUpSubtitle": {
+  "description": "signUpSubtitle",
+  "placeholders": {
+    "step": {
+      "type": "String"
+    }
+  }},
+  "forgetPasswordTitles": "{page, select, 0{مرحبًا، نسيت كلمة المرور} 1{رمز التحقق} other{أنشئ كلمة مرور جديدة}}",
+  "@forgetPasswordTitles": {
+    "description": "forgetPasswordTitles",
+    "placeholders": {
+      "page": {
+        "type": "String"
+      }
+    }
+  },
+  "forgetPasswordSubtitles": "{page, select, 0{ادخل البريد الالكتروني} 1{ادخل رمز التحقق, المرسل على البريد الالكتروني} other{ادخل كلمة المرور الجديدة}}",
+  "@forgetPasswordSubtitles": {
+    "description": "forgetPasswordSubtitles",
+    "placeholders": {
+      "page": {
+        "type": "String"
+      }
+    }
+  },
+  "sendOtp": "ارسل رمز التحقق",
+  "verify": "تاكيد",
+  "rePassword": "تاكيد كلمة المرور",
+  "didntReceiveCode": "لم يتم الاستلام منك رمز التحقق",
+  "resendCode": "ارسل رمز التحقق مرة اخرى",
+  "chatOnboardingBottomSheetTitle":"كيف يمكنني مساعدتك\n اليوم؟",
+  "getStarted" :"ابدأ",
+  "hi":"مرحبًا",
+  "chatOnboardingHeaderTitle" : "أنا مدربك الذكي",
+  "chatHeaderTitle" : "المدرب الذكي",
+  "explore": "استكشاف",
+  "chat": "المحادثة",
+  "workouts": "التمارين",
+  "profile": "الملف الشخصي",
+  "editProfile": "تعديل الملف الشخصي",
+  "changePassword": "تغيير كلمة المرور",
+  "selectLanguage": "اختر اللغة",
+  "security": "الأمان",
+  "privacyPolicy": "سياسة الخصوصية",
+  "help": "المساعدة",
+  "logout": "تسجيل الخروج",
+  "tapToEdit": "اضغط للتعديل",
+  "yourWeight": "وزنك",
+  "yourGoal": "هدفك",
+  "yourActivityLevel": "مستوى نشاطك",
+  "selectImage": "اختر صورة",
+  "camera": "الكاميرا",
+  "gallery": "معرض الصور",
+  "profileUpdatedSuccessfully": "تم تحديث الملف الشخصي بنجاح",
+  "profilePhotoUpdatedSuccessfully": "تم تحديث الصورة الشخصية بنجاح",
+  "firstNameUpdatedSuccessfully": "تم تحديث الاسم الأول بنجاح",
+  "lastNameUpdatedSuccessfully": "تم تحديث الاسم الأخير بنجاح",
+  "emailUpdatedSuccessfully": "تم تحديث البريد الإلكتروني بنجاح",
+  "weightUpdatedSuccessfully": "تم تحديث الوزن بنجاح",
+  "goalUpdatedSuccessfully": "تم تحديث الهدف بنجاح",
+  "activityLevelUpdatedSuccessfully": "تم تحديث مستوى النشاط بنجاح",
+  "askAnything": "اسأل عن أي شيء",
+  "noPreviousConversations": "لا توجد محادثات سابقة",
+  "previousConversations": "المحادثات السابقة",
+  "newChat": "محادثة جديدة",
+  "or": "أو",
+  "loseWeight": "إنقاص الوزن",
+  "gainWeight": "زيادة الوزن",
+  "getFitter": "زيادة اللياقة",
+  "getMoreFlexible": "زيادة المرونة",
+  "learnTheBasic": "تعلم الأساسيات",
+  "rookie": "مبتدئ جداً",
+  "beginner": "مبتدئ",
+  "intermediate": "متوسط",
+  "advanced": "متقدم",
+  "trueBeast": "محترف",
+  "noContentError": "لا يوجد محتوى متاح.",
+  "badRequestError": "طلب غير صالح. يرجى التحقق من المدخلات.",
+  "unAuthenticationError": "فشل المصادقة. يرجى تسجيل الدخول مرة أخرى.",
+  "forbiddenError": "الوصول محظور.",
+  "internalServerError": "خطأ داخلي في الخادم. يرجى المحاولة مرة أخرى لاحقًا.",
+  "nameRequired": "الاسم مطلوب",
+  "nameMinLength": "يجب أن يتكون الاسم من 3 أحرف على الأقل",
+  "nameMaxLength": "يجب أن يكون الاسم أقل من 20 حرفًا",
+  "nameNoNumbers": "يجب ألا يحتوي الاسم على أرقام",
+  "emailRequired": "البريد الإلكتروني مطلوب",
+  "invalidEmail": "عنوان البريد الإلكتروني غير صالح",
+  "passwordRequired": "كلمة المرور مطلوبة",
+  "invalidPassword": "كلمة المرور غير صالحة",
+  "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب",
+  "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين",
+  "arabic": "العربية",
+  "english": "الانجليزية"
+}
