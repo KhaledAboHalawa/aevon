@@ -10,6 +10,9 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final memCacheWidth = (screenWidth * MediaQuery.devicePixelRatioOf(context))
+        .round();
     return Scaffold(
       endDrawer: drawer,
       extendBody: true,
@@ -23,7 +26,7 @@ class AppScaffold extends StatelessWidget {
             child: Image.asset(
               AppImages.homeBG,
               fit: BoxFit.cover,
-              cacheWidth: 720,
+              cacheWidth: memCacheWidth,
             ),
           ),
           body,

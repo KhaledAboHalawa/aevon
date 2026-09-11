@@ -5,6 +5,7 @@ import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:aevon/core/utils/app_images.dart';
 import 'package:aevon/features/ai_chat/domain/entity/chat_message.dart';
+import 'package:aevon/features/ai_chat/presentation/widgets/typing_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -81,14 +82,9 @@ class _MessageBubbleState extends State<MessageBubble> {
                   ),
                 ),
                 if (widget.message.isActive)
-                  Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    width: 100,
-                    child: const LinearProgressIndicator(
-                      minHeight: 1,
-                      color: AppColors.mainOrange,
-                      backgroundColor: AppColors.borderDark,
-                    ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: TypingBubble(),
                   ),
               ],
             ),

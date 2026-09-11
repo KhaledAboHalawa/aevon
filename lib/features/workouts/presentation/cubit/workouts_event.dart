@@ -34,8 +34,8 @@ class SelectMuscleGroupEvent extends WorkoutsEvent {
 }
 
 class GetPrimeMoverEvent extends WorkoutsEvent {
-  final String muscleGroupId;
-  GetPrimeMoverEvent({required this.muscleGroupId});
+  final String? muscleGroupId;
+  GetPrimeMoverEvent({this.muscleGroupId});
   @override
   List<Object?> get props => [muscleGroupId];
 }

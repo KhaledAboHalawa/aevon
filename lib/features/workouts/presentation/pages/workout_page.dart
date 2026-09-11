@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,6 +29,7 @@ class _WorkoutPageState extends State<WorkoutPage>
     return BlocProvider.value(
       value: _cubit,
       child: const CustomScrollView(
+        scrollBehavior: CupertinoScrollBehavior(),
         scrollCacheExtent: ScrollCacheExtent.pixels(800),
         slivers: [WorkoutCategoryListAndHeaderSection(), WorkoutList()],
       ),

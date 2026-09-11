@@ -11,8 +11,8 @@ class BaseState<T> extends Equatable {
   const BaseState.loading({T? data})
     : this(status: StateStatus.loading, data: data);
   const BaseState.loaded(T data) : this(status: StateStatus.loaded, data: data);
-  const BaseState.error(String error)
-    : this(status: StateStatus.error, error: error);
+  const BaseState.error(String error, {T? data})
+    : this(status: StateStatus.error, error: error, data: data);
   @override
   List<Object?> get props => [status, data, error];
 }

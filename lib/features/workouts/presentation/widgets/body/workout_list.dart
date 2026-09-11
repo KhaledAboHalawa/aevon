@@ -1,10 +1,13 @@
+import 'package:aevon/core/shared/presentation/widgets/custom_button.dart';
+import 'package:aevon/core/theme/app_font.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../../core/shared/presentation/cubit/base_state.dart';
 import '../../../../../core/theme/app_colors.dart';
-import '../../../domain/entity/prime_mover_entity.dart';
 import '../../cubit/workouts_cubit.dart';
+import '../../cubit/workouts_event.dart';
 import '../../cubit/workouts_state.dart';
 import 'workout_card.dart';
 
@@ -17,7 +20,8 @@ class WorkoutList extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16, right: 16, bottom: 120, top: 22),
       sliver: BlocConsumer<WorkoutsCubit, WorkoutsState>(
         buildWhen: (previous, current) =>
-            previous.primeMoverState != current.primeMoverState,
+            previous.primeMoverState != current.primeMoverState ||
+            current.muscleGroupsState.isError,
         listener: (BuildContext context, state) {
           if (state.primeMoverState.isError) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -26,42 +30,52 @@ class WorkoutList extends StatelessWidget {
           }
         },
         builder: (BuildContext context, state) {
-          late List<PrimeMoverEntity> primeMover;
-          if (state.primeMoverState.isLoading) {
-            return const SliverToBoxAdapter(
-              child: SizedBox(
-                height: 500,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: AppColors.white,
-
-                    strokeWidth: 2,
+          if (state.primeMoverState.isError ||
+              state.muscleGroupsState.isError) {
+            return SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  const SizedBox(height: 250),
+                  Text(
+                    state.primeMoverState.error ?? '',
+                    style: AppFont.balooThambi2Bold(
+                      fontSize: 22,
+                      color: AppColors.textGrey,
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 40),
+                  CustomButton(
+                    backgroundColor: AppColors.mainOrange,
+                    title: "Try Again",
+                    isLoading: false,
+                    isExpanded: true,
+                    onPressed: () {
+                      context.read<WorkoutsCubit>()
+                        ..doIntent(GetPrimeMoverEvent())
+                        ..doIntent(GetMuscleGroupsEvent());
+                    },
+                  ),
+                ],
               ),
             );
-          } else if (state.primeMoverState.isError) {
-            return const SliverToBoxAdapter(
-              child: Center(child: Text('Error')),
-            );
-          } else if (state.primeMoverState.isLoaded) {
-            primeMover = state.primeMoverState.data ?? [];
-            if (primeMover.isEmpty) {
-              return const SliverToBoxAdapter(
-                child: Center(child: Text('No muscle groups')),
-              );
-            }
           }
-          return SliverGrid.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 18,
-              mainAxisSpacing: 17,
+          return Skeletonizer.sliver(
+            enabled:  state.primeMoverState.isLoading,
+            effect: const ShimmerEffect(
+              baseColor: Color.fromARGB(255, 70, 70, 70),
+              highlightColor: Color.fromARGB(255, 109, 109, 109),
             ),
-            itemCount: primeMover.length,
-            itemBuilder: (context, index) {
-              return WorkoutCard(entity: primeMover[index]);
-            },
+            child: SliverGrid.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 18,
+                mainAxisSpacing: 17,
+              ),
+              itemCount: state.primeMoverState.data?.length ?? 0,
+              itemBuilder: (context, index) {
+                return WorkoutCard(entity: state.primeMoverState.data![index]);
+              },
+            ),
           );
         },
       ),

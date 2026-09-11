@@ -17,59 +17,62 @@ class ProfileAvatar extends StatelessWidget {
   final double? width;
   @override
   Widget build(BuildContext context) {
+    final memCacheWidth = (width ?? 29 * MediaQuery.devicePixelRatioOf(context))
+        .round();
     return ClipOval(
-      child: DecoratedBox(
-        decoration: const BoxDecoration(color: AppColors.mainOrange),
-        child: imageUrl != null
-            ? isUser
-                  ? CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      width: width ?? 29,
-                      height: width ?? 29,
-                      imageUrl: imageUrl!,
-                      memCacheWidth: (width ?? 29).toInt(),
-                      placeholder: (context, url) => Center(
+      child: imageUrl != null
+          ? isUser
+                ? CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    width: width ?? 29,
+                    height: width ?? 29,
+                    imageUrl: imageUrl!,
+                    memCacheWidth: memCacheWidth,
+                    placeholder: (context, url) => Center(
+                      child: Text(
+                        initials ?? '',
+                        style: AppFont.balooThambi2Bold(
+                          color: AppColors.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => DecoratedBox(
+                      decoration: const BoxDecoration(
+                        color: AppColors.mainOrange,
+                      ),
+                      child: Center(
                         child: Text(
                           initials ?? '',
-                          style: AppFont.balooThambi2Bold(
+                          textAlign: TextAlign.center,
+                          style: AppFont.balooThambi2Medium(
                             color: AppColors.white,
                             fontSize: 20,
                           ),
                         ),
                       ),
-                      errorWidget: (context, url, error) => Center(
-                        child: Center(
-                          child: Text(
-                            initials ?? '',
-                            textAlign: TextAlign.center,
-                            style: AppFont.balooThambi2Medium(
-                              color: AppColors.white,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  : Image.asset(
-                      imageUrl!,
-                      width: width ?? 29,
-                      height: width ?? 29,
-                    )
-            : SizedBox(
-                width: width ?? 29,
-                height: width ?? 29,
-                child: Center(
-                  child: Text(
-                    initials ?? '',
-                    textAlign: TextAlign.center,
-                    style: AppFont.balooThambi2Medium(
-                      color: AppColors.white,
-                      fontSize: 18,
                     ),
-                  ),
+                  )
+                : Image.asset(
+                    imageUrl!,
+                    width: width ?? 29,
+                    height: width ?? 29,
+                    cacheWidth: memCacheWidth,
+                  )
+          : Container(
+              width: width ?? 29,
+              height: width ?? 29,
+              alignment: .center,
+              decoration: const BoxDecoration(color: AppColors.mainOrange),
+              child: Text(
+                initials ?? '',
+                textAlign: TextAlign.center,
+                style: AppFont.balooThambi2Medium(
+                  color: AppColors.white,
+                  fontSize: 18,
                 ),
               ),
-      ),
+            ),
     );
   }
 }

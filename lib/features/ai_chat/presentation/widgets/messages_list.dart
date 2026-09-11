@@ -3,6 +3,8 @@ import 'package:aevon/features/ai_chat/presentation/widgets/message_bubble.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'typing_bubble.dart';
+
 class MessagesList extends StatefulWidget {
   const MessagesList({super.key, required this.scrollController});
   final ScrollController scrollController;
@@ -24,10 +26,15 @@ class _MessagesListState extends State<MessagesList> {
           dragStartBehavior: .start,
           keyboardDismissBehavior: .manual,
           controller: widget.scrollController,
-          itemCount: state.conversation.messages.length,
+          itemCount:
+              state.conversation.messages.length +
+              ((state.waitingForResponse) ? 1 : 0),
           itemBuilder: (context, index) {
-            final message = state.conversation.messages[index];
-            return MessageBubble(message: message);
+            if (index < state.conversation.messages.length) {
+              final message = state.conversation.messages[index];
+              return MessageBubble(message: message);
+            }
+            return const TypingBubble();
           },
         ),
       ),

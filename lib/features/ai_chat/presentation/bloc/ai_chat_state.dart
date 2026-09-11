@@ -6,10 +6,12 @@ class AiChatState extends Equatable {
   final BaseState<List<Conversation>> getConversationsHistoryState;
   final BaseState<HistoryConversation> deleteConversationState;
   final bool isStreaming;
+  final bool waitingForResponse;
   final String? errorMessage;
   AiChatState.initial()
     : isOnboardingSeen = false,
       isStreaming = false,
+      waitingForResponse = false,
       conversation = Conversation.empty(),
       errorMessage = null,
       getConversationsHistoryState =
@@ -18,6 +20,7 @@ class AiChatState extends Equatable {
   const AiChatState({
     required this.isOnboardingSeen,
     required this.isStreaming,
+    required this.waitingForResponse,
     required this.errorMessage,
     required this.conversation,
     required this.getConversationsHistoryState,
@@ -31,10 +34,12 @@ class AiChatState extends Equatable {
     Conversation? conversation,
     BaseState<List<Conversation>>? getConversationsHistoryState,
     BaseState<HistoryConversation>? deleteConversationState,
+    bool? waitingForResponse,
   }) {
     return AiChatState(
       isStreaming: isStreaming ?? this.isStreaming,
       errorMessage: errorMessage,
+      waitingForResponse: waitingForResponse ?? false,
       isOnboardingSeen: isOnboardingSeen ?? this.isOnboardingSeen,
       conversation: conversation ?? this.conversation,
       getConversationsHistoryState:
@@ -52,5 +57,6 @@ class AiChatState extends Equatable {
     errorMessage,
     getConversationsHistoryState,
     deleteConversationState,
+    waitingForResponse,
   ];
 }

@@ -80,7 +80,8 @@ class AiChatCubit extends Cubit<AiChatState> {
     final result = await getChatHistoryUseCase();
     result.when(
       success: (value) {
-        if (state.getConversationsHistoryState.data!.length < value.length) {
+        if ((state.getConversationsHistoryState.data?.length ?? 0) <
+            value.length) {
           animatedListKey.currentState?.insertItem(0);
         }
         emit(
@@ -139,6 +140,7 @@ class AiChatCubit extends Cubit<AiChatState> {
               : state.conversation.title,
         ),
         isStreaming: true,
+        waitingForResponse: true,
       ),
     );
     if (userMessage.id == '0') {
