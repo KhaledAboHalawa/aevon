@@ -1,4 +1,3 @@
-import 'package:aevon/core/utils/app_images.dart';
 import 'package:aevon/features/onboarding/presentation/widgets/onboarding_body.dart';
 import 'package:flutter/material.dart';
 

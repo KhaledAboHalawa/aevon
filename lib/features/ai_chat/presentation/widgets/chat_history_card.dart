@@ -6,9 +6,15 @@ import 'package:aevon/features/ai_chat/presentation/bloc/ai_chat_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class ChatHistoryCard extends StatelessWidget {
-  const ChatHistoryCard({super.key, required this.conversation, this.onTap, required this.index});
+  const ChatHistoryCard({
+    super.key,
+    required this.conversation,
+    this.onTap,
+    required this.index,
+  });
   final Conversation conversation;
   final int index;
   final void Function()? onTap;
@@ -27,7 +33,10 @@ class ChatHistoryCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             onPressed: (context) {
               getIt<AiChatCubit>().doIntent(
-                DeleteConversationEvent(conversation: conversation,index:index),
+                DeleteConversationEvent(
+                  conversation: conversation,
+                  index: index,
+                ),
               );
             },
             backgroundColor: AppColors.mainOrange,
@@ -43,32 +52,31 @@ class ChatHistoryCard extends StatelessWidget {
           );
           context.pop();
         },
-        child: SizedBox(
+        child: Container(
           height: 35,
-          child: Column(
-            mainAxisSize: .min,
+          decoration: const BoxDecoration(
+            border: Border(
+              bottom: BorderSide(color: AppColors.textGrey, width: .5),
+            ),
+          ),
+          child: Row(
+            crossAxisAlignment: .start,
             mainAxisAlignment: .spaceBetween,
-            spacing: 8,
             children: [
-              Row(
-                crossAxisAlignment: .start,
-                mainAxisAlignment: .spaceBetween,
-                children: [
-                  const Icon(
-                    Icons.arrow_back_ios,
-                    color: AppColors.mainOrange,
-                    size: 16,
-                  ),
-                  Text(
-                    conversation.title,
-                    style: AppFont.balooThambi2Medium(
-                      fontSize: 12,
-                      color: AppColors.textGrey,
-                    ),
-                  ),
-                ],
+              const Skeleton.keep(
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  color: AppColors.mainOrange,
+                  size: 16,
+                ),
               ),
-              const Divider(height: 1, color: AppColors.textGrey, thickness: 1),
+              Text(
+                conversation.title,
+                style: AppFont.balooThambi2Medium(
+                  fontSize: 12,
+                  color: AppColors.textGrey,
+                ),
+              ),
             ],
           ),
         ),

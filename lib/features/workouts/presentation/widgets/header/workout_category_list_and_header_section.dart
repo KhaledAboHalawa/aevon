@@ -3,6 +3,7 @@ import 'package:aevon/core/theme/app_colors.dart';
 import 'package:aevon/core/theme/app_font.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../domain/entity/muscle_group_intity.dart';
 import '../../cubit/workouts_cubit.dart';
@@ -79,6 +80,8 @@ class _WorkoutCategoryListAndHeaderSectionState
           width: double.infinity,
           height: 40,
           child: BlocConsumer<WorkoutsCubit, WorkoutsState>(
+            buildWhen: (previous, current) =>
+                previous.muscleGroupsState != current.muscleGroupsState,
             listenWhen: (previous, current) {
               return previous.muscleGroupsState != current.muscleGroupsState ||
                   previous.selectedMuscleGroupIndex !=
@@ -93,35 +96,33 @@ class _WorkoutCategoryListAndHeaderSectionState
               _scrollToSelectedCategory(state.selectedMuscleGroupIndex ?? 0);
             },
             builder: (context, state) {
-              late List<MuscleGroupIntity> muscleGroups;
-              if (state.muscleGroupsState.isLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: AppColors.white,
-                    strokeWidth: 2,
-                  ),
-                );
-              } else if (state.muscleGroupsState.isError) {
-                return const Center(child: Text('Error'));
-              } else if (state.muscleGroupsState.isLoaded) {
-                muscleGroups = state.muscleGroupsState.data ?? [];
-                if (muscleGroups.isEmpty) {
-                  return const Center(child: Text('No muscle groups'));
-                }
-              }
-              return ListView.separated(
-                controller: _scrollController,
-                scrollDirection: Axis.horizontal,
-                itemCount: muscleGroups.length,
-                padding: const .symmetric(horizontal: 16),
-                separatorBuilder: (context, index) => const SizedBox(width: 16),
-                itemBuilder: (context, index) {
-                  return WorkoutCategoryListItem(
-                    key: ValueKey(muscleGroups[index].id),
-                    muscleGroupIntity: muscleGroups[index],
-                    index: index,
-                  );
-                },
+              return Skeletonizer(
+                enabled:
+                    state.muscleGroupsState.isLoading ||
+                    state.muscleGroupsState.isError,
+                effect: const ShimmerEffect(
+                  baseColor: Color.fromARGB(255, 70, 70, 70),
+                  highlightColor: Color.fromARGB(255, 109, 109, 109),
+                ),
+                child: ListView.separated(
+                  controller: _scrollController,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.muscleGroupsState.data?.length ?? 0,
+                  padding: const .symmetric(horizontal: 16),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 16),
+                  itemBuilder: (context, index) {
+                    return WorkoutCategoryListItem(
+                      key: ValueKey(
+                        state.muscleGroupsState.data?[index].id ?? "",
+                      ),
+                      muscleGroupIntity:
+                          state.muscleGroupsState.data?[index] ??
+                          MuscleGroupIntity.dummyMuscleGroups[index],
+                      index: index,
+                    );
+                  },
+                ),
               );
             },
           ),

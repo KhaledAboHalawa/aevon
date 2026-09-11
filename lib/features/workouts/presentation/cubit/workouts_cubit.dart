@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/shared/presentation/cubit/base_state.dart';
 import '../../domain/entity/muscle_group_intity.dart';
+import '../../domain/entity/prime_mover_entity.dart';
 import '../../domain/usecases/get_prime_mover_use_case.dart';
 import 'workouts_state.dart';
 
@@ -29,7 +30,14 @@ class WorkoutsCubit extends Cubit<WorkoutsState> {
   }
 
   void _getMuscleGroups() async {
-    emit(state.copyWith(muscleGroupsState: const BaseState.loading()));
+    if (state.muscleGroupsState.isLoaded) return;
+    emit(
+      state.copyWith(
+        muscleGroupsState: BaseState.loading(
+          data: MuscleGroupIntity.dummyMuscleGroups,
+        ),
+      ),
+    );
     final result = await _getMusclesGroupsUseCase();
     result.when(
       success: (data) {
@@ -45,7 +53,14 @@ class WorkoutsCubit extends Cubit<WorkoutsState> {
         );
       },
       error: (error) {
-        emit(state.copyWith(muscleGroupsState: BaseState.error(error.message)));
+        emit(
+          state.copyWith(
+            muscleGroupsState: BaseState.error(
+              error.message,
+              data: MuscleGroupIntity.dummyMuscleGroups,
+            ),
+          ),
+        );
       },
     );
   }
@@ -61,7 +76,13 @@ class WorkoutsCubit extends Cubit<WorkoutsState> {
   }
 
   void _getPrimeMover([String? muscleGroupId]) async {
-    emit(state.copyWith(primeMoverState: const BaseState.loading()));
+    emit(
+      state.copyWith(
+        primeMoverState: BaseState.loading(
+          data: PrimeMoverEntity.dummyPrimeMovers,
+        ),
+      ),
+    );
     final result = await _getPrimeMoverUseCase(muscleGroupId);
     result.when(
       success: (data) {

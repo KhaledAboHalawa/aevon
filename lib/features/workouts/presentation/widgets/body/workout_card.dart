@@ -1,3 +1,4 @@
+import 'package:aevon/core/utils/app_images.dart';
 import 'package:aevon/features/workouts/domain/entity/prime_mover_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,10 @@ class WorkoutCard extends StatelessWidget {
   final PrimeMoverEntity entity;
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final imageWidth = (screenWidth - 24) / 2;
+    final memCacheWidth =
+        (imageWidth * MediaQuery.devicePixelRatioOf(context) * .9).round();
     return Stack(
       fit: StackFit.expand,
       alignment: .bottomCenter,
@@ -22,15 +27,10 @@ class WorkoutCard extends StatelessWidget {
             ),
             child: CachedNetworkImage(
               imageUrl: entity.image,
+              memCacheWidth: memCacheWidth,
               fit: BoxFit.fill,
-              placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: AppColors.white,
-                  strokeWidth: 2,
-                ),
-              ),
               errorWidget: (context, url, error) =>
-                  const Center(child: Text('Error')),
+                  Image.asset(AppImages.test, cacheWidth: memCacheWidth),
             ),
           ),
         ),
