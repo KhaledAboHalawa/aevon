@@ -1,4 +1,3 @@
-````markdown
 # Aevon
 
 <div align="center">
@@ -392,25 +391,22 @@ The design includes dedicated flows for:
 
 | Login            | Registration     |
 | ---------------- | ---------------- |
-| *Add screenshot* | *Add screenshot* |
+| <img width="1080" height="2400" alt="Screenshot_2026-09-12-01-56-52-541_com example aevon" src="https://github.com/user-attachments/assets/3f592cba-36cd-45ed-9627-f797800bb982" />   | <img width="1080" height="2400" alt="Screenshot_2026-09-12-01-53-00-089_com example aevon-edit" src="https://github.com/user-attachments/assets/4ac24fea-9ad3-4415-a162-a4774ea20654" /> |
+|                   | <img width="1080" height="2400" alt="Screenshot_2026-09-12-01-52-52-311_com example aevon" src="https://github.com/user-attachments/assets/02ca0836-35a0-4b41-935f-5a594a474f17" /> |
+|                   | <img width="1080" height="2400" alt="Screenshot_2026-09-12-01-52-46-753_com example aevon" src="https://github.com/user-attachments/assets/e2f5c201-151b-428e-b001-9bb7a8014024" /> | 
+|                   | <img width="1080" height="2400" alt="Screenshot_2026-09-12-01-52-40-893_com example aevon" src="https://github.com/user-attachments/assets/a52a3b21-933e-49a1-906b-dae63ec5bace" /> | 
+|                   | <img width="1080" height="2400" alt="Screenshot_2026-09-12-01-52-29-156_com example aevon" src="https://github.com/user-attachments/assets/30e583b8-01c3-4fd5-adc5-feba280fec79" /> | 
+|                   | <img width="1080" height="2400" alt="Screenshot_2026-09-12-01-52-19-872_com example aevon" src="https://github.com/user-attachments/assets/4574b92d-4081-4874-9c26-9e55a9c04381" /> | 
+|                   | <img width="1080" height="2400" alt="Screenshot_2026-09-12-01-18-16-601_com example aevon" src="https://github.com/user-attachments/assets/bea8bce2-5cf4-49d0-9521-c5dc3db88390" /> |
 
-### Home & Workouts
 
-| Home             | Workouts         |
-| ---------------- | ---------------- |
-| *Add screenshot* | *Add screenshot* |
 
 ### AI Assistant
 
 | Chat             | Conversation History |
 | ---------------- | -------------------- |
-| *Add screenshot* | *Add screenshot*     |
-
-### Profile
-
-| Profile          | Edit Profile     |
-| ---------------- | ---------------- |
-| *Add screenshot* | *Add screenshot* |
+| <img width="1080" height="2400" alt="Screenshot_2026-09-12-02-00-18-250_com example aevon" src="https://github.com/user-attachments/assets/cd666991-3321-40b2-81b1-800226768965" />   | <img width="1080" height="2400" alt="Screenshot_2026-09-12-02-07-30-882_com example aevon" src="https://github.com/user-attachments/assets/00da165c-996c-4bfc-8eff-ca214b067958" /> |
+| <img width="1080" height="2400" alt="Screenshot_2026-09-12-02-00-58-316_com example aevon" src="https://github.com/user-attachments/assets/89c98e86-7ea2-409a-af7a-9616af5a94ad" />   |
 
 ---
 
@@ -443,6 +439,12 @@ Install dependencies:
 
 ```bash
 flutter pub get
+```
+
+Install dependencies:
+
+```bash
+fdart run build_runner build
 ```
 
 Run the application:
